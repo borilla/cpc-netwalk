@@ -10,7 +10,12 @@ read "inc/macros.asm"
 
 program_addr	equ &8000
 maze_width	equ 8
-maze_width	equ 8
+maze_height	equ 13
+exits_top	equ 1
+exits_right	equ 2
+exits_bottom	equ 4
+exits_left	equ 8
+exits_all	equ 15
 
 ;; ----------------------------------------------------------------
 ;; init
@@ -34,18 +39,25 @@ maze_clear	ld hl,maze_data
 		ldir
 		ret
 
-maze_edges	;; top edge
-		ld hl,maze_data
-		ld b,#10
-_maze_edges_1	ld (hl),#0f
-		inc l
-		djnz _maze_edges_1
-		;; left edge
-		ld b,#0f
-		ld a,l
-_maze_edges_2	ld (hl),#0f
-		add a,#10
+maze_edges	;; top and bottom edges
+		ld hl,maze_data + maze_width
+		ld de,maze_height * 16 - 16 + maze_data + maze_width
+		ld a,#0f
+_maze_edges_1	dec e
+		dec l
+		ld (hl),a
+		ld (de),a
+		jr nz,_maze_edges_1
+		;; left and right edges
+		ld c,a
+		inc a
+		ld b,maze_height-2
+_maze_edges_2	ld l,a
+		ld (hl),c
+		add a,maze_width-1
 		ld l,a
+		ld (hl),c
+		add a,16-maze_width+1
 		djnz _maze_edges_2
 		ret
 
