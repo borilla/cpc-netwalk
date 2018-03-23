@@ -16,6 +16,7 @@ exits_right	equ 2
 exits_bottom	equ 4
 exits_left	equ 8
 exits_all	equ 15
+room_visited	equ 16
 
 ;; ----------------------------------------------------------------
 ;; init
@@ -28,12 +29,72 @@ exits_all	equ 15
 ;; subroutines
 ;; ----------------------------------------------------------------
 
-maze_generate	call maze_clear
+maze_generate	call maze_reset
 		call maze_edges
-		call check_rot_nibble
+		ld hl,maze_data + 17		;; HL points to current room
+		ld bc,maze_stack		;; BC points to stack of pending rooms
+_mg_loop	set 4,(hl)			;; mark current room as visited
+		call find_unvisited_neighbours	;; get array of unvisited neighbours
+		rr e				;; E = count of neighbours
+		jr nz,_mg_choose		;; if there are unvisited neighbours then choose one
+		inc c				;; otherwise, check if pending stack is empty
+		dec c
+		ret z				;; if stack is empty then we've finished(!!!!)
+		dec c				;; otherwise, pop last room from stack
+		ld a,(bc)
+		ld l,a				;; and put it into HL
+		jr _mg_loop
+_mg_choose	dec e				;; E = number of neighbours - 1
+		jr z,_mg_join			;; if only one neighbour then join to that one
+		ld a,l				;; otherwise, push current room onto stack
+		ld (bc),a
+		inc c
+		call choose_random_index	;; choose random index (0 <= A <= E)
+		ld e,a				;; copy random index into E
+_mg_join	;; join current room to neighbour (indexed in stack by E)
+		rl e				;; double E so DE points to item in neighbour list
+		ld a,(de)			;; read direction of neighbour into A
+		or (hl)				;; add exit to current room
+		ld (hl),a
+		;; join neighbour to current room and make neighbour current room
+		ld h,rot_nibble_data / 256	;; get opposite of neighbour direction
+		ld a,(de)			;; point HL at entry in rotation table
+		ld l,a
+		ld l,(hl)			;; rotate once
+		ld h,(hl)			;; rotate twice, keeping result in H for now
+		inc e				;; read index of neighbour
+		ld a,(de)
+		ld l,a				;; put index into L
+		ld a,h				;; put opposite direction into A
+		ld h,maze_data / 256		;; HL now points at neighbour
+		or (hl)				;; add exit to neighbour
+		ld (hl),a
+		jr _mg_loop			;; and loop again
+
+get_random	ld a,(_random_seed)
+		rrca		;; multiply by 32
+		rrca
+		rrca
+		xor &1f
+_random_seed equ $+1
+		add a,0		;; 0 will be replaced with seed
+		sbc a,&ff	;; carry
+		ld (_random_seed),a
 		ret
 
-maze_clear	ld hl,maze_data
+;; entry:
+;;	E: max index to return (1 <= E <= 3)
+;; exit:
+;;	E: unmodified
+;;	A: random number between 0 and max index (0 <= A <= E)
+;; flags:
+;;	C: reset
+choose_random_index
+		call get_random
+		and 1
+		ret
+ 
+maze_reset	ld hl,maze_data
 		ld de,maze_data+1
 		ld bc,#00ff
 		ld (hl),#00
@@ -43,7 +104,7 @@ maze_clear	ld hl,maze_data
 maze_edges	;; top and bottom edges
 		ld hl,maze_data + maze_width
 		ld de,maze_height * 16 - 16 + maze_data + maze_width
-		ld a,#0f
+		ld a,exits_all + room_visited
 _maze_edges_1	dec e
 		dec l
 		ld (hl),a
@@ -51,7 +112,7 @@ _maze_edges_1	dec e
 		jr nz,_maze_edges_1
 		;; left and right edges
 		ld c,a
-		inc a
+		ld a,16
 		ld b,maze_height-2
 _maze_edges_2	ld l,a
 		ld (hl),c
@@ -62,19 +123,60 @@ _maze_edges_2	ld l,a
 		djnz _maze_edges_2
 		ret
 
-;; rotate lower nibble of L right (ie bits go 7654-3210 -> 7654-0321)
-;; return result in A
-rot_nibble_1	ld a,l			;; [1]
-		and &f0			;; [2]
-		ld c,a			;; [1] store top nibble in c
-		ld a,l			;; [1]
-		and &0f			;; [2] carry flag will also be cleared
-		rra			;; [1] bit 0 goes into carry
-		jr nc,_rot_nibble_1_1	;; [2/3]
-		set 3,a			;; [2] (or ADD A,4 or OR 4)
-_rot_nibble_1_1	or c			;; [1] restore top nibble
-		ret			;; [3]
-					;; 15/16 nops (including ret)
+;; find unvisited neighbours of a room
+;; entry:
+;;	HL: address of current room in maze_data
+;; exit:
+;;	HL: address of current room in maze data (not modified)
+;;	DE: top of neighbours_list (2 bytes each so E = number of neighbours * 2)
+;;	A: (modified)
+;; flags:
+;;	C: reset
+find_unvisited_neighbours
+		ld a,l			;; index of current room
+		ld de,neighbours_list
+_fun_top	sub a,16		;; point HL at top neighbour
+		ld l,a
+		bit 4,(hl)		;; check if "visited" bit is set
+		jr nz,_fun_right	;; if bit is not set then check next neighbour
+		ex de,hl
+		ld (hl),exits_top	;; push direction
+		inc l
+		ld (hl),a		;; push room index
+		inc l
+		ex de,hl
+_fun_right	add a,17		;; point HL at right neighbour
+		ld l,a
+		bit 4,(hl)		;; check if "visited" bit is set
+		jr nz,_fun_bottom	;; if bit is not set then check next neighbour
+		ex de,hl
+		ld (hl),exits_right	;; push direction
+		inc l
+		ld (hl),a		;; push room index
+		inc l
+		ex de,hl
+_fun_bottom	add a,15		;; point HL at bottom neighbour
+		ld l,a
+		bit 4,(hl)		;; check if "visited" bit is set
+		jr nz,_fun_left		;; if bit is not set then check next neighbour
+		ex de,hl
+		ld (hl),exits_bottom	;; push direction
+		inc l
+		ld (hl),a		;; push room index
+		inc l
+		ex de,hl
+_fun_left	sub a,17		;; point HL at left neighbour
+		ld l,a
+		bit 4,(hl)		;; check if "visited" bit is set
+		jr nz,_fun_ret		;; if bit is not set then check next neighbour
+		ex de,hl
+		ld (hl),exits_left	;; push direction
+		inc l
+		ld (hl),a		;; push room index
+		inc l
+		ex de,hl
+_fun_ret	inc l			;; restore HL to original room (will also clear carry)
+		ret
 
 ;; use lookup table to rotate lower nibble of L right
 rot_nibble	ld h,rot_nibble_data / 256	;; [2]
@@ -87,16 +189,6 @@ flip_nibble	ld h,rot_nibble_data / 256	;; [2]
 		ld l,(hl)			;; [2]
 		ret				;; [3]
 
-check_rot_nibble
-		;; find some clear space to store results
-		ld h,rot_nibble_data / 256 + 1
-		ld l,0
-_check_rot_1	call rot_nibble_1	;; get the result in A
-		ld (hl),a		;; store the result
-		inc l
-		jr nz,_check_rot_1
-		ret
-
 ;; ----------------------------------------------------------------
 ;; data
 ;; ----------------------------------------------------------------
@@ -104,7 +196,8 @@ _check_rot_1	call rot_nibble_1	;; get the result in A
 		align &100,&11
 maze_data	defs &100,&00
 
-		align &100,&11
+maze_stack	defs &100,&00
+
 rot_nibble_data	defb &00,&08,&01,&09,&02,&0a,&03,&0b,&04,&0c,&05,&0d,&06,&0e,&07,&0f
 		defb &10,&18,&11,&19,&12,&1a,&13,&1b,&14,&1c,&15,&1d,&16,&1e,&17,&1f
 		defb &20,&28,&21,&29,&22,&2a,&23,&2b,&24,&2c,&25,&2d,&26,&2e,&27,&2f
@@ -121,4 +214,6 @@ rot_nibble_data	defb &00,&08,&01,&09,&02,&0a,&03,&0b,&04,&0c,&05,&0d,&06,&0e,&07
 		defb &d0,&d8,&d1,&d9,&d2,&da,&d3,&db,&d4,&dc,&d5,&dd,&d6,&de,&d7,&df
 		defb &e0,&e8,&e1,&e9,&e2,&ea,&e3,&eb,&e4,&ec,&e5,&ed,&e6,&ee,&e7,&ef
 		defb &f0,&f8,&f1,&f9,&f2,&fa,&f3,&fb,&f4,&fc,&f5,&fd,&f6,&fe,&f7,&ff
+
+neighbours_list	defs 4*2,&00
 end
