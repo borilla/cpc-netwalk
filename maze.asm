@@ -9,8 +9,8 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 program_addr	equ &8000
-maze_width	equ 10
-maze_height	equ 10
+maze_width	equ 15
+maze_height	equ 15
 exits_top	equ 1
 exits_right	equ 2
 exits_bottom	equ 4
@@ -31,7 +31,7 @@ room_visited	equ 16
 
 		call maze_reset
 		call maze_edges
-		call maze_generate
+;;		call maze_generate
 		ret
 
 maze_generate	ld hl,maze_data + 1		;; HL points to current room
@@ -106,19 +106,25 @@ maze_reset	ld hl,maze_data
 
 maze_edges	ld hl,maze_data
 		ld c,exits_all + room_visited
-		;; left and right sides
-		ld b,maze_height
-		ld a,maze_width		;; start at top-right
-_me_sides	ld l,a
-		ld (hl),c		;; right
+		;; right edge
+		ld a,maze_width
+		and 15
+		jr z,_me_bottom
+		ld b,16
+_me_right_loop	ld l,a
+		ld (hl),c
 		add a,16
-		djnz _me_sides
-		;; bottom
-		ld b,maze_width + 1
+		djnz _me_right_loop
+_me_bottom	;; bottom edge
+		ld a,maze_height
+		and 15
+		ret z
+		rlca:rlca:rlca:rlca	;; multiply A by 16
 		ld l,a
-_me_bottom	ld (hl),c
-		dec l
-		djnz _me_bottom
+		ld b,16
+_me_bottom_loop	ld (hl),c
+		inc l
+		djnz _me_bottom_loop
 		ret
 
 ;; find unvisited neighbours of a room
@@ -135,7 +141,7 @@ find_unvisited_neighbours
 _fun_top	ld a,l			;; A is index of current room
 		and &f0			;; extract row part of index
 		ld a,l
-		jr z,_fun_right		;; if on top row then there is no top neighbour
+		jr z,_fun_right		;; if there is no top neighbour then check right neighbour
 		sub a,16		;; point HL at top neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
@@ -147,7 +153,12 @@ _fun_top	ld a,l			;; A is index of current room
 		inc l
 		ex de,hl
 _fun_top_end	add a,16		;; reset to current room
-_fun_right	inc a			;; point HL at right neighbour
+		ld l,a
+_fun_right	and &0f			;; extract column part of index
+		cp &0f
+		ld a,l
+		jr z,_fun_bottom	;; if there is no right neighbour then check bottom neighbour
+		inc a			;; point HL at right neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
 		jr nz,_fun_right_end	;; if bit is not set then check next neighbour
@@ -172,7 +183,7 @@ _fun_bottom_end	sub a,16		;; reset to current room
 		ld l,a
 _fun_left	and &0f			;; extract column part of index
 		ld a,l
-		jr z,_fun_ret		;; RET Z (!!!)
+		ret z			;; if there is no left neighbour then return
 		dec a			;; point HL at left neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
