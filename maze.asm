@@ -9,8 +9,8 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 program_addr	equ &8000
-maze_width	equ 8
-maze_height	equ 13
+maze_width	equ 16
+maze_height	equ 16
 exits_top	equ 1
 exits_right	equ 2
 exits_bottom	equ 4
@@ -101,26 +101,29 @@ maze_reset	ld hl,maze_data
 		ldir
 		ret
 
-maze_edges	;; top and bottom edges
-		ld hl,maze_data + maze_width
-		ld de,maze_height * 16 - 16 + maze_data + maze_width
-		ld a,exits_all + room_visited
-_maze_edges_1	dec e
-		dec l
-		ld (hl),a
-		ld (de),a
-		jr nz,_maze_edges_1
-		;; left and right edges
-		ld c,a
-		ld a,16
-		ld b,maze_height-2
-_maze_edges_2	ld l,a
-		ld (hl),c
-		add a,maze_width-1
+maze_edges	;; top
+		ld hl,maze_data
+		ld b,maze_width
+		ld c,exits_all + room_visited
+_me_top		ld (hl),c
+		inc l
+		djnz _me_top
+		;; left and right sides
+		ld b,maze_height - 2
+		ld a,16			;; index of room under top-left
+_me_sides	ld l,a
+		ld(hl),c		;; left
+		add a,maze_width - 1
 		ld l,a
-		ld (hl),c
-		add a,16-maze_width+1
-		djnz _maze_edges_2
+		ld (hl),c		;; right
+		add a,16 - maze_width + 1
+		djnz _me_sides
+		;; bottom
+		ld l,a
+		ld b,maze_width
+_me_bottom	ld (hl),c
+		inc l
+		djnz _me_bottom
 		ret
 
 ;; find unvisited neighbours of a room
