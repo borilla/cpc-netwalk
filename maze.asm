@@ -9,8 +9,8 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 program_addr	equ &8000
-maze_width	equ 15
-maze_height	equ 15
+maze_width	equ 16
+maze_height	equ 16
 exits_top	equ 1
 exits_right	equ 2
 exits_bottom	equ 4
@@ -31,10 +31,10 @@ room_visited	equ 16
 
 		call maze_reset
 		call maze_edges
-;;		call maze_generate
+		call maze_generate
 		ret
 
-maze_generate	ld hl,maze_data + 1		;; HL points to current room
+maze_generate	ld hl,maze_data			;; HL points to current room
 		ld bc,maze_stack		;; BC points to stack of pending rooms
 _mg_loop	set 4,(hl)			;; mark current room as visited
 		call find_unvisited_neighbours	;; get array of unvisited neighbours
@@ -169,7 +169,12 @@ _fun_right	and &0f			;; extract column part of index
 		inc l
 		ex de,hl
 _fun_right_end	dec a			;; reset to current room
-_fun_bottom	add a,16		;; point HL at bottom neighbour
+		ld l,a
+_fun_bottom	and &f0			;; extract row part of index
+		cp &f0
+		ld a,l
+		jr z,_fun_left		;; if there is no bottom neighbour then check left neighbour
+		add a,16		;; point HL at bottom neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
 		jr nz,_fun_bottom_end	;; if bit is not set then check next neighbour
@@ -197,17 +202,6 @@ _fun_left	and &0f			;; extract column part of index
 _fun_left_end	inc a			;; reset A to current room (will also clear carry before ret)
 		ld l,a			;; restore HL to original room
 _fun_ret	ret
-
-;; use lookup table to rotate lower nibble of L right
-rot_nibble	ld h,rot_nibble_data / 256	;; [2]
-		ld l,(hl)			;; [2]
-		ret				;; [3]
-
-;; rotate lower nibble of L two places
-flip_nibble	ld h,rot_nibble_data / 256	;; [2]
-		ld l,(hl)			;; [2]
-		ld l,(hl)			;; [2]
-		ret				;; [3]
 
 ;; ----------------------------------------------------------------
 ;; data
