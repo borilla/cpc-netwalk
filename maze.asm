@@ -9,8 +9,8 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 program_addr	equ &8000
-maze_width	equ 16
-maze_height	equ 16
+maze_width	equ 10
+maze_height	equ 10
 exits_top	equ 1
 exits_right	equ 2
 exits_bottom	equ 4
@@ -29,9 +29,12 @@ room_visited	equ 16
 ;; subroutines
 ;; ----------------------------------------------------------------
 
-maze_generate	call maze_reset
+		call maze_reset
 		call maze_edges
-		ld hl,maze_data + 17		;; HL points to current room
+		call maze_generate
+		ret
+
+maze_generate	ld hl,maze_data + 1		;; HL points to current room
 		ld bc,maze_stack		;; BC points to stack of pending rooms
 _mg_loop	set 4,(hl)			;; mark current room as visited
 		call find_unvisited_neighbours	;; get array of unvisited neighbours
@@ -101,16 +104,11 @@ maze_reset	ld hl,maze_data
 		ldir
 		ret
 
-maze_edges	;; top
-		ld hl,maze_data
-		ld b,maze_width
+maze_edges	ld hl,maze_data
 		ld c,exits_all + room_visited
-_me_top		ld (hl),c
-		inc l
-		djnz _me_top
 		;; left and right sides
-		ld b,maze_height - 2
-		ld a,16			;; index of room under top-left
+		ld b,maze_height - 1
+		ld a,0			;; start at top-left
 _me_sides	ld l,a
 		ld(hl),c		;; left
 		add a,maze_width - 1
@@ -136,19 +134,23 @@ _me_bottom	ld (hl),c
 ;; flags:
 ;;	C: reset
 find_unvisited_neighbours
-		ld a,l			;; index of current room
 		ld de,neighbours_list
-_fun_top	sub a,16		;; point HL at top neighbour
+_fun_top	ld a,l			;; A is index of current room
+		and &f0			;; extract row part of index
+		ld a,l
+		jr z,_fun_right		;; if on top row then there is no top neighbour
+		sub a,16		;; point HL at top neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
-		jr nz,_fun_right	;; if bit is not set then check next neighbour
+		jr nz,_fun_top_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_top	;; push direction
 		inc l
 		ld (hl),a		;; push room index
 		inc l
 		ex de,hl
-_fun_right	add a,17		;; point HL at right neighbour
+_fun_top_end	add a,16		;; reset to current room
+_fun_right	inc a			;; point HL at right neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
 		jr nz,_fun_bottom	;; if bit is not set then check next neighbour
