@@ -107,20 +107,17 @@ maze_reset	ld hl,maze_data
 maze_edges	ld hl,maze_data
 		ld c,exits_all + room_visited
 		;; left and right sides
-		ld b,maze_height - 1
-		ld a,0			;; start at top-left
+		ld b,maze_height
+		ld a,maze_width		;; start at top-right
 _me_sides	ld l,a
-		ld(hl),c		;; left
-		add a,maze_width - 1
-		ld l,a
 		ld (hl),c		;; right
-		add a,16 - maze_width + 1
+		add a,16
 		djnz _me_sides
 		;; bottom
+		ld b,maze_width + 1
 		ld l,a
-		ld b,maze_width
 _me_bottom	ld (hl),c
-		inc l
+		dec l
 		djnz _me_bottom
 		ret
 
@@ -130,7 +127,7 @@ _me_bottom	ld (hl),c
 ;; exit:
 ;;	HL: address of current room in maze data (not modified)
 ;;	DE: top of neighbours_list (2 bytes each so E = number of neighbours * 2)
-;;	A: (modified)
+;;	A: index of current room (same as L)
 ;; flags:
 ;;	C: reset
 find_unvisited_neighbours
@@ -153,35 +150,42 @@ _fun_top_end	add a,16		;; reset to current room
 _fun_right	inc a			;; point HL at right neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
-		jr nz,_fun_bottom	;; if bit is not set then check next neighbour
+		jr nz,_fun_right_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_right	;; push direction
 		inc l
 		ld (hl),a		;; push room index
 		inc l
 		ex de,hl
-_fun_bottom	add a,15		;; point HL at bottom neighbour
+_fun_right_end	dec a			;; reset to current room
+_fun_bottom	add a,16		;; point HL at bottom neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
-		jr nz,_fun_left		;; if bit is not set then check next neighbour
+		jr nz,_fun_bottom_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_bottom	;; push direction
 		inc l
 		ld (hl),a		;; push room index
 		inc l
 		ex de,hl
-_fun_left	sub a,17		;; point HL at left neighbour
+_fun_bottom_end	sub a,16		;; reset to current room
+		ld l,a
+_fun_left	and &0f			;; extract column part of index
+		ld a,l
+		jr z,_fun_ret		;; RET Z (!!!)
+		dec a			;; point HL at left neighbour
 		ld l,a
 		bit 4,(hl)		;; check if "visited" bit is set
-		jr nz,_fun_ret		;; if bit is not set then check next neighbour
+		jr nz,_fun_left_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_left	;; push direction
 		inc l
 		ld (hl),a		;; push room index
 		inc l
 		ex de,hl
-_fun_ret	inc l			;; restore HL to original room (will also clear carry)
-		ret
+_fun_left_end	inc a			;; reset A to current room (will also clear carry before ret)
+		ld l,a			;; restore HL to original room
+_fun_ret	ret
 
 ;; use lookup table to rotate lower nibble of L right
 rot_nibble	ld h,rot_nibble_data / 256	;; [2]
