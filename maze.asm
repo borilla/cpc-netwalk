@@ -8,9 +8,6 @@ read "inc/macros.asm"
 ;; constants
 ;; ----------------------------------------------------------------
 
-program_addr	equ &8000
-maze_width	equ 16
-maze_height	equ 16
 exits_top	equ 1
 exits_right	equ 2
 exits_bottom	equ 4
@@ -19,22 +16,15 @@ exits_all	equ 15
 room_visited	equ 16
 
 ;; ----------------------------------------------------------------
-;; init
-;; ----------------------------------------------------------------
-
-		nolist
-		org program_addr
-
-;; ----------------------------------------------------------------
 ;; subroutines
 ;; ----------------------------------------------------------------
 
-		call maze_reset
+;; generate maze (after maze_reset and maze_edges)
+;; modifies:
+;;	A,BC.DE,HL
+maze_generate	call maze_reset
 		call maze_edges
-		call maze_generate
-		ret
-
-maze_generate	ld hl,maze_data			;; HL points to current room
+		ld hl,maze_data			;; HL points to current room
 		ld bc,maze_stack		;; BC points to stack of pending rooms
 _mg_loop	set 4,(hl)			;; mark current room as visited
 		call find_unvisited_neighbours	;; get array of unvisited neighbours
@@ -74,40 +64,26 @@ _mg_join	;; join current room to neighbour (indexed in stack by E)
 		ld (hl),a
 		jr _mg_loop			;; and loop again
 
-get_random	ld a,(_random_seed)
-		rrca		;; multiply by 32
-		rrca
-		rrca
-		xor &1f
-_random_seed equ $+1
-		add a,0		;; 0 will be replaced with seed
-		sbc a,&ff	;; carry
-		ld (_random_seed),a
-		ret
-
-;; entry:
-;;	E: max index to return (1 <= E <= 3)
+;; zero maze data table
 ;; exit:
-;;	E: unmodified
-;;	A: random number between 0 and max index (0 <= A <= E)
-;; flags:
-;;	C: reset
-choose_random_index
-		call get_random
-		and 1
-		ret
- 
+;;	BC: &0000
+;;	DE: maze_data + &ff
+;;	HL: maze_data + &fe
 maze_reset	ld hl,maze_data
 		ld de,maze_data+1
-		ld bc,#00ff
+		ld bc,&00ff
 		ld (hl),#00
 		ldir
 		ret
 
+;; mark rooms to right and bottom of maze as "visited"
+;; modifies:
+;;	A,BC,HL
 maze_edges	ld hl,maze_data
 		ld c,exits_all + room_visited
 		;; right edge
-		ld a,maze_width
+maze_width equ $+1
+		ld a,16		;; default maze width is 16
 		and 15
 		jr z,_me_bottom
 		ld b,16
@@ -116,7 +92,8 @@ _me_right_loop	ld l,a
 		add a,16
 		djnz _me_right_loop
 _me_bottom	;; bottom edge
-		ld a,maze_height
+maze_height equ $+1
+		ld a,16		;; default maze height is 16
 		and 15
 		ret z
 		rlca:rlca:rlca:rlca	;; multiply A by 16
@@ -203,6 +180,33 @@ _fun_left_end	inc a			;; reset A to current room (will also clear carry before r
 		ld l,a			;; restore HL to original room
 _fun_ret	ret
 
+;; get a random number between 0 and E
+;; NOTE: at the moment, always returns 0 or 1 but mazes look okay(!!!)
+;; entry:
+;;	E: max index to return (1 <= E <= 3)
+;; exit:
+;;	E: unmodified
+;;	A: random number between 0 and max index (0 <= A <= E)
+;; flags:
+;;	C: reset
+choose_random_index
+		call get_random
+		and 1
+		ret
+
+;; get a random number (1 byte - 0..255)
+;; exit:
+;;	A: the random number
+get_random	ld a,(_random_seed)
+		rrca		;; multiply by 32
+		rrca
+		rrca
+		xor &1f
+_random_seed equ $+1
+		add a,0		;; 0 will be replaced with seed
+		sbc a,&ff	;; carry
+		ld (_random_seed),a
+		ret
 ;; ----------------------------------------------------------------
 ;; data
 ;; ----------------------------------------------------------------
