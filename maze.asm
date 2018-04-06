@@ -24,10 +24,10 @@ room_visited	equ 16
 ;;	A,BC.DE,HL
 maze_generate	call maze_reset
 		call maze_edges
-		ld hl,maze_data			;; HL points to current room
+		ld hl,maze_data			;; HL points to current room (starting at top-left)
 		ld bc,maze_stack		;; BC points to stack of pending rooms
-_mg_loop	set 4,(hl)			;; mark current room as visited
-		call find_unvisited_neighbours	;; get array of unvisited neighbours
+_mg_loop_0	set 4,(hl)			;; mark current room as visited
+_mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
 		rr e				;; E = count of neighbours
 		jr nz,_mg_choose		;; if there are unvisited neighbours then choose one
 		inc c				;; otherwise, check if pending stack is empty
@@ -36,8 +36,8 @@ _mg_loop	set 4,(hl)			;; mark current room as visited
 		dec c				;; otherwise, pop last room from stack
 		ld a,(bc)
 		ld l,a				;; and put it into HL
-		jr _mg_loop
-_mg_choose	dec e				;; E = number of neighbours - 1
+		jr _mg_loop_1			;; rooms on stack are already visited so go to next instruction
+_mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		jr z,_mg_join			;; if only one neighbour then join to that one
 		ld a,l				;; otherwise, push current room onto stack
 		ld (bc),a
@@ -62,7 +62,7 @@ _mg_join	;; join current room to neighbour (indexed in stack by E)
 		ld h,maze_data / 256		;; HL now points at neighbour
 		or (hl)				;; add exit to neighbour
 		ld (hl),a
-		jr _mg_loop			;; and loop again
+		jr _mg_loop_0			;; and loop again
 
 ;; zero maze data table
 ;; exit:
@@ -72,7 +72,7 @@ _mg_join	;; join current room to neighbour (indexed in stack by E)
 maze_reset	ld hl,maze_data
 		ld de,maze_data+1
 		ld bc,&00ff
-		ld (hl),#00
+		ld (hl),b			;; ld (hl),0
 		ldir
 		ret
 
@@ -81,9 +81,9 @@ maze_reset	ld hl,maze_data
 ;;	A,BC,HL
 maze_edges	ld hl,maze_data
 		ld c,exits_all + room_visited
-		;; right edge
+		;; if maze width is less than 16 then mark right edge
 maze_width equ $+1
-		ld a,16		;; default maze width is 16
+		ld a,16			;; default maze width is 16
 		and 15
 		jr z,_me_bottom
 		ld b,16
@@ -91,9 +91,9 @@ _me_right_loop	ld l,a
 		ld (hl),c
 		add a,16
 		djnz _me_right_loop
-_me_bottom	;; bottom edge
+_me_bottom	;; if maze height is less than 16 then mark bottom edge
 maze_height equ $+1
-		ld a,16		;; default maze height is 16
+		ld a,16			;; default maze height is 16
 		and 15
 		ret z
 		rlca:rlca:rlca:rlca	;; multiply A by 16
@@ -198,13 +198,13 @@ choose_random_index
 ;; exit:
 ;;	A: the random number
 get_random	ld a,(_random_seed)
-		rrca		;; multiply by 32
+		rrca			;; multiply by 32
 		rrca
 		rrca
 		xor &1f
 _random_seed equ $+1
-		add a,0		;; 0 will be replaced with seed
-		sbc a,&ff	;; carry
+		add a,0			;; 0 will be replaced with seed
+		sbc a,&ff		;; carry
 		ld (_random_seed),a
 		ret
 ;; ----------------------------------------------------------------
