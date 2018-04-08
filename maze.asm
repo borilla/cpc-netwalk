@@ -42,9 +42,10 @@ _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		ld a,l				;; otherwise, push current room onto stack
 		ld (bc),a
 		inc c
-		push bc
+		ld b,c				;; temporarily store value of C (in B)
 		call choose_random_index	;; choose random index (0 <= A <= E)
-		pop bc
+		ld c,b				;; restore value of C
+		ld b,maze_stack / 256		;; restore value of B
 		add a,a				;; double value of random index
 		ld e,a				;; copy (doubled) value into E
 _mg_join	;; join current room to neighbour (from neighbour entry pointed to by DE)
