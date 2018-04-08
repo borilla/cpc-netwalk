@@ -44,10 +44,11 @@ _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		inc c
 		push bc
 		call choose_random_index	;; choose random index (0 <= A <= E)
-		ld e,a				;; copy random index into E
-_mg_join	;; join current room to neighbour (indexed in stack by E)
-		rl e				;; double E so DE points to item in neighbour list
 		pop bc
+		or a				;; clear carry
+		rla				;; double value of random index
+		ld e,a				;; copy value into E
+_mg_join	;; join current room to neighbour (from neighbour entry pointed to by DE)
 		ld a,(de)			;; read direction of neighbour into A
 		or (hl)				;; add exit to current room
 		ld (hl),a
@@ -190,7 +191,7 @@ _fun_ret	ret
 ;;	C: modified
 ;;	E: unmodified
 ;; flags:
-;;	C: reset
+;;	C: modified
 choose_random_index
 		call get_random		;; NOTE: could inline this(?)
 		ld c,a			;; copy random number into C
@@ -222,7 +223,7 @@ _random_seed equ $+1
 ;; 	C: modified
 ;; flags:
 ;;	Z: set if divisible by 3
-;;	C: reset
+;;	C: modified
 mod_3:		ld a,c			;; add nibbles
 		rrca:rrca:rrca:rrca
 		add a,c
