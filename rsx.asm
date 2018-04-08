@@ -14,32 +14,16 @@ init_rsx	ld hl,work_space	;; address of 4 byte workspace needed by kernel
 ;;-------------------------------------------------------------------------------
 ;; RSX definition
 
-name_table	defb "COMMAND","1"+&80
-		defb "COMMAND","2"+&80
-		defb "MAZEGE","N"+&80
+name_table	defb "MAZEGE","N"+&80
 		defb 0			;; marker for end of name table
 
 work_space	defs 4			;; space for kernel to use
 
 jump_table	defw name_table		;; pointer to names
-		jp RSX_1_routine	;; jump block
-		jp RSX_2_routine
 		jp rsx_maze_gen
 
 ;;-------------------------------------------------------------------------------
 ;; RSX routines
-
-RSX_1_routine	ret
-
-;; |COMMAND2,a,b,@c%
-RSX_2_routine	cp 3		;; check we have expected number of params
-		ret nz
-		ld a,(ix+4)	;; load first parameter into A
-		add a,(ix+2)	;; add second parameter
-		ld h,(ix+1)	;; load HL with third parameter (address of integer var)
-		ld l,(ix+0)
-		ld (hl),a	;; put result into third parameter
-		ret
 
 ;; |MAZEGEN,width%,height%,@addr%
 rsx_maze_gen	cp 3				;; check we have expected number of params
