@@ -45,9 +45,8 @@ _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		push bc
 		call choose_random_index	;; choose random index (0 <= A <= E)
 		pop bc
-		or a				;; clear carry
-		rla				;; double value of random index
-		ld e,a				;; copy value into E
+		add a,a				;; double value of random index
+		ld e,a				;; copy (doubled) value into E
 _mg_join	;; join current room to neighbour (from neighbour entry pointed to by DE)
 		ld a,(de)			;; read direction of neighbour into A
 		or (hl)				;; add exit to current room
