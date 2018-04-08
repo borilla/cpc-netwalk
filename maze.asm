@@ -19,7 +19,7 @@ room_visited	equ 16
 ;; subroutines
 ;; ----------------------------------------------------------------
 
-;; generate maze (after maze_reset and maze_edges)
+;; generate maze. Before calling this, set 
 ;; modifies:
 ;;	A,BC.DE,HL
 maze_generate	call maze_reset
@@ -42,10 +42,12 @@ _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		ld a,l				;; otherwise, push current room onto stack
 		ld (bc),a
 		inc c
+		push bc
 		call choose_random_index	;; choose random index (0 <= A <= E)
 		ld e,a				;; copy random index into E
 _mg_join	;; join current room to neighbour (indexed in stack by E)
 		rl e				;; double E so DE points to item in neighbour list
+		pop bc
 		ld a,(de)			;; read direction of neighbour into A
 		or (hl)				;; add exit to current room
 		ld (hl),a
@@ -83,7 +85,7 @@ maze_edges	ld hl,maze_data
 		ld c,exits_all + room_visited
 		;; if maze width is less than 16 then mark right edge
 maze_width equ $+1
-		ld a,16			;; default maze width is 16
+		ld a,16			;; default maze width is 16. will be overwritten!
 		and 15
 		jr z,_me_bottom
 		ld b,16
@@ -181,18 +183,22 @@ _fun_left_end	inc a			;; reset A to current room (will also clear carry before r
 _fun_ret	ret
 
 ;; get a random number between 0 and E
-;; NOTE: at the moment, always returns 0 or 1 but mazes look okay(!!!)
 ;; entry:
 ;;	E: max index to return (1 <= E <= 3)
 ;; exit:
-;;	E: unmodified
 ;;	A: random number between 0 and max index (0 <= A <= E)
+;;	C: modified
+;;	E: unmodified
 ;; flags:
 ;;	C: reset
 choose_random_index
-		call get_random
-		and 1
-		ret
+		call get_random		;; NOTE: could inline this(?)
+		ld c,a			;; copy random number into C
+		ld a,e			;; copy max index to A
+		cp 2			;; if max index is 2 (ie three options)
+		jr z,mod_3		;; then get C mod 3
+		and c			;; otherwise (max index is 1 or 3)
+		ret			;; return random AND max-index
 
 ;; get a random number (1 byte - 0..255)
 ;; exit:
@@ -207,6 +213,29 @@ _random_seed equ $+1
 		sbc a,&ff		;; carry
 		ld (_random_seed),a
 		ret
+
+;; https://www.cemetech.net/forum/viewtopic.php?t=12784
+;; entry:
+;;	C: unsigned integer
+;; exit:
+;;	A: C mod 3
+;; 	C: modified
+;; flags:
+;;	Z: set if divisible by 3
+;;	C: reset
+mod_3:		ld a,c			;; add nibbles
+		rrca:rrca:rrca:rrca
+		add a,c
+		adc a,0			;; n mod 15 (+1) in both nibbles
+		ld c,a			;; add half nibbles
+		rrca:rrca
+		add a,c
+		adc a,1
+		ret z
+		and 3
+		dec a
+		ret
+
 ;; ----------------------------------------------------------------
 ;; data
 ;; ----------------------------------------------------------------
