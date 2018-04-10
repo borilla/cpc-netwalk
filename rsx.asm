@@ -15,12 +15,14 @@ init_rsx	ld hl,work_space	;; address of 4 byte workspace needed by kernel
 ;; RSX definition
 
 name_table	defb "MAZEGE","N"+&80
+		defb "MAZERO","T"+&80
 		defb 0			;; marker for end of name table
 
 work_space	defs 4			;; space for kernel to use
 
-jump_table	defw name_table		;; pointer to names
+jump_table	defw name_table		;; pointer to name-table
 		jp rsx_maze_gen
+		jp rsx_maze_rot
 
 ;;-------------------------------------------------------------------------------
 ;; RSX routines
@@ -38,3 +40,11 @@ rsx_maze_gen	cp 3				;; check we have expected number of params
 		inc hl
 		ld (hl),maze_data / 256		;; write maze address (low byte)
 		jp maze_generate		;; generate the maze
+
+;; |MAZEROT,x%,y%
+rsx_maze_rot	cp 2
+		ret nz
+		ld a,(ix+0)			;; read (low byte of) second parameter - ie y-index
+		rlca:rlca:rlca:rlca		;; multiply by 16
+		or (ix+2)			;; add (low byte of) first parameter - is x-index
+		jp maze_rotate		;; rotate exits in room indexed by A

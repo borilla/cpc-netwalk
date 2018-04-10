@@ -19,6 +19,18 @@ room_visited	equ 16
 ;; subroutines
 ;; ----------------------------------------------------------------
 
+;; rotate exits of room indexed in A (clockwise)
+;; entry:
+;;	A: index of room
+maze_rotate	ld h,maze_data / 256
+		ld l,a
+		ld a,(hl)
+		ld d,rot_nibble_data / 256
+		ld e,a
+		ld a,(de)
+		ld (hl),a
+		ret
+
 ;; generate maze. Before calling this, set 
 ;; modifies:
 ;;	A,BC.DE,HL
@@ -90,10 +102,10 @@ maze_width equ $+1
 		ld a,16			;; default maze width is 16. value will be overwritten!
 		and 15
 		jr z,_me_bottom
-		ld b,d
+		ld b,d			;; ld b,16
 _me_right_loop	ld l,a
 		ld (hl),c
-		add a,d
+		add a,d			;; add a,16
 		djnz _me_right_loop
 _me_bottom	;; if maze height is less than 16 then mark bottom edge
 maze_height equ $+1

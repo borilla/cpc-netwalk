@@ -1,15 +1,30 @@
-10 CALL &8000
-20 INPUT "width: ",w%
-30 INPUT "height: ",h%
-40 a%=0
-50 |MAZEGEN,w%,h%,@a%
-60 PRINT HEX$(a%,4)
-70 FOR y=1 TO 16
-80 a$=""
-90 FOR x=1 to 16
-100 v=PEEK(a%) AND 15
-110 a$=a$+CHR$(v+144)
-120 a%=a%+1
-130 NEXT
-140 PRINT a$
-150 NEXT
+100 'initialise RSXs
+110 MEMORY &7FFF
+120 CALL &8000
+130 GOTO 500
+200 'render maze
+210 b%=a%
+220 FOR y%=1 TO 16
+230 a$=""
+240 FOR x%=1 to 16
+250 v%=PEEK(b%) AND 15
+260 a$=a$+CHR$(v%+144)
+270 b%=b%+1
+280 NEXT
+290 PRINT a$
+300 NEXT
+310 RETURN
+400 'wait for keypress
+410 WHILE inkey$=""
+420 WEND
+430 RETURN
+500 'main program
+510 INPUT "width: ",w%
+520 INPUT "height: ",h%
+530 a%=0
+540 |MAZEGEN,w%,h%,@a%
+550 PRINT HEX$(a%,4)
+560 GOSUB 200
+570 GOSUB 400
+580 |MAZEROT,0,0
+590 GOSUB 200
