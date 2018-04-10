@@ -193,8 +193,19 @@ _fun_ret	ret
 ;;	E: unmodified
 ;; flags:
 ;;	C: modified
+;;	Z: modified
 choose_random_index
-		call get_random		;; NOTE: could inline this(?)
+		;; A = random number
+		ld a,(_random_seed)
+		rrca			;; multiply by 32
+		rrca
+		rrca
+		xor &1f
+_random_seed equ $+1
+		add a,0			;; 0 will be replaced with seed
+		sbc a,&ff		;; carry
+		ld (_random_seed),a
+		;; A = A mod E
 		ld c,a			;; copy random number into C
 		ld a,e			;; copy max index to A
 		cp 2			;; if max index is 2 (ie three options)
@@ -205,16 +216,7 @@ choose_random_index
 ;; get a random number (1 byte - 0..255)
 ;; exit:
 ;;	A: the random number
-get_random	ld a,(_random_seed)
-		rrca			;; multiply by 32
-		rrca
-		rrca
-		xor &1f
-_random_seed equ $+1
-		add a,0			;; 0 will be replaced with seed
-		sbc a,&ff		;; carry
-		ld (_random_seed),a
-		ret
+get_random	ret
 
 ;; https://www.cemetech.net/forum/viewtopic.php?t=12784
 ;; entry:
@@ -223,9 +225,9 @@ _random_seed equ $+1
 ;;	A: C mod 3
 ;; 	C: modified
 ;; flags:
-;;	Z: set if divisible by 3
 ;;	C: modified
-mod_3:		ld a,c			;; add nibbles
+;;	Z: set if divisible by 3
+mod_3		ld a,c			;; add nibbles
 		rrca:rrca:rrca:rrca
 		add a,c
 		adc a,0			;; n mod 15 (+1) in both nibbles
