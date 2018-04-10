@@ -196,16 +196,14 @@ _fun_ret	ret
 ;;	Z: modified
 choose_random_index
 		;; A = random number
-		ld a,(_random_seed)
-		rrca			;; multiply by 32
-		rrca
-		rrca
-		xor &1f
-_random_seed equ $+1
-		add a,0			;; 0 will be replaced with seed
-		sbc a,&ff		;; carry
-		ld (_random_seed),a
-		;; A = A mod E
+		ld a,0			;; 0 is initial seed value, which will be overwritten each call
+		ld c,a
+		add a,a
+		add a,a
+		add a,c
+		inc a			;; another possibility is ADD A,7
+		ld (choose_random_index+1),a
+		;; A = A mod (E + 1)
 		ld c,a			;; copy random number into C
 		ld a,e			;; copy max index to A
 		cp 2			;; if max index is 2 (ie three options)
