@@ -2,10 +2,10 @@
 
 function rotnib(n) {
 	const hi = n & 0xf0;
-	const lo = n & 0x0f;
-	const carry = lo & 0x01;
+	const lo = n & 0x07;
+	const carry = n & 0x08;
 
-	return hi + (lo >> 1) + (carry << 3);
+	return hi + (lo << 1) + (carry >> 3);
 }
 
 function binary(n) {
