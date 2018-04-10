@@ -24,7 +24,7 @@ room_visited	equ 16
 ;;	A,BC.DE,HL
 maze_generate	call maze_reset
 		call maze_edges
-		ld hl,maze_data			;; HL points to current room (starting at top-left)
+		ld hl,maze_data + 17		;; HL points to current room (starting one in from top-left)
 		ld bc,maze_stack		;; BC points to stack of pending rooms
 _mg_loop_0	set 4,(hl)			;; mark current room as visited
 _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
