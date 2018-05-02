@@ -1,6 +1,6 @@
 # cpc-netwalk
 
-This repo is a record of my attempt to meake a "[netwalk](https://netwalk.github.io/)" game for the
+This repo is a record of my attempt to make a "[netwalk](https://netwalk.github.io/)" game for the
 [Amstrad CPC](https://en.wikipedia.org/wiki/Amstrad_CPC), using [Z80](https://en.wikipedia.org/wiki/Zilog_Z80)
 assembly language
 
@@ -20,6 +20,24 @@ This algorithm (which can actually return exactly the same maze as Prim's) is na
 is easier to implement in Z80. This inspired me to finally combine my interests in mazes and in Z80 code,
 and make a Z80 netwalk game
 
-## progress
+## Graphics
 
-So far I've got the maze generation working. Everything else is **_pending..._**
+Sprites for table cells have been generated using [Retro Game Asset Studio](http://www.cpcwiki.eu/index.php/Retro_Game_Asset_Studio)
+and exported as raw byte data. My next task is to work out how to get them to render to the screen
+
+I'm not a pixel artist at all so they're _very_ raw at the moment. Hopefully I can do them a bit better
+in future and just output from RGAS over the top of the current crappy ones
+
+## Progress
+
+Here's a quick list of tasks in the approximate order I intend to do them. Not complete and probably
+going to change quite significantly as I gradually get stuff done...
+
+- [x] Maze generation
+- [x] Draw maze-cell sprites
+- [ ] Render a single sprite
+- [ ] Render whole maze
+- [ ] Show currently selected cell in rendered maze
+- [ ] Navigate around the maze using keyboard
+- [ ] Animate cell rotation
+- [ ] Calculate which cells are connected to power supply

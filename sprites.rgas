@@ -1,0 +1,1355 @@
+﻿{
+  "$type": "RGAS.PlatformProviders.AmstradSpriteSet, RGAS",
+  "PlusInks": {
+    "$type": "System.UInt16[], mscorlib",
+    "$values": [
+      255,
+      0,
+      1092,
+      240,
+      2032,
+      3568,
+      4000,
+      3920,
+      3842,
+      3849,
+      3855,
+      2575,
+      527,
+      95,
+      175,
+      4095
+    ]
+  },
+  "_ImageList": {
+    "$type": "System.Collections.Generic.List`1[[RGAS.SpriteBase, RGAS]], mscorlib",
+    "$values": [
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-00-0001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-01-0001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAABAAAAAQAAAAEBAQEBAQEBAQEAAQEAAAABAAAAAAAAAAABAQABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-10-0001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEBAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEBAQEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-11-0001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQEBAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQEBAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-00-0010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQEBAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAEBAAABAAAAAAABAQEBAQEAAAEBAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-01-0010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAABAQABAAAAAAABAQEBAQEAAAABAQAAAAAAAQEBAQEBAQAAAAEAAAAAAAAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-10-0010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-11-0010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQEBAQEBAQAAAAAAAAEAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABAAAAAAAAAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-0011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAAAAAAAAAEAAAEAAAAAAQAAAAAAAAABAAABAAAAAAEAAAAAAAABAAAAAAEBAAABAAAAAAAAAAEBAAAAAAEBAQAAAAAAAAAAAAEBAAAAAAEAAAAAAAAAAAAAAAEBAAABAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-0011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAABAQAAAQEAAAAAAAAAAAABAAAAAQABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAABAQAAAQAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAAAAAEAAAABAAAAAQAAAAAAAAAAAQAAAAEAAAEAAAAAAAAAAAABAQAAAQABAAAAAAAAAAAAAAEAAAABAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-0011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEBAAEAAAAAAAAAAAAAAQEAAAABAAAAAAAAAAABAQAAAAABAQAAAAAAAAEBAAAAAAEBAAEAAAAAAAEAAAAAAQEAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAAAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-0011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-00-0100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAABAQEBAQEBAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-01-0100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAABAQEBAAAAAAABAAABAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAQAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-10-0100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAEBAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAQABAQEBAAAAAAABAAEBAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-11-0100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-0101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAQEAAAAAAAAAAAAAAAEAAAAAAQEAAAAAAAAAAAABAAAAAAAAAQEAAAAAAAAAAQABAQAAAAAAAQEBAAAAAAEAAAABAQEAAAAAAAEBAAABAAAAAAAAAQEAAAAAAAEBAQAAAAAAAAAAAQEAAAAAAAEAAAAAAAAAAAAAAQEBAAABAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-0101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAABAQAAAQAAAAAAAAABAAAAAAEAAAEBAAAAAAAAAQAAAAAAAQAAAAEAAAAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAAAAAEBAAABAAAAAQAAAAAAAAAAAQAAAAEAAAEAAAAAAAAAAAABAAABAQABAAAAAAAAAAAAAAEAAAABAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-0101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAAAAAABAAABAAAAAAAAAQAAAAAAAQAAAQAAAAAAAAEAAAAAAAEAAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAAAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-0101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAQEBAQEBAQEBAQAAAAAAAAEAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABAAAAAAAAAQAAAQEBAQEBAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-0110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAABAAAAAAAAAQAAAAAAAAABAAEBAAAAAAEAAAAAAAAAAQAAAAEBAAABAAAAAAAAAQAAAAAAAAEBAQAAAAAAAAEAAAEBAAAAAAEAAAAAAAEAAAEAAAEBAAABAAAAAAABAAABAAAAAAEBAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-0110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAABAAAAAAAAAQAAAAAAAAABAAEAAAAAAAEAAAAAAAABAAABAQAAAAABAAAAAAABAAAAAAABAAAAAQAAAAABAQAAAQAAAAEAAAEAAAABAAAAAQABAAABAQABAAABAAAAAQAAAAEAAAABAQAAAAAAAQAAAAAAAQAAAAEAAAAAAQAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-0110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAEBAAAAAAAAAQAAAAAAAQEAAAEAAAAAAAEAAAABAQAAAAABAAAAAAABAAEBAAAAAAAAAQAAAAAAAQAAAAAAAQEBAAABAAAAAAEAAAABAQAAAQAAAQAAAAABAAEBAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-0110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQEBAQEBAQAAAAAAAAEAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAABAAAAAAAAAQAAAQEBAQEBAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-0111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAAAAAAAAAEAAAEAAAAAAQAAAAAAAAABAAABAAAAAAEAAAAAAAAAAQAAAAEBAAABAAAAAAAAAQAAAAAAAAEBAQAAAAAAAAEAAAEBAAAAAAEAAAAAAAEAAAEAAAEBAAABAAAAAAABAAABAAAAAAEBAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-0111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAABAQAAAQEAAAAAAAAAAAABAAAAAQABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAABAQAAAQAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAABAAAAAAABAAAAAQAAAAABAQAAAQAAAAEAAAEAAAABAAAAAQABAAABAQABAAABAAAAAQAAAAEAAAABAQAAAAAAAQAAAAAAAQAAAAEAAAAAAQAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-0111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEBAAEAAAAAAAAAAAAAAQEAAAABAAAAAAAAAAABAQAAAAAAAQAAAAAAAQEBAAAAAAABAQEAAAABAQAAAAAAAAEBAAABAAEBAAAAAAAAAQEAAAAAAQAAAAAAAQEAAAEAAAAAAAEAAAABAQAAAQAAAQAAAAABAAEBAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-0111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAEBAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAEBAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-00-1000",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAQEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQABAQEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-01-1000",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAQAAAQEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-10-1000",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-0-11-1000",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQAAAQAAAAAAAQAAAAAAAAAAAAEAAAAAAAEAAAAAAAAAAAABAAAAAAABAAEBAQEBAQEBAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAQEAAAAAAQAAAQAAAAEAAAAAAQEAAAEAAAEAAAABAAAAAAAAAQEAAAEAAAAAAQABAQAAAAAAAAABAAAAAAEAAAABAQAAAAABAAAAAAABAAAAAAABAQAAAQAAAAAAAQAAAAAAAAABAQAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAABAAABAAAAAAABAAAAAAABAAAAAQAAAQAAAAEAAAABAQAAAQEAAAABAAABAQABAAAAAQABAAAAAAEAAAABAAAAAQAAAQAAAAAAAQAAAAABAQAAAAEAAAAAAAABAQAAAQAAAAABAAAAAAAAAAEAAQAAAAAAAQAAAAAAAAAAAQAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAEBAAEAAAAAAQAAAQAAAQEAAAABAAAAAAABAAABAQAAAAABAQAAAAAAAQAAAAAAAAEBAAEAAAAAAAABAAAAAQEAAAABAAAAAAAAAQABAQAAAAAAAQAAAAAAAAABAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAAAAAAAAAEAAAEAAAAAAQAAAAAAAAABAAABAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAEAAAEAAAAAAAABAAAAAAABAAABAAAAAAAAAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAABAQAAAQEAAAAAAAAAAAABAAAAAQABAAAAAAAAAAABAAABAQAAAQAAAAAAAAABAAAAAQAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAABAQAAAQAAAAAAAQAAAAABAAAAAQAAAAAAAAEAAAABAAAAAQAAAAAAAAABAAABAAABAQAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAEBAAEAAAAAAAAAAAAAAQEAAAABAAAAAAAAAAABAQAAAAAAAQAAAAAAAQEBAAAAAAABAQEAAAABAQAAAAAAAQEBAAABAAEBAAAAAAABAQAAAAAAAQAAAAAAAAEBAAAAAAAAAAEAAAABAQEAAAAAAAAAAAABAAEBAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQAAAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAQEAAAAAAQAAAQAAAAEAAAAAAQEAAAEAAAEAAAABAAAAAAAAAQEAAAEAAAAAAQABAQAAAAAAAAABAAAAAAEAAAABAQEAAAAAAAEBAAABAAAAAAAAAQEAAAAAAAEBAQAAAAAAAAAAAQEBAAAAAAEAAAAAAAAAAAAAAAEBAAABAAAAAAAAAAAAAAAAAAEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAABAAABAAAAAAABAAAAAAABAAAAAQAAAQAAAAEAAAABAQAAAQEAAAABAAABAQABAAAAAQABAAAAAAEAAAABAAAAAQAAAQAAAAAAAQAAAAAAAQAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAAAAAEBAAABAAAAAQAAAAAAAAAAAQAAAAEAAAEAAAAAAAAAAAABAAABAQABAAAAAAAAAAAAAAEAAAABAQAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAEBAAEAAAAAAQAAAQAAAQEAAAABAAAAAAABAAABAQAAAAAAAQAAAAAAAQAAAAAAAAABAQEAAAAAAAABAAAAAAEBAAABAAAAAAAAAQAAAQEAAAAAAQAAAAAAAAABAAEAAAAAAAEAAAAAAAAAAQAAAQAAAAABAAAAAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQAAAAAAAQAAAAAAAAAAAAEAAAAAAAEAAAAAAAAAAAABAAAAAAABAAEBAQEBAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAQEAAAAAAAAAAAAAAAEAAAAAAQEAAAAAAAAAAAABAAAAAAAAAQEAAAAAAAAAAQABAQAAAAAAAQEAAAAAAAEAAAABAQAAAAAAAQAAAAABAAAAAAABAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAEAAAEAAAAAAAABAAAAAAABAAABAAAAAAAAAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAABAAABAQAAAAAAAAABAAAAAAEAAAABAAAAAAAAAQAAAAAAAQAAAAEAAAAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAABAAABAQAAAAAAAQAAAAABAAAAAQAAAAAAAAEAAAABAQAAAQAAAAAAAAABAAABAAAAAQAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAAAAAABAAABAAAAAAAAAQAAAAAAAQAAAQAAAAAAAAEAAAABAQAAAAABAAAAAAABAAEBAAAAAAEBAAAAAAAAAQAAAAAAAQEAAAAAAAAAAAEAAAABAQAAAAAAAAAAAAABAAEBAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQAAAQAAAAAAAQAAAAAAAAAAAAEAAAAAAAEAAAAAAAAAAAABAAAAAAABAAEBAQEBAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAQEAAAAAAQAAAQAAAAEAAAAAAQEAAAEAAAEAAAABAAAAAAAAAQEAAAEAAAAAAQABAQAAAAAAAAABAAAAAAEAAAABAQAAAAABAAAAAAABAAAAAAABAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAEAAAEAAAAAAAABAAAAAAABAAABAAAAAAAAAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAABAAABAAAAAAABAAAAAAABAAAAAQAAAQAAAAEAAAABAQAAAQEAAAABAAABAQABAAAAAQABAAAAAAEAAAABAAAAAQAAAQAAAAAAAQAAAAAAAQAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAABAAABAQAAAAAAAQAAAAABAQAAAQAAAAAAAAEAAAABAAAAAQAAAAAAAAABAAABAAAAAQAAAAAAAAAAAQAAAAAAAQAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAEBAAEAAAAAAQAAAQAAAQEAAAABAAAAAAABAAABAQAAAAABAQAAAAAAAQAAAAAAAAEBAAEAAAABAQAAAAAAAQEAAAABAAEBAAAAAAEBAQAAAAAAAQAAAAAAAQEAAAAAAAAAAAEAAAABAQAAAAAAAAAAAAABAAEBAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQAAAQEBAQEBAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAQEAAAAAAAAAAAAAAAEAAAAAAQEAAAAAAAAAAAABAAAAAAAAAQEBAAAAAAAAAQABAQAAAAAAAAEBAAAAAAEAAAABAQAAAAAAAAEBAAABAAAAAAABAQAAAAAAAAEBAQAAAAAAAAEAAAEBAAAAAAEAAAAAAAEAAAEAAAEBAAABAAAAAAABAAABAAAAAAEBAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAABAAABAQAAAAAAAAABAAAAAAEAAAABAAAAAAAAAQAAAAAAAQAAAAEAAAAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAABAAAAAAABAAAAAQAAAAABAQAAAQAAAAEAAAEAAAABAAAAAQABAAABAQABAAABAAAAAQAAAAEAAAABAQAAAAAAAQAAAAAAAQAAAAEAAAAAAQAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAAAAAABAAABAAAAAAAAAQAAAAAAAQAAAQAAAAAAAAEAAAABAQAAAAEAAAAAAAABAAEBAAAAAAAAAQAAAAAAAQAAAAAAAQEAAAEAAAAAAAEAAAABAQAAAQAAAQAAAAABAAEBAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQAAAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQAAAQEBAQEBAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAAAAAAAAQAAAQAAAAAAAQAAAAAAAAEAAAEAAAAAAAEAAAAAAAABAAABAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-00-1111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAABAAABAAABAAAAAAAAAAAAAQAAAQAAAQAAAQEAAAAAAQAAAQAAAAEAAAAAAQEAAAEAAAEAAAABAAAAAAAAAQEAAAEAAAAAAQABAQAAAAAAAAABAAAAAAEAAAABAQAAAAAAAAEBAAABAAAAAAABAQAAAAAAAAEBAQAAAAAAAAEAAAEBAAAAAAEAAAAAAAEAAAEAAAEBAAABAAAAAAABAAABAAAAAAEBAQAAAAABAAABAAAAAAAAAAEAAAAAAQAAAQAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-01-1111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAABAAABAAAAAAABAAAAAAABAAAAAQAAAQAAAAEAAAABAQAAAQEAAAABAAABAQABAAAAAQABAAAAAAEAAAABAAAAAQAAAQAAAAAAAQAAAAAAAQAAAAEAAAAAAAABAAAAAQAAAAABAAAAAAABAAAAAAABAAAAAQAAAAABAQAAAQAAAAEAAAEAAAABAAAAAQABAAABAQABAAABAAAAAQAAAAEAAAABAQAAAAAAAQAAAAAAAQAAAAEAAAAAAQAAAAAAAAABAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-10-1111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAABAAABAAAAAAAAAAABAAAAAQAAAQAAAAAAAAAAAQAAAAABAAABAAAAAAEBAAEAAAAAAQAAAQAAAQEAAAABAAAAAAABAAABAQAAAAABAQAAAAAAAQAAAAAAAAEBAAEAAAABAQAAAAAAAQEAAAABAAEBAAAAAAAAAQAAAAAAAQAAAAAAAQEAAAEAAAAAAAEAAAABAQAAAQAAAQAAAAABAAEBAAAAAAEAAAEAAAAAAQAAAAAAAAAAAQAAAQAAAAEAAAAAAAAAAAEAAAEAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-0-11-1111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAgICAgICAgIBAAABAAAAAQICAQICAQICAQAAAQAAAAECAgICAgICAgEAAAEAAAABAgICAQECAgIBAAABAAAAAQICAgICAgICAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-1-00-0001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAgICAgICAgIBAAABAAAAAQICAQICAQICAQEBAQAAAAECAgICAgICAgECAgEAAAABAgICAQECAgIBAgIBAAAAAQICAgICAgICAQEBAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-1-00-0010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQEBAQEBAQAAAAAAAAECAgICAgICAgEAAAAAAAABAgICAgICAgIBAAAAAAAAAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-0011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAgICAgICAgIBAAABAAAAAQICAQICAQICAQAAAQAAAAECAgICAgICAgEAAAEAAAABAgICAQECAgIBAAABAAAAAQICAgICAgICAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-1-00-0100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQACAgICAgICAgICAgICAgEAAgICAgICAgICAgICAgIBAAEBAQEBAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-0101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAQEBAQEBAQEBAQAAAAAAAAECAgICAgICAgEAAAAAAAABAgICAgICAgIBAAAAAAAAAQICAQEBAQEBAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-0110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQEBAQEBAQAAAAAAAAECAgICAgICAgEAAAAAAAABAgICAgICAgIBAAAAAAAAAQICAQEBAQEBAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-0111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAgICAgICAgIBAAABAAEBAQICAQICAQICAQAAAQACAgECAgICAgICAgEAAAEAAgIBAgICAQECAgIBAAABAAEBAQICAgICAgICAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "S-1-00-1000",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQICAQAAAAAAAQACAgICAgICAgEAAAAAAAEAAgICAgICAgIBAAAAAAABAAEBAQEBAQEBAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1001",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1010",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQICAQEBAQEBAQACAgICAgICAgICAgICAgEAAgICAgICAgICAgICAgIBAAEBAQEBAQEBAQEBAQEBAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1011",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQAAAAAAAQACAgICAgICAgEAAAAAAAEAAgICAgICAgIBAAAAAAABAAEBAQEBAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1100",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQICAQAAAAAAAQACAgICAgICAgEAAAAAAAEAAgICAgICAgIBAAAAAAABAAEBAQEBAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1101",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQACAgICAgICAgICAgICAgEAAgICAgICAgICAgICAgIBAAEBAQEBAQICAQEBAQEBAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1110",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQICAQEBAQEBAQACAgICAgICAgICAgICAgEAAgICAgICAgICAgICAgIBAAEBAQEBAQICAQEBAQEBAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAAAAAAAAQICAQAAAAAAAQAAAAAAAAECAgEAAAAAAAEAAAAAAAABAgIBAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "S-1-00-1111",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAgICAgICAgIBAAABAAAAAQICAQICAQICAQAAAQAAAAECAgICAgICAgEAAAEAAAABAgICAQECAgIBAAABAAAAAQICAgICAgICAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "NodeConnected",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAEBAQEBAQEBAQEAAAEAAAABAAAAAAAAAAABAAABAAAAAQAAAQAAAQAAAQAAAQAAAAEAAQABAQABAAEAAAEAAAABAAABAAABAAABAAABAAAAAQAAAAAAAAAAAQAAAQAAAAEBAQEBAQEBAQEAAAEAAAAAAAABAQEBAAAAAAABAAAAAAABAQEBAQEAAAAAAQAAAAAAAQEBAQEBAAAAAAEAAAAAAAAAAAAAAAAAAAABAAEBAQEBAQEBAQEBAQEBAQA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
+        "_name": "NodeDisconnected",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "/////////////////////////////////////////////////////////////////////wEBAQEBAQEB//////////8BAgIBAgECAf//////////AQICAQEBAQH//////////wEBAQEBAQEB//////////8BAgICAgICAf//////////AQEBAQEBAQH//////////wECAgICAgIB//////////8BAQEBAQEBAf//////////AQICAgICAgH//////////wEBAQEBAQEB/////////////////////////////////////////////////////////////////////wA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "42bf01a2-6f94-4502-9ea8-c45c2b34caee",
+        "_name": "Supply",
+        "MaskDataInline": true,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAEAAQABAAEAAQABAAEAAQH//////////////////wAA//////////////////8BAf//////////////////AAD//////////////////wEB//////////////////8AAP//////////////////AQH//////////////////wAA//////////////////8BAf//////////////////AAD//////////////////wEB//////////////////8AAP//////////////////AQH//////////////////wAA//////////////////8BAQABAAEAAQABAAEAAQABAAA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "Selected",
+        "MaskDataInline": true,
+        "UseInLevelDesigner": true
+      }
+    ]
+  },
+  "_levelList": {
+    "$type": "System.Collections.Generic.List`1[[RGAS.GameLevel, RGAS]], mscorlib",
+    "$values": [
+      {
+        "$type": "RGAS.GameLevel, RGAS",
+        "_width": 5,
+        "_height": 5,
+        "_aspectRatio": 1.0,
+        "_bgColour": "White",
+        "_name": "NewLevel",
+        "__tileIndexes": {
+          "$type": "System.Int32[], mscorlib",
+          "$values": [
+            75,
+            75,
+            75,
+            57,
+            75,
+            75,
+            57,
+            75,
+            79,
+            75,
+            75,
+            57,
+            76,
+            75,
+            75,
+            57,
+            78,
+            57,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            75,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "_sound": {
+    "$type": "RGAS.SoundSet, RGAS",
+    "MusicList": {
+      "$type": "System.Collections.Generic.List`1[[RGAS.AYMusic, RGAS]], mscorlib",
+      "$values": []
+    }
+  },
+  "Mode": 1,
+  "_targetPlatform": 0,
+  "Inks": {
+    "$type": "System.Byte[], mscorlib",
+    "$value": "Gg0UDhMKEhkREBYYDwIGBw=="
+  },
+  "_formatterType": "RGAS.PlatformProviders.AmstradSpriteSet+AmstradMaxamFormatter, RGAS, Version=1.2.5.0, Culture=neutral, PublicKeyToken=null",
+  "OSPlatform": "Microsoft Windows NT 6.1.7601 Service Pack 1 C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\",
+  "RGASVersion": "1.2.5.0",
+  "EncodeLevelsRLE": false,
+  "OutputSpriteDimensions": false
+}
