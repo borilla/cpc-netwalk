@@ -31,7 +31,7 @@ maze_rotate	ld h,maze_data / 256
 		ld (hl),a
 		ret
 
-;; generate maze. Before calling this, set 
+;; generate maze. Before calling this, set bytes at maze_width and maze_height to size maze
 ;; modifies:
 ;;	A,BC.DE,HL
 maze_generate	call maze_reset
@@ -47,8 +47,8 @@ _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (
 		ret z				;; if stack is empty then we've finished(!!!!)
 		dec c				;; otherwise, pop last room from stack
 		ld a,(bc)
-		ld l,a				;; and put it into HL
-		jr _mg_loop_1			;; rooms on stack are already visited so go to next instruction
+		ld l,a				;; and point HL at that room
+		jr _mg_loop_1			;; rooms on stack are already visited so no need to set bit
 _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		jr z,_mg_join			;; if only one neighbour then join to that one
 		ld a,l				;; otherwise, push current room onto stack
@@ -94,13 +94,13 @@ maze_reset	ld hl,maze_data
 ;; mark rooms to right and bottom of maze as "visited"
 ;; modifies:
 ;;	A,BC,D,HL
-maze_edges	ld hl,maze_data
-		ld c,exits_all + room_visited
-		ld d,16
-		;; if maze width is less than 16 then mark right edge
+maze_edges	ld h,maze_data / 256
+		ld c,exits_all + room_visited	;; value we're going to use to mark "visited" rooms
+		ld d,16			;; we'll be using 16 a lot, so store it in D register
+		;; if maze width is less than 16 then mark column to right of maze as "visited"
 maze_width equ $+1
 		ld a,16			;; default maze width is 16. value will be overwritten!
-		and 15
+		and 15			;; limit width to range 0..15
 		jr z,_me_bottom
 		ld b,d			;; ld b,16
 _me_right_loop	ld l,a
@@ -110,11 +110,11 @@ _me_right_loop	ld l,a
 _me_bottom	;; if maze height is less than 16 then mark bottom edge
 maze_height equ $+1
 		ld a,16			;; default maze height is 16. value will be overwritten!
-		and 15
+		and 15			;; limit height to range 0..15
 		ret z
 		rlca:rlca:rlca:rlca	;; multiply A by 16
 		ld l,a
-		ld b,d
+		ld b,d			;; ld b,16
 _me_bottom_loop	ld (hl),c
 		inc l
 		djnz _me_bottom_loop

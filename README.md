@@ -13,12 +13,12 @@ The game is based around maze generation. I've written many maze generators, in 
 over the years but almost all based on [Prim's algorithm](https://en.wikipedia.org/wiki/Prim's_algorithm)
 
 But, after reading [Jamis Buck's page on maze algorithms](http://www.jamisbuck.org/mazes/), I found a
-beautiful (and simple) alternative to Prim's algorithm; the
+beautiful (and simple) alternative to Prim's algorithm, which he calls the
 "[Growing Tree algorithm](http://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm)"
 
-This algorithm (which can actually return exactly the same maze as Prim's) is naturally stack-based, so can
-be implemented more efficiently in Z80. This inspired me to finally combine my interests in mazes and in Z80
-code, and make a Z80 netwalk game
+This algorithm (which can actually return exactly the same maze as Prim's) is naturally stack-based, so
+is easier to implement in Z80. This inspired me to finally combine my interests in mazes and in Z80 code,
+and make a Z80 netwalk game
 
 ## progress
 
