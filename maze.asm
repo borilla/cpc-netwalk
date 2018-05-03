@@ -36,8 +36,7 @@ maze_rotate	ld h,maze_data / 256
 ;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
 ;; modifies:
 ;;	A,BC.DE,HL
-maze_generate	call maze_reset
-		call maze_edges
+maze_generate	call maze_reset			;; Note: could inline maze_reset(?)
 		ld hl,maze_data + 17		;; HL points to current room (starting one in from top-left)
 		ld bc,maze_stack		;; BC points to stack of pending rooms
 _mg_loop_0	set 4,(hl)			;; mark current room as visited
@@ -86,33 +85,32 @@ _mg_join	;; join current room to neighbour (from neighbour entry pointed to by D
 ;;	BC: &0000
 ;;	DE: maze_data + &ff
 ;;	HL: maze_data + &fe
-maze_reset	ld hl,maze_data
-		ld de,maze_data+1
-		ld bc,&00ff
-		ld (hl),b			;; ld (hl),0
-		ldir
-		ret
 
-;; mark rooms to right and bottom of maze as "visited"
+;; zero maze data table then mark column and row to right and bottom of maze as "visited"
 ;; entry:
 ;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
 ;; modifies:
 ;;	A,BC,DE,HL
-maze_edges	ld h,maze_data / 256
+maze_reset	;; zero maze data table
+		ld hl,maze_data
+		ld de,maze_data+1
+		ld bc,&00ff
+		ld (hl),b			;; ld (hl),0
+		ldir
+		;; mark right and bottom edges
+		ld h,maze_data / 256
 		ld de,16 * 256 + exits_all + room_visited	;; ld d,16, ld e,"visited"
-		ld c,a			;; keep copy of original maze dimensions
-		;; if maze width is less than 16 then mark column to right of maze as "visited"
+		ld c,a			;; keep copy of original maze dimensions in C
 		and 15			;; extract width (0..15)
-		jr z,_me_bottom
+		jr z,_me_bottom		;; if width is zero then skip right edge
 		ld b,d			;; ld b,16
 _me_right_loop	ld l,a
 		ld (hl),e
 		add a,d			;; add a,16
 		djnz _me_right_loop
-_me_bottom	;; if maze height is less than 16 then mark bottom edge
-		ld a,c
+_me_bottom	ld a,c
 		and 15 * 16		;; extract height (0..15) multiplied by 16
-		ret z
+		ret z			;; if height is zero then skip bottom edge
 		ld b,d			;; ld b,16
 		ld l,a
 _me_bottom_loop	ld (hl),e
