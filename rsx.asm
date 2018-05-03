@@ -30,16 +30,19 @@ jump_table	defw name_table		;; pointer to name-table
 ;; |MAZEGEN,width%,height%,@addr%
 rsx_maze_gen	cp 3				;; check we have expected number of params
 		ret nz
-		ld a,(ix+4)			;; load (low byte of) first parameter into A
-		ld (maze_width),a		;; set maze width
-		ld a,(ix+2)			;; load (low byte of) second parameter into A
-		ld (maze_height),a		;; set maze height
 		ld h,(ix+1)			;; load HL with third parameter (address of integer return var)
 		ld l,(ix+0)
-		ld (hl),maze_data mod 256	;; write maze address (high byte)
+		ld (hl),maze_data mod 256	;; write maze address (low byte)
 		inc hl
-		ld (hl),maze_data / 256		;; write maze address (low byte)
-		jp maze_generate		;; generate the maze
+		ld (hl),maze_data / 256		;; write maze address (high byte)
+						;; A = height * 16 + width
+		ld a,(ix+2)			;; load (low byte of) second parameter (ie height)
+		rlca:rlca:rlca:rlca		;; shift height to top 4 bits of A
+		or (ix+4)			;; add (low byte of) first parameter (ie width)
+		di				;; disable interrupts (just so we can get accurate timing)
+		call maze_generate		;; generate the maze
+		ei
+		ret
 
 ;; |MAZEROT,x%,y%
 rsx_maze_rot	cp 2

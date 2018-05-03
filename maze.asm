@@ -32,6 +32,8 @@ maze_rotate	ld h,maze_data / 256
 		ret
 
 ;; generate maze. Before calling this, set bytes at maze_width and maze_height to size maze
+;; entry:
+;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
 ;; modifies:
 ;;	A,BC.DE,HL
 maze_generate	call maze_reset
@@ -92,30 +94,28 @@ maze_reset	ld hl,maze_data
 		ret
 
 ;; mark rooms to right and bottom of maze as "visited"
+;; entry:
+;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
 ;; modifies:
-;;	A,BC,D,HL
+;;	A,BC,DE,HL
 maze_edges	ld h,maze_data / 256
-		ld c,exits_all + room_visited	;; value we're going to use to mark "visited" rooms
-		ld d,16			;; we'll be using 16 a lot, so store it in D register
+		ld de,16 * 256 + exits_all + room_visited	;; ld d,16, ld e,"visited"
+		ld c,a			;; keep copy of original maze dimensions
 		;; if maze width is less than 16 then mark column to right of maze as "visited"
-maze_width equ $+1
-		ld a,16			;; default maze width is 16. value will be overwritten!
-		and 15			;; limit width to range 0..15
+		and 15			;; extract width (0..15)
 		jr z,_me_bottom
 		ld b,d			;; ld b,16
 _me_right_loop	ld l,a
-		ld (hl),c
+		ld (hl),e
 		add a,d			;; add a,16
 		djnz _me_right_loop
 _me_bottom	;; if maze height is less than 16 then mark bottom edge
-maze_height equ $+1
-		ld a,16			;; default maze height is 16. value will be overwritten!
-		and 15			;; limit height to range 0..15
+		ld a,c
+		and 15 * 16		;; extract height (0..15) multiplied by 16
 		ret z
-		rlca:rlca:rlca:rlca	;; multiply A by 16
-		ld l,a
 		ld b,d			;; ld b,16
-_me_bottom_loop	ld (hl),c
+		ld l,a
+_me_bottom_loop	ld (hl),e
 		inc l
 		djnz _me_bottom_loop
 		ret
@@ -222,11 +222,6 @@ choose_random_index
 		jr z,mod_3		;; then get C mod 3
 		and c			;; otherwise (max index is 1 or 3)
 		ret			;; return random AND max-index
-
-;; get a random number (1 byte - 0..255)
-;; exit:
-;;	A: the random number
-get_random	ret
 
 ;; https://www.cemetech.net/forum/viewtopic.php?t=12784
 ;; entry:
