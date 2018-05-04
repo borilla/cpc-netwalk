@@ -36,7 +36,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-00-0001",
+        "_name": "S_0_00_0001",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -52,7 +52,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-01-0001",
+        "_name": "S_0_01_0001",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -68,7 +68,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-10-0001",
+        "_name": "S_0_10_0001",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -84,7 +84,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-11-0001",
+        "_name": "S_0_11_0001",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -100,7 +100,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-00-0010",
+        "_name": "S_0_00_0010",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -116,7 +116,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-01-0010",
+        "_name": "S_0_01_0010",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -132,7 +132,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-10-0010",
+        "_name": "S_0_10_0010",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -148,7 +148,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-11-0010",
+        "_name": "S_0_11_0010",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -164,7 +164,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-0011",
+        "_name": "S_0_00_0011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -180,7 +180,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-0011",
+        "_name": "S_0_01_0011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -196,7 +196,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-0011",
+        "_name": "S_0_10_0011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -212,7 +212,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-0011",
+        "_name": "S_0_11_0011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -228,7 +228,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-00-0100",
+        "_name": "S_0_00_0100",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -244,7 +244,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-01-0100",
+        "_name": "S_0_01_0100",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -260,7 +260,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-10-0100",
+        "_name": "S_0_10_0100",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -276,7 +276,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-11-0100",
+        "_name": "S_0_11_0100",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -292,7 +292,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-0101",
+        "_name": "S_0_00_0101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -308,7 +308,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-0101",
+        "_name": "S_0_01_0101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -324,7 +324,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-0101",
+        "_name": "S_0_10_0101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -340,7 +340,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-0101",
+        "_name": "S_0_11_0101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -356,7 +356,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-0110",
+        "_name": "S_0_00_0110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -372,7 +372,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-0110",
+        "_name": "S_0_01_0110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -388,7 +388,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-0110",
+        "_name": "S_0_10_0110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -404,7 +404,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-0110",
+        "_name": "S_0_11_0110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -420,7 +420,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-0111",
+        "_name": "S_0_00_0111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -436,7 +436,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-0111",
+        "_name": "S_0_01_0111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -452,7 +452,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-0111",
+        "_name": "S_0_10_0111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -468,7 +468,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-0111",
+        "_name": "S_0_11_0111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -484,7 +484,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-00-1000",
+        "_name": "S_0_00_1000",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -500,7 +500,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-01-1000",
+        "_name": "S_0_01_1000",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -516,7 +516,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-10-1000",
+        "_name": "S_0_10_1000",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -532,7 +532,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-0-11-1000",
+        "_name": "S_0_11_1000",
         "MaskDataInline": false,
         "UseInLevelDesigner": false
       },
@@ -548,7 +548,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1001",
+        "_name": "S_0_00_1001",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -564,7 +564,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1001",
+        "_name": "S_0_01_1001",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -580,7 +580,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1001",
+        "_name": "S_0_10_1001",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -596,7 +596,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1001",
+        "_name": "S_0_11_1001",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -612,7 +612,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1010",
+        "_name": "S_0_00_1010",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -628,7 +628,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1010",
+        "_name": "S_0_01_1010",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -644,7 +644,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1010",
+        "_name": "S_0_10_1010",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -660,7 +660,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1010",
+        "_name": "S_0_11_1010",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -676,7 +676,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1011",
+        "_name": "S_0_00_1011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -692,7 +692,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1011",
+        "_name": "S_0_01_1011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -708,7 +708,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1011",
+        "_name": "S_0_10_1011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -724,7 +724,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1011",
+        "_name": "S_0_11_1011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -740,7 +740,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1100",
+        "_name": "S_0_00_1100",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -756,7 +756,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1100",
+        "_name": "S_0_01_1100",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -772,7 +772,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1100",
+        "_name": "S_0_10_1100",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -788,7 +788,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1100",
+        "_name": "S_0_11_1100",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -804,7 +804,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1101",
+        "_name": "S_0_00_1101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -820,7 +820,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1101",
+        "_name": "S_0_01_1101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -836,7 +836,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1101",
+        "_name": "S_0_10_1101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -852,7 +852,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1101",
+        "_name": "S_0_11_1101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -868,7 +868,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1110",
+        "_name": "S_0_00_1110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -884,7 +884,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1110",
+        "_name": "S_0_01_1110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -900,7 +900,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1110",
+        "_name": "S_0_10_1110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -916,7 +916,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1110",
+        "_name": "S_0_11_1110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -932,7 +932,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-00-1111",
+        "_name": "S_0_00_1111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -948,7 +948,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-01-1111",
+        "_name": "S_0_01_1111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -964,7 +964,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-10-1111",
+        "_name": "S_0_10_1111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -980,7 +980,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-0-11-1111",
+        "_name": "S_0_11_1111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -996,7 +996,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-1-00-0001",
+        "_name": "S_1_00_0001",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1012,7 +1012,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-1-00-0010",
+        "_name": "S_1_00_0010",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1028,7 +1028,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-0011",
+        "_name": "S_1_00_0011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1044,7 +1044,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-1-00-0100",
+        "_name": "S_1_00_0100",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1060,7 +1060,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-0101",
+        "_name": "S_1_00_0101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1076,7 +1076,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-0110",
+        "_name": "S_1_00_0110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1092,7 +1092,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-0111",
+        "_name": "S_1_00_0111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1108,7 +1108,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "588cef21-04ee-47d2-9f8d-79237eba2233",
-        "_name": "S-1-00-1000",
+        "_name": "S_1_00_1000",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1124,7 +1124,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1001",
+        "_name": "S_1_00_1001",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1140,7 +1140,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1010",
+        "_name": "S_1_00_1010",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1156,7 +1156,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1011",
+        "_name": "S_1_00_1011",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1172,7 +1172,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1100",
+        "_name": "S_1_00_1100",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1188,7 +1188,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1101",
+        "_name": "S_1_00_1101",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1204,7 +1204,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1110",
+        "_name": "S_1_00_1110",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -1220,7 +1220,7 @@
         "Width": 16,
         "Height": 16,
         "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
-        "_name": "S-1-00-1111",
+        "_name": "S_1_00_1111",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
