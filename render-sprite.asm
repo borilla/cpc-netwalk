@@ -25,14 +25,14 @@ setup_screen	wait_for_vsync
 ;; entry:
 ;;	DE: screen address (of top-left of sprite)
 ;;	HL: sprite data
-render_sprite	ld c,&3d + 24				;; we want C to equal &3d after 24 LDI instructions
+render_sprite	ld bc,&800 + &3d + 24			;; we want C to equal &3d after 24 LDI instructions
 		call _render_half_sprite
 		ld b,&c8				;; add de,&c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
+		ld b,8
 _render_half_sprite
-		ld b,8					;; [2]
 repeat 7
 		ldi:ldi:ldi				;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l		;; [5] copy byte
