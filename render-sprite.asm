@@ -71,7 +71,7 @@ cell_screen_addr
 
 ;; get sprite address from its index (i * 64 + base)
 ;; entry:
-;;	A: sprite index (0..74)
+;;	A: sprite index (0..79)
 ;; exit:
 ;;	A: same as H
 ;;	HL: sprite address

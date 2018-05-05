@@ -1,3 +1,23 @@
+
+.S_0_00_0000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &00,&00,&00,&00; line 4
+defb &00,&00,&00,&00; line 5
+defb &00,&00,&00,&00; line 6
+defb &00,&00,&00,&00; line 7
+defb &00,&00,&00,&00; line 8
+defb &00,&00,&00,&00; line 9
+defb &00,&00,&00,&00; line 10
+defb &00,&00,&00,&00; line 11
+defb &00,&00,&00,&00; line 12
+defb &00,&00,&00,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
+
+
 .S_0_00_0001
 defb &00,&00,&00,&00; line 0
 defb &00,&20,&40,&10; line 1
@@ -7,63 +27,6 @@ defb &10,&F0,&F0,&90; line 4
 defb &10,&00,&00,&90; line 5
 defb &10,&20,&40,&90; line 6
 defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_0001
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0001
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&90; line 2
-defb &00,&00,&10,&10; line 3
-defb &10,&F0,&F0,&B0; line 4
-defb &10,&00,&00,&D0; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0001
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&D0; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&F0; line 7
 defb &10,&20,&40,&90; line 8
 defb &10,&00,&00,&90; line 9
 defb &10,&F0,&F0,&90; line 10
@@ -93,63 +56,6 @@ defb &00,&00,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_01_0010
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&F0; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&D0,&90; line 11
-defb &00,&70,&E0,&70; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0010
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&D0; line 11
-defb &00,&70,&E0,&30; line 12
-defb &00,&70,&F0,&10; line 13
-defb &00,&00,&00,&90; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0010
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&F0,&10; line 13
-defb &00,&00,&90,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_00_0011
 defb &00,&00,&00,&00; line 0
 defb &00,&20,&40,&10; line 1
@@ -166,63 +72,6 @@ defb &00,&00,&00,&10; line 11
 defb &00,&00,&00,&10; line 12
 defb &00,&00,&00,&10; line 13
 defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_0011
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &00,&00,&90,&10; line 4
-defb &00,&00,&90,&10; line 5
-defb &00,&10,&20,&10; line 6
-defb &00,&10,&20,&10; line 7
-defb &00,&20,&10,&90; line 8
-defb &00,&10,&80,&70; line 9
-defb &00,&00,&60,&10; line 10
-defb &00,&00,&10,&90; line 11
-defb &00,&00,&00,&70; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0011
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&90; line 2
-defb &00,&00,&10,&10; line 3
-defb &00,&00,&30,&30; line 4
-defb &00,&00,&40,&50; line 5
-defb &00,&00,&80,&90; line 6
-defb &00,&10,&90,&10; line 7
-defb &00,&20,&20,&10; line 8
-defb &00,&10,&10,&10; line 9
-defb &00,&00,&80,&90; line 10
-defb &00,&00,&60,&50; line 11
-defb &00,&00,&20,&30; line 12
-defb &00,&00,&10,&10; line 13
-defb &00,&00,&00,&90; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0011
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&D0; line 4
-defb &00,&00,&30,&10; line 5
-defb &00,&00,&C0,&30; line 6
-defb &00,&30,&00,&D0; line 7
-defb &00,&40,&30,&10; line 8
-defb &00,&20,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&10,&20,&10; line 11
-defb &00,&10,&20,&10; line 12
-defb &00,&00,&90,&10; line 13
-defb &00,&00,&90,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
@@ -245,63 +94,6 @@ defb &00,&20,&40,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_01_0100
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&F0,&E0,&10; line 13
-defb &00,&90,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0100
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &10,&30,&C0,&10; line 11
-defb &20,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&80,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0100
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &70,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &10,&B0,&C0,&10; line 11
-defb &60,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_00_0101
 defb &00,&00,&00,&00; line 0
 defb &00,&00,&00,&10; line 1
@@ -318,63 +110,6 @@ defb &00,&00,&00,&10; line 11
 defb &00,&00,&00,&10; line 12
 defb &00,&00,&00,&10; line 13
 defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_0101
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &30,&00,&00,&10; line 4
-defb &00,&C0,&00,&10; line 5
-defb &00,&30,&00,&10; line 6
-defb &60,&00,&E0,&10; line 7
-defb &10,&C0,&10,&90; line 8
-defb &00,&30,&00,&70; line 9
-defb &00,&00,&C0,&10; line 10
-defb &00,&00,&30,&90; line 11
-defb &00,&00,&00,&70; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0101
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&80,&00,&10; line 2
-defb &00,&40,&00,&10; line 3
-defb &20,&20,&00,&10; line 4
-defb &10,&90,&00,&10; line 5
-defb &00,&90,&80,&10; line 6
-defb &00,&40,&40,&10; line 7
-defb &00,&20,&20,&10; line 8
-defb &00,&10,&90,&10; line 9
-defb &00,&00,&80,&90; line 10
-defb &00,&00,&40,&D0; line 11
-defb &00,&00,&20,&30; line 12
-defb &00,&00,&10,&10; line 13
-defb &00,&00,&00,&90; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0101
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &00,&90,&00,&10; line 4
-defb &00,&90,&00,&10; line 5
-defb &00,&40,&80,&10; line 6
-defb &00,&40,&80,&10; line 7
-defb &00,&40,&40,&10; line 8
-defb &00,&20,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&10,&20,&10; line 11
-defb &00,&10,&20,&10; line 12
-defb &00,&00,&90,&10; line 13
-defb &00,&00,&90,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
@@ -397,63 +132,6 @@ defb &00,&20,&40,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_01_0110
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&10; line 4
-defb &00,&00,&00,&10; line 5
-defb &00,&00,&80,&10; line 6
-defb &00,&10,&60,&10; line 7
-defb &00,&10,&10,&90; line 8
-defb &00,&20,&00,&70; line 9
-defb &00,&20,&60,&10; line 10
-defb &00,&40,&90,&90; line 11
-defb &00,&40,&80,&70; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0110
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&10; line 4
-defb &00,&00,&00,&10; line 5
-defb &00,&00,&80,&10; line 6
-defb &00,&10,&40,&10; line 7
-defb &00,&20,&60,&10; line 8
-defb &00,&40,&10,&10; line 9
-defb &00,&C0,&80,&90; line 10
-defb &10,&10,&40,&D0; line 11
-defb &20,&20,&20,&30; line 12
-defb &00,&40,&10,&10; line 13
-defb &00,&80,&00,&90; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0110
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&10; line 4
-defb &00,&00,&00,&10; line 5
-defb &00,&10,&80,&10; line 6
-defb &00,&60,&40,&10; line 7
-defb &10,&80,&40,&10; line 8
-defb &60,&00,&40,&10; line 9
-defb &00,&70,&20,&10; line 10
-defb &10,&90,&20,&10; line 11
-defb &60,&10,&20,&10; line 12
-defb &00,&00,&90,&10; line 13
-defb &00,&00,&90,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_00_0111
 defb &00,&00,&00,&00; line 0
 defb &00,&20,&40,&10; line 1
@@ -473,63 +151,6 @@ defb &00,&20,&40,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_01_0111
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &00,&00,&90,&10; line 4
-defb &00,&00,&90,&10; line 5
-defb &00,&10,&20,&10; line 6
-defb &00,&10,&20,&10; line 7
-defb &00,&10,&10,&90; line 8
-defb &00,&20,&00,&70; line 9
-defb &00,&20,&60,&10; line 10
-defb &00,&40,&90,&90; line 11
-defb &00,&40,&80,&70; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_0111
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&90; line 2
-defb &00,&00,&10,&10; line 3
-defb &00,&00,&30,&30; line 4
-defb &00,&00,&40,&50; line 5
-defb &00,&00,&80,&90; line 6
-defb &00,&10,&90,&10; line 7
-defb &00,&20,&20,&10; line 8
-defb &00,&40,&10,&10; line 9
-defb &00,&C0,&80,&90; line 10
-defb &10,&10,&40,&D0; line 11
-defb &20,&20,&20,&30; line 12
-defb &00,&40,&10,&10; line 13
-defb &00,&80,&00,&90; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_0111
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&D0; line 4
-defb &00,&00,&30,&10; line 5
-defb &00,&00,&C0,&10; line 6
-defb &00,&70,&00,&70; line 7
-defb &10,&80,&10,&90; line 8
-defb &60,&00,&60,&10; line 9
-defb &00,&60,&40,&10; line 10
-defb &10,&90,&20,&10; line 11
-defb &60,&10,&20,&10; line 12
-defb &00,&00,&90,&10; line 13
-defb &00,&00,&90,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_00_1000
 defb &00,&00,&00,&00; line 0
 defb &00,&00,&00,&10; line 1
@@ -541,63 +162,6 @@ defb &70,&20,&40,&90; line 6
 defb &10,&50,&A0,&90; line 7
 defb &10,&20,&40,&90; line 8
 defb &70,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1000
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &30,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &70,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_10_1000
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&80,&00,&10; line 2
-defb &00,&40,&00,&10; line 3
-defb &30,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_1000
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
 defb &10,&F0,&F0,&90; line 10
 defb &00,&30,&C0,&10; line 11
 defb &00,&70,&E0,&10; line 12
@@ -625,6 +189,291 @@ defb &00,&00,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
+.S_0_00_1010
+defb &00,&00,&00,&00; line 0
+defb &00,&20,&40,&10; line 1
+defb &00,&20,&40,&10; line 2
+defb &00,&20,&40,&10; line 3
+defb &00,&20,&40,&10; line 4
+defb &00,&20,&40,&10; line 5
+defb &00,&20,&40,&10; line 6
+defb &00,&20,&40,&10; line 7
+defb &00,&20,&40,&10; line 8
+defb &00,&20,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&20,&40,&10; line 11
+defb &00,&20,&40,&10; line 12
+defb &00,&20,&40,&10; line 13
+defb &00,&20,&40,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_00_1011
+defb &00,&00,&00,&00; line 0
+defb &00,&20,&40,&10; line 1
+defb &00,&20,&40,&10; line 2
+defb &00,&20,&40,&10; line 3
+defb &00,&20,&40,&10; line 4
+defb &00,&20,&40,&10; line 5
+defb &70,&E0,&70,&F0; line 6
+defb &00,&00,&00,&10; line 7
+defb &00,&00,&00,&10; line 8
+defb &70,&F0,&F0,&F0; line 9
+defb &00,&00,&00,&10; line 10
+defb &00,&00,&00,&10; line 11
+defb &00,&00,&00,&10; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_00_1100
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&10; line 4
+defb &00,&00,&00,&10; line 5
+defb &70,&F0,&C0,&10; line 6
+defb &00,&00,&40,&10; line 7
+defb &00,&00,&40,&10; line 8
+defb &70,&E0,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&20,&40,&10; line 11
+defb &00,&20,&40,&10; line 12
+defb &00,&20,&40,&10; line 13
+defb &00,&20,&40,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_00_1101
+defb &00,&00,&00,&00; line 0
+defb &00,&20,&40,&10; line 1
+defb &00,&20,&40,&10; line 2
+defb &00,&20,&40,&10; line 3
+defb &00,&20,&40,&10; line 4
+defb &00,&20,&40,&10; line 5
+defb &70,&E0,&40,&10; line 6
+defb &00,&00,&40,&10; line 7
+defb &00,&00,&40,&10; line 8
+defb &70,&E0,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&20,&40,&10; line 11
+defb &00,&20,&40,&10; line 12
+defb &00,&20,&40,&10; line 13
+defb &00,&20,&40,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_00_1110
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&10; line 4
+defb &00,&00,&00,&10; line 5
+defb &70,&F0,&F0,&F0; line 6
+defb &00,&00,&00,&10; line 7
+defb &00,&00,&00,&10; line 8
+defb &70,&E0,&70,&F0; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&20,&40,&10; line 11
+defb &00,&20,&40,&10; line 12
+defb &00,&20,&40,&10; line 13
+defb &00,&20,&40,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_00_1111
+defb &00,&00,&00,&00; line 0
+defb &00,&20,&40,&10; line 1
+defb &00,&20,&40,&10; line 2
+defb &00,&20,&40,&10; line 3
+defb &00,&20,&40,&10; line 4
+defb &00,&20,&40,&10; line 5
+defb &70,&E0,&70,&F0; line 6
+defb &00,&00,&00,&10; line 7
+defb &00,&00,&00,&10; line 8
+defb &70,&E0,&70,&F0; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&20,&40,&10; line 11
+defb &00,&20,&40,&10; line 12
+defb &00,&20,&40,&10; line 13
+defb &00,&20,&40,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &00,&00,&00,&00; line 4
+defb &00,&00,&00,&00; line 5
+defb &00,&00,&00,&00; line 6
+defb &00,&00,&00,&00; line 7
+defb &00,&00,&00,&00; line 8
+defb &00,&00,&00,&00; line 9
+defb &00,&00,&00,&00; line 10
+defb &00,&00,&00,&00; line 11
+defb &00,&00,&00,&00; line 12
+defb &00,&00,&00,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
+
+
+.S_0_01_0001
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0010
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&F0; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&D0,&90; line 11
+defb &00,&70,&E0,&70; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0011
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &00,&00,&90,&10; line 4
+defb &00,&00,&90,&10; line 5
+defb &00,&10,&20,&10; line 6
+defb &00,&10,&20,&10; line 7
+defb &00,&20,&10,&90; line 8
+defb &00,&10,&80,&70; line 9
+defb &00,&00,&60,&10; line 10
+defb &00,&00,&10,&90; line 11
+defb &00,&00,&00,&70; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0100
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&F0,&E0,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0101
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &30,&00,&00,&10; line 4
+defb &00,&C0,&00,&10; line 5
+defb &00,&30,&00,&10; line 6
+defb &60,&00,&E0,&10; line 7
+defb &10,&C0,&10,&90; line 8
+defb &00,&30,&00,&70; line 9
+defb &00,&00,&C0,&10; line 10
+defb &00,&00,&30,&90; line 11
+defb &00,&00,&00,&70; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0110
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&10; line 4
+defb &00,&00,&00,&10; line 5
+defb &00,&00,&80,&10; line 6
+defb &00,&10,&60,&10; line 7
+defb &00,&10,&10,&90; line 8
+defb &00,&20,&00,&70; line 9
+defb &00,&20,&60,&10; line 10
+defb &00,&40,&90,&90; line 11
+defb &00,&40,&80,&70; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_0111
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &00,&00,&90,&10; line 4
+defb &00,&00,&90,&10; line 5
+defb &00,&10,&20,&10; line 6
+defb &00,&10,&20,&10; line 7
+defb &00,&10,&10,&90; line 8
+defb &00,&20,&00,&70; line 9
+defb &00,&20,&60,&10; line 10
+defb &00,&40,&90,&90; line 11
+defb &00,&40,&80,&70; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &30,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &70,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
 .S_0_01_1001
 defb &00,&00,&00,&00; line 0
 defb &00,&00,&20,&10; line 1
@@ -640,6 +489,291 @@ defb &00,&10,&80,&10; line 10
 defb &00,&00,&00,&10; line 11
 defb &00,&00,&00,&10; line 12
 defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1010
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &00,&00,&90,&10; line 4
+defb &00,&00,&90,&10; line 5
+defb &00,&10,&20,&10; line 6
+defb &00,&10,&20,&10; line 7
+defb &00,&10,&20,&10; line 8
+defb &00,&20,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&40,&80,&10; line 11
+defb &00,&40,&80,&10; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1011
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &30,&00,&90,&10; line 4
+defb &00,&C0,&90,&10; line 5
+defb &00,&30,&20,&10; line 6
+defb &60,&00,&20,&10; line 7
+defb &10,&C0,&10,&90; line 8
+defb &00,&30,&00,&70; line 9
+defb &00,&00,&E0,&10; line 10
+defb &00,&00,&10,&90; line 11
+defb &00,&00,&00,&70; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1100
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &30,&00,&00,&10; line 4
+defb &00,&C0,&00,&10; line 5
+defb &00,&30,&00,&10; line 6
+defb &60,&00,&C0,&10; line 7
+defb &10,&80,&20,&10; line 8
+defb &00,&60,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&40,&80,&10; line 11
+defb &00,&40,&80,&10; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1101
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &30,&00,&90,&10; line 4
+defb &00,&C0,&90,&10; line 5
+defb &00,&30,&20,&10; line 6
+defb &60,&00,&20,&10; line 7
+defb &10,&80,&40,&10; line 8
+defb &00,&60,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&40,&80,&10; line 11
+defb &00,&40,&80,&10; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1110
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &30,&00,&00,&10; line 4
+defb &00,&C0,&00,&10; line 5
+defb &00,&30,&80,&10; line 6
+defb &60,&00,&60,&10; line 7
+defb &10,&80,&10,&90; line 8
+defb &00,&60,&00,&70; line 9
+defb &00,&20,&60,&10; line 10
+defb &00,&40,&90,&90; line 11
+defb &00,&40,&80,&70; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_01_1111
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&20,&10; line 1
+defb &00,&00,&40,&90; line 2
+defb &00,&00,&40,&90; line 3
+defb &30,&00,&90,&10; line 4
+defb &00,&C0,&90,&10; line 5
+defb &00,&30,&20,&10; line 6
+defb &60,&00,&20,&10; line 7
+defb &10,&80,&10,&90; line 8
+defb &00,&60,&00,&70; line 9
+defb &00,&20,&60,&10; line 10
+defb &00,&40,&90,&90; line 11
+defb &00,&40,&80,&70; line 12
+defb &00,&90,&00,&10; line 13
+defb &00,&90,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &00,&00,&00,&00; line 4
+defb &00,&00,&00,&00; line 5
+defb &00,&00,&00,&00; line 6
+defb &00,&00,&00,&00; line 7
+defb &00,&00,&00,&00; line 8
+defb &00,&00,&00,&00; line 9
+defb &00,&00,&00,&00; line 10
+defb &00,&00,&00,&00; line 11
+defb &00,&00,&00,&00; line 12
+defb &00,&00,&00,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
+
+
+.S_0_10_0001
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&90; line 2
+defb &00,&00,&10,&10; line 3
+defb &10,&F0,&F0,&B0; line 4
+defb &10,&00,&00,&D0; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0010
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&D0; line 11
+defb &00,&70,&E0,&30; line 12
+defb &00,&70,&F0,&10; line 13
+defb &00,&00,&00,&90; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0011
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&90; line 2
+defb &00,&00,&10,&10; line 3
+defb &00,&00,&30,&30; line 4
+defb &00,&00,&40,&50; line 5
+defb &00,&00,&80,&90; line 6
+defb &00,&10,&90,&10; line 7
+defb &00,&20,&20,&10; line 8
+defb &00,&10,&10,&10; line 9
+defb &00,&00,&80,&90; line 10
+defb &00,&00,&60,&50; line 11
+defb &00,&00,&20,&30; line 12
+defb &00,&00,&10,&10; line 13
+defb &00,&00,&00,&90; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0100
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &10,&30,&C0,&10; line 11
+defb &20,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&80,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0101
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&80,&00,&10; line 2
+defb &00,&40,&00,&10; line 3
+defb &20,&20,&00,&10; line 4
+defb &10,&90,&00,&10; line 5
+defb &00,&90,&80,&10; line 6
+defb &00,&40,&40,&10; line 7
+defb &00,&20,&20,&10; line 8
+defb &00,&10,&90,&10; line 9
+defb &00,&00,&80,&90; line 10
+defb &00,&00,&40,&D0; line 11
+defb &00,&00,&20,&30; line 12
+defb &00,&00,&10,&10; line 13
+defb &00,&00,&00,&90; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0110
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&10; line 4
+defb &00,&00,&00,&10; line 5
+defb &00,&00,&80,&10; line 6
+defb &00,&10,&40,&10; line 7
+defb &00,&20,&60,&10; line 8
+defb &00,&40,&10,&10; line 9
+defb &00,&C0,&80,&90; line 10
+defb &10,&10,&40,&D0; line 11
+defb &20,&20,&20,&30; line 12
+defb &00,&40,&10,&10; line 13
+defb &00,&80,&00,&90; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_0111
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&90; line 2
+defb &00,&00,&10,&10; line 3
+defb &00,&00,&30,&30; line 4
+defb &00,&00,&40,&50; line 5
+defb &00,&00,&80,&90; line 6
+defb &00,&10,&90,&10; line 7
+defb &00,&20,&20,&10; line 8
+defb &00,&40,&10,&10; line 9
+defb &00,&C0,&80,&90; line 10
+defb &10,&10,&40,&D0; line 11
+defb &20,&20,&20,&30; line 12
+defb &00,&40,&10,&10; line 13
+defb &00,&80,&00,&90; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_10_1000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&80,&00,&10; line 2
+defb &00,&40,&00,&10; line 3
+defb &30,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
 defb &00,&00,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
@@ -663,63 +797,6 @@ defb &00,&00,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_11_1001
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &00,&90,&00,&D0; line 4
-defb &00,&90,&30,&10; line 5
-defb &00,&40,&C0,&30; line 6
-defb &00,&40,&00,&D0; line 7
-defb &00,&20,&30,&10; line 8
-defb &00,&20,&C0,&10; line 9
-defb &00,&10,&00,&10; line 10
-defb &00,&00,&00,&10; line 11
-defb &00,&00,&00,&10; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_00_1010
-defb &00,&00,&00,&00; line 0
-defb &00,&20,&40,&10; line 1
-defb &00,&20,&40,&10; line 2
-defb &00,&20,&40,&10; line 3
-defb &00,&20,&40,&10; line 4
-defb &00,&20,&40,&10; line 5
-defb &00,&20,&40,&10; line 6
-defb &00,&20,&40,&10; line 7
-defb &00,&20,&40,&10; line 8
-defb &00,&20,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&20,&40,&10; line 11
-defb &00,&20,&40,&10; line 12
-defb &00,&20,&40,&10; line 13
-defb &00,&20,&40,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1010
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &00,&00,&90,&10; line 4
-defb &00,&00,&90,&10; line 5
-defb &00,&10,&20,&10; line 6
-defb &00,&10,&20,&10; line 7
-defb &00,&10,&20,&10; line 8
-defb &00,&20,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&40,&80,&10; line 11
-defb &00,&40,&80,&10; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_10_1010
 defb &00,&00,&00,&00; line 0
 defb &00,&00,&00,&10; line 1
@@ -736,63 +813,6 @@ defb &10,&10,&00,&10; line 11
 defb &20,&60,&00,&10; line 12
 defb &00,&40,&00,&10; line 13
 defb &00,&80,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_1010
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&D0; line 4
-defb &00,&00,&30,&10; line 5
-defb &00,&00,&C0,&10; line 6
-defb &00,&70,&00,&70; line 7
-defb &10,&80,&30,&90; line 8
-defb &60,&00,&C0,&10; line 9
-defb &00,&30,&00,&10; line 10
-defb &10,&C0,&00,&10; line 11
-defb &60,&00,&00,&10; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_00_1011
-defb &00,&00,&00,&00; line 0
-defb &00,&20,&40,&10; line 1
-defb &00,&20,&40,&10; line 2
-defb &00,&20,&40,&10; line 3
-defb &00,&20,&40,&10; line 4
-defb &00,&20,&40,&10; line 5
-defb &70,&E0,&70,&F0; line 6
-defb &00,&00,&00,&10; line 7
-defb &00,&00,&00,&10; line 8
-defb &70,&F0,&F0,&F0; line 9
-defb &00,&00,&00,&10; line 10
-defb &00,&00,&00,&10; line 11
-defb &00,&00,&00,&10; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1011
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &30,&00,&90,&10; line 4
-defb &00,&C0,&90,&10; line 5
-defb &00,&30,&20,&10; line 6
-defb &60,&00,&20,&10; line 7
-defb &10,&C0,&10,&90; line 8
-defb &00,&30,&00,&70; line 9
-defb &00,&00,&E0,&10; line 10
-defb &00,&00,&10,&90; line 11
-defb &00,&00,&00,&70; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
@@ -815,63 +835,6 @@ defb &00,&00,&00,&90; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_11_1011
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &00,&90,&00,&D0; line 4
-defb &00,&90,&30,&10; line 5
-defb &00,&40,&C0,&10; line 6
-defb &00,&40,&00,&70; line 7
-defb &00,&20,&10,&90; line 8
-defb &00,&20,&60,&10; line 9
-defb &00,&10,&40,&10; line 10
-defb &00,&10,&20,&10; line 11
-defb &00,&10,&20,&10; line 12
-defb &00,&00,&90,&10; line 13
-defb &00,&00,&90,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_00_1100
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&10; line 4
-defb &00,&00,&00,&10; line 5
-defb &70,&F0,&C0,&10; line 6
-defb &00,&00,&40,&10; line 7
-defb &00,&00,&40,&10; line 8
-defb &70,&E0,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&20,&40,&10; line 11
-defb &00,&20,&40,&10; line 12
-defb &00,&20,&40,&10; line 13
-defb &00,&20,&40,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1100
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &30,&00,&00,&10; line 4
-defb &00,&C0,&00,&10; line 5
-defb &00,&30,&00,&10; line 6
-defb &60,&00,&C0,&10; line 7
-defb &10,&80,&20,&10; line 8
-defb &00,&60,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&40,&80,&10; line 11
-defb &00,&40,&80,&10; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_10_1100
 defb &00,&00,&00,&00; line 0
 defb &00,&00,&00,&10; line 1
@@ -888,63 +851,6 @@ defb &10,&90,&00,&10; line 11
 defb &20,&20,&00,&10; line 12
 defb &00,&40,&00,&10; line 13
 defb &00,&80,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_1100
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &00,&90,&00,&10; line 4
-defb &00,&90,&00,&10; line 5
-defb &00,&40,&80,&10; line 6
-defb &00,&40,&80,&10; line 7
-defb &10,&80,&40,&10; line 8
-defb &60,&10,&80,&10; line 9
-defb &00,&60,&00,&10; line 10
-defb &10,&80,&00,&10; line 11
-defb &60,&00,&00,&10; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_00_1101
-defb &00,&00,&00,&00; line 0
-defb &00,&20,&40,&10; line 1
-defb &00,&20,&40,&10; line 2
-defb &00,&20,&40,&10; line 3
-defb &00,&20,&40,&10; line 4
-defb &00,&20,&40,&10; line 5
-defb &70,&E0,&40,&10; line 6
-defb &00,&00,&40,&10; line 7
-defb &00,&00,&40,&10; line 8
-defb &70,&E0,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&20,&40,&10; line 11
-defb &00,&20,&40,&10; line 12
-defb &00,&20,&40,&10; line 13
-defb &00,&20,&40,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1101
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &30,&00,&90,&10; line 4
-defb &00,&C0,&90,&10; line 5
-defb &00,&30,&20,&10; line 6
-defb &60,&00,&20,&10; line 7
-defb &10,&80,&40,&10; line 8
-defb &00,&60,&40,&10; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&40,&80,&10; line 11
-defb &00,&40,&80,&10; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
@@ -967,63 +873,6 @@ defb &00,&80,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
-.S_0_11_1101
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &00,&90,&00,&D0; line 4
-defb &00,&90,&30,&10; line 5
-defb &00,&40,&C0,&30; line 6
-defb &00,&40,&00,&D0; line 7
-defb &10,&80,&30,&10; line 8
-defb &60,&10,&C0,&10; line 9
-defb &00,&60,&00,&10; line 10
-defb &10,&80,&00,&10; line 11
-defb &60,&00,&00,&10; line 12
-defb &00,&00,&00,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_00_1110
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &00,&00,&00,&10; line 4
-defb &00,&00,&00,&10; line 5
-defb &70,&F0,&F0,&F0; line 6
-defb &00,&00,&00,&10; line 7
-defb &00,&00,&00,&10; line 8
-defb &70,&E0,&70,&F0; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&20,&40,&10; line 11
-defb &00,&20,&40,&10; line 12
-defb &00,&20,&40,&10; line 13
-defb &00,&20,&40,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1110
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &30,&00,&00,&10; line 4
-defb &00,&C0,&00,&10; line 5
-defb &00,&30,&80,&10; line 6
-defb &60,&00,&60,&10; line 7
-defb &10,&80,&10,&90; line 8
-defb &00,&60,&00,&70; line 9
-defb &00,&20,&60,&10; line 10
-defb &00,&40,&90,&90; line 11
-defb &00,&40,&80,&70; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
 .S_0_10_1110
 defb &00,&00,&00,&00; line 0
 defb &00,&00,&00,&10; line 1
@@ -1040,63 +889,6 @@ defb &10,&10,&40,&D0; line 11
 defb &20,&20,&20,&30; line 12
 defb &00,&40,&10,&10; line 13
 defb &00,&80,&00,&90; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_11_1110
-defb &00,&00,&00,&00; line 0
-defb &00,&40,&00,&10; line 1
-defb &10,&20,&00,&10; line 2
-defb &10,&20,&00,&10; line 3
-defb &00,&90,&00,&10; line 4
-defb &00,&90,&00,&10; line 5
-defb &00,&40,&80,&10; line 6
-defb &00,&40,&80,&10; line 7
-defb &10,&80,&80,&10; line 8
-defb &60,&00,&40,&10; line 9
-defb &00,&60,&40,&10; line 10
-defb &10,&90,&20,&10; line 11
-defb &60,&10,&20,&10; line 12
-defb &00,&00,&90,&10; line 13
-defb &00,&00,&90,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_00_1111
-defb &00,&00,&00,&00; line 0
-defb &00,&20,&40,&10; line 1
-defb &00,&20,&40,&10; line 2
-defb &00,&20,&40,&10; line 3
-defb &00,&20,&40,&10; line 4
-defb &00,&20,&40,&10; line 5
-defb &70,&E0,&70,&F0; line 6
-defb &00,&00,&00,&10; line 7
-defb &00,&00,&00,&10; line 8
-defb &70,&E0,&70,&F0; line 9
-defb &00,&20,&40,&10; line 10
-defb &00,&20,&40,&10; line 11
-defb &00,&20,&40,&10; line 12
-defb &00,&20,&40,&10; line 13
-defb &00,&20,&40,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
-
-
-.S_0_01_1111
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&20,&10; line 1
-defb &00,&00,&40,&90; line 2
-defb &00,&00,&40,&90; line 3
-defb &30,&00,&90,&10; line 4
-defb &00,&C0,&90,&10; line 5
-defb &00,&30,&20,&10; line 6
-defb &60,&00,&20,&10; line 7
-defb &10,&80,&10,&90; line 8
-defb &00,&60,&00,&70; line 9
-defb &00,&20,&60,&10; line 10
-defb &00,&40,&90,&90; line 11
-defb &00,&40,&80,&70; line 12
-defb &00,&90,&00,&10; line 13
-defb &00,&90,&00,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
@@ -1119,6 +911,291 @@ defb &00,&80,&00,&90; line 14
 defb &70,&F0,&F0,&F0; line 15
 
 
+.S_0_11_0000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &00,&00,&00,&00; line 4
+defb &00,&00,&00,&00; line 5
+defb &00,&00,&00,&00; line 6
+defb &00,&00,&00,&00; line 7
+defb &00,&00,&00,&00; line 8
+defb &00,&00,&00,&00; line 9
+defb &00,&00,&00,&00; line 10
+defb &00,&00,&00,&00; line 11
+defb &00,&00,&00,&00; line 12
+defb &00,&00,&00,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
+
+
+.S_0_11_0001
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&D0; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&F0; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_0010
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&F0,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_0011
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&D0; line 4
+defb &00,&00,&30,&10; line 5
+defb &00,&00,&C0,&30; line 6
+defb &00,&30,&00,&D0; line 7
+defb &00,&40,&30,&10; line 8
+defb &00,&20,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&10,&20,&10; line 11
+defb &00,&10,&20,&10; line 12
+defb &00,&00,&90,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_0100
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &70,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &10,&B0,&C0,&10; line 11
+defb &60,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_0101
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &00,&90,&00,&10; line 4
+defb &00,&90,&00,&10; line 5
+defb &00,&40,&80,&10; line 6
+defb &00,&40,&80,&10; line 7
+defb &00,&40,&40,&10; line 8
+defb &00,&20,&40,&10; line 9
+defb &00,&20,&40,&10; line 10
+defb &00,&10,&20,&10; line 11
+defb &00,&10,&20,&10; line 12
+defb &00,&00,&90,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_0110
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&10; line 4
+defb &00,&00,&00,&10; line 5
+defb &00,&10,&80,&10; line 6
+defb &00,&60,&40,&10; line 7
+defb &10,&80,&40,&10; line 8
+defb &60,&00,&40,&10; line 9
+defb &00,&70,&20,&10; line 10
+defb &10,&90,&20,&10; line 11
+defb &60,&10,&20,&10; line 12
+defb &00,&00,&90,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_0111
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&D0; line 4
+defb &00,&00,&30,&10; line 5
+defb &00,&00,&C0,&10; line 6
+defb &00,&70,&00,&70; line 7
+defb &10,&80,&10,&90; line 8
+defb &60,&00,&60,&10; line 9
+defb &00,&60,&40,&10; line 10
+defb &10,&90,&20,&10; line 11
+defb &60,&10,&20,&10; line 12
+defb &00,&00,&90,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1000
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &10,&F0,&F0,&90; line 4
+defb &10,&00,&00,&90; line 5
+defb &10,&20,&40,&90; line 6
+defb &10,&50,&A0,&90; line 7
+defb &10,&20,&40,&90; line 8
+defb &10,&00,&00,&90; line 9
+defb &10,&F0,&F0,&90; line 10
+defb &00,&30,&C0,&10; line 11
+defb &00,&70,&E0,&10; line 12
+defb &00,&70,&E0,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1001
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &00,&90,&00,&D0; line 4
+defb &00,&90,&30,&10; line 5
+defb &00,&40,&C0,&30; line 6
+defb &00,&40,&00,&D0; line 7
+defb &00,&20,&30,&10; line 8
+defb &00,&20,&C0,&10; line 9
+defb &00,&10,&00,&10; line 10
+defb &00,&00,&00,&10; line 11
+defb &00,&00,&00,&10; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1010
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&10; line 1
+defb &00,&00,&00,&10; line 2
+defb &00,&00,&00,&10; line 3
+defb &00,&00,&00,&D0; line 4
+defb &00,&00,&30,&10; line 5
+defb &00,&00,&C0,&10; line 6
+defb &00,&70,&00,&70; line 7
+defb &10,&80,&30,&90; line 8
+defb &60,&00,&C0,&10; line 9
+defb &00,&30,&00,&10; line 10
+defb &10,&C0,&00,&10; line 11
+defb &60,&00,&00,&10; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1011
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &00,&90,&00,&D0; line 4
+defb &00,&90,&30,&10; line 5
+defb &00,&40,&C0,&10; line 6
+defb &00,&40,&00,&70; line 7
+defb &00,&20,&10,&90; line 8
+defb &00,&20,&60,&10; line 9
+defb &00,&10,&40,&10; line 10
+defb &00,&10,&20,&10; line 11
+defb &00,&10,&20,&10; line 12
+defb &00,&00,&90,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1100
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &00,&90,&00,&10; line 4
+defb &00,&90,&00,&10; line 5
+defb &00,&40,&80,&10; line 6
+defb &00,&40,&80,&10; line 7
+defb &10,&80,&40,&10; line 8
+defb &60,&10,&80,&10; line 9
+defb &00,&60,&00,&10; line 10
+defb &10,&80,&00,&10; line 11
+defb &60,&00,&00,&10; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1101
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &00,&90,&00,&D0; line 4
+defb &00,&90,&30,&10; line 5
+defb &00,&40,&C0,&30; line 6
+defb &00,&40,&00,&D0; line 7
+defb &10,&80,&30,&10; line 8
+defb &60,&10,&C0,&10; line 9
+defb &00,&60,&00,&10; line 10
+defb &10,&80,&00,&10; line 11
+defb &60,&00,&00,&10; line 12
+defb &00,&00,&00,&10; line 13
+defb &00,&00,&00,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
+.S_0_11_1110
+defb &00,&00,&00,&00; line 0
+defb &00,&40,&00,&10; line 1
+defb &10,&20,&00,&10; line 2
+defb &10,&20,&00,&10; line 3
+defb &00,&90,&00,&10; line 4
+defb &00,&90,&00,&10; line 5
+defb &00,&40,&80,&10; line 6
+defb &00,&40,&80,&10; line 7
+defb &10,&80,&80,&10; line 8
+defb &60,&00,&40,&10; line 9
+defb &00,&60,&40,&10; line 10
+defb &10,&90,&20,&10; line 11
+defb &60,&10,&20,&10; line 12
+defb &00,&00,&90,&10; line 13
+defb &00,&00,&90,&10; line 14
+defb &70,&F0,&F0,&F0; line 15
+
+
 .S_0_11_1111
 defb &00,&00,&00,&00; line 0
 defb &00,&40,&00,&10; line 1
@@ -1136,6 +1213,25 @@ defb &60,&10,&20,&10; line 12
 defb &00,&00,&90,&10; line 13
 defb &00,&00,&90,&10; line 14
 defb &70,&F0,&F0,&F0; line 15
+
+
+.S_1_00_0000
+defb &00,&00,&00,&00; line 0
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &00,&00,&00,&00; line 4
+defb &00,&00,&00,&00; line 5
+defb &00,&00,&00,&00; line 6
+defb &00,&00,&00,&00; line 7
+defb &00,&00,&00,&00; line 8
+defb &00,&00,&00,&00; line 9
+defb &00,&00,&00,&00; line 10
+defb &00,&00,&00,&00; line 11
+defb &00,&00,&00,&00; line 12
+defb &00,&00,&00,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
 
 
 .S_1_00_0001

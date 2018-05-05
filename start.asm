@@ -4,8 +4,8 @@
 		di			;; disable interrupts (helps when measuring timings)
 		ld lx,0
 loop_0
-		ld ly,75
-		ld hl,S_0_00_0001
+		ld ly,80
+		ld hl,sprite_data
 loop_2
 		ld a,lx			;; A = index of grid cell
 		call cell_screen_addr	;; DE = screen address for cell
@@ -16,7 +16,7 @@ loop_2
 		jr nz,loop_2
 		dec ly
 		jr z,loop_0
-		ld a,75
+		ld a,80
 		sub ly
 		call sprite_from_index	;; HL = sprite address
 		jr loop_2
