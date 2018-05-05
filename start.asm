@@ -1,11 +1,25 @@
 		org &8000
 		call setup_screen
-loop		ld de,&c000
+
+		di			;; disable interrupts (helps when measuring timings)
+		ld lx,0
+loop_0
+		ld ly,75
 		ld hl,S_0_00_0001
-		call render_sprite	;; timer_start(1) and 0
-		nop			;; timer_stop(1) and 0
-		halt
- 		jr loop
+loop_2
+		ld a,lx			;; A = index of grid cell
+		call cell_screen_addr	;; DE = screen address for cell
+		push hl
+		call render_sprite
+		pop hl
+		inc lx
+		jr nz,loop_2
+		dec ly
+		jr z,loop_0
+		ld a,75
+		sub ly
+		call sprite_from_index	;; HL = sprite address
+		jr loop_2
 
 read "inc/macros.asm"
 read "maze/render-sprite.asm"
