@@ -13,7 +13,8 @@ exits_right	equ 2
 exits_bottom	equ 4
 exits_left	equ 8
 exits_all	equ 15
-room_visited	equ 16
+is_visited	equ 128
+visited_bit	equ 7
 
 ;; ----------------------------------------------------------------
 ;; subroutines
@@ -39,7 +40,7 @@ maze_rotate	ld h,maze_data / 256
 maze_generate	call maze_reset			;; Note: could inline maze_reset(?)
 		ld hl,maze_data + 17		;; HL points to current room (starting one in from top-left)
 		ld bc,maze_stack		;; BC points to stack of pending rooms
-_mg_loop_0	set 4,(hl)			;; mark current room as visited
+_mg_loop_0	set visited_bit,(hl)		;; mark current room as visited
 _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
 		rr e				;; E = count of neighbours
 		jr nz,_mg_choose		;; if there are unvisited neighbours then choose one
@@ -99,7 +100,7 @@ maze_reset	;; zero maze data table
 		ldir
 		;; mark right and bottom edges
 		ld h,maze_data / 256
-		ld de,16 * 256 + exits_all + room_visited	;; ld d,16, ld e,"visited"
+		ld de,16 * 256 + exits_all + is_visited	;; ld d,16, ld e,"visited"
 		ld c,a			;; keep copy of original maze dimensions in C
 		and 15			;; extract width (0..15)
 		jr z,_me_bottom		;; if width is zero then skip right edge
@@ -135,7 +136,7 @@ _fun_top	ld a,l			;; A is index of current room
 		jr z,_fun_right		;; if there is no top neighbour then check right neighbour
 		sub a,16		;; point HL at top neighbour
 		ld l,a
-		bit 4,(hl)		;; check if "visited" bit is set
+		bit visited_bit,(hl)	;; check if "visited" bit is set
 		jr nz,_fun_top_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_top	;; push direction
@@ -151,7 +152,7 @@ _fun_right	and &0f			;; extract column part of index
 		jr z,_fun_bottom	;; if there is no right neighbour then check bottom neighbour
 		inc a			;; point HL at right neighbour
 		ld l,a
-		bit 4,(hl)		;; check if "visited" bit is set
+		bit visited_bit,(hl)	;; check if "visited" bit is set
 		jr nz,_fun_right_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_right	;; push direction
@@ -167,7 +168,7 @@ _fun_bottom	and &f0			;; extract row part of index
 		jr z,_fun_left		;; if there is no bottom neighbour then check left neighbour
 		add a,16		;; point HL at bottom neighbour
 		ld l,a
-		bit 4,(hl)		;; check if "visited" bit is set
+		bit visited_bit,(hl)	;; check if "visited" bit is set
 		jr nz,_fun_bottom_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_bottom	;; push direction
@@ -182,7 +183,7 @@ _fun_left	and &0f			;; extract column part of index
 		ret z			;; if there is no left neighbour then return
 		dec a			;; point HL at left neighbour
 		ld l,a
-		bit 4,(hl)		;; check if "visited" bit is set
+		bit visited_bit,(hl)	;; check if "visited" bit is set
 		jr nz,_fun_left_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_left	;; push direction
