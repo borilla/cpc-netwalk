@@ -94,5 +94,6 @@ sprite_from_index
 ;; sprite data
 ;; ----------------------------------------------------------------
 
+align 64
 .sprite_data
 read "maze/sprite-data.asm"
