@@ -96,7 +96,7 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Draw cell sprites
 - [x] Render a single sprite
 - [x] Render whole game-grid
-- [ ] Show currently selected cell in rendered grid
+- [x] Show currently selected cell in rendered grid
 - [ ] Navigate around the grid using keyboard
 - [ ] Animate cell rotation
 - [ ] Add power supply

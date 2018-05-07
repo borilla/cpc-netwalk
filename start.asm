@@ -5,6 +5,7 @@ main		di			;; disable interrupts
 		xor a			;; ld a,0 (so maze will be 16 x 16)
 		call maze_generate
 		call render_grid
+		call render_selected
 game_loop	halt
 		jr game_loop
 
@@ -40,6 +41,11 @@ _render_grid_1	ld a,l
 		inc l
 		jr nz,_render_grid_1
 		ret
+
+render_selected
+		ld de,&c000
+		ld hl,Selected
+		jp render_tile_trans
 
 read "maze/tiles.asm"
 read "maze/maze.asm"

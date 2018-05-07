@@ -1,4 +1,5 @@
 ;; render a tile
+;; note: assumes tile data all sits in same 256 byte page
 ;; entry:
 ;;	DE: screen address (of top-left of sprite)
 ;;	HL: sprite data
@@ -21,6 +22,67 @@ rend
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
 		ret
+
+;; render a transparent tile, containing inline mask data
+;; note: assumes tile data all sits in same 256 byte page
+;; entry:
+;;	DE: screen address (of top-left of sprite)
+;;	HL: sprite data
+;; modifies:
+;;	AF,BC,DE,HL
+render_tile_trans
+		call _rtt_1
+		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3)
+		ex hl,de
+		add hl,bc
+		ex hl,de
+_rtt_1
+		ld b,8				;; LD B,8 (row count)
+		ld c,b				;; LD C,8 (constant 8)
+_rtt_2
+		ld a,(de)			;; [2] read screen data
+		and (hl)			;; [2] AND with pixel mask
+		inc l				;; [1]
+		or (hl)				;; [2] OR with sprite data
+		inc l				;; [1]
+		ld (de),a			;; [2] write result to screem
+		inc e				;; [1]
+
+		ld a,(de)
+		and (hl)
+		inc l
+		or (hl)
+		inc l
+		ld (de),a
+		inc e
+
+		ld a,(de)
+		and (hl)
+		inc l
+		or (hl)
+		inc l
+		ld (de),a
+		inc e
+
+		ld a,(de)
+		and (hl)
+		inc l
+		or (hl)
+		inc l
+		ld (de),a
+
+		dec b				;; if last row then return
+		ret z
+
+		dec e				;; reset to left of tile
+		dec e
+		dec e
+
+		ld a,d				;; go to next row
+		add c
+		ld d,a
+
+		jr _rtt_2
 
 ;; get screen address of tile (origin + 4x + 128y)
 ;; entry:
@@ -70,6 +132,6 @@ tile_data_addr	rrca
 ;; tile data
 ;; ----------------------------------------------------------------
 
-align 64
+align 256
 tile_data
 read "maze/sprite-data.asm"
