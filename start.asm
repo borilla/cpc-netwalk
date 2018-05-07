@@ -4,9 +4,9 @@ main		di			;; disable interrupts
 		call setup_screen
 		xor a			;; ld a,0 (so maze will be 16 x 16)
 		call maze_generate
-		call render_maze
-wait_forever	halt
-		jr wait_forever
+		call render_grid
+game_loop	halt
+		jr game_loop
 
 ;; set mode, screen size, colours etc
 ;; disable firmware interrupts before calling
@@ -27,18 +27,19 @@ setup_screen	;; set screen mode
 		ga_set_pen 16,ink_white		;; border
 		ret
 
-render_maze	ld hl,maze_data
-_render_maze_1	ld a,l
-		call cell_screen_addr	;; DE = screen address for cell
+;; render entire grid
+render_grid	ld hl,maze_data		;; HL is page aligned so L = 0
+_render_grid_1	ld a,l
+		call tile_screen_addr	;; DE = screen address for tile
 		ld a,(hl)
 		and %01111111
-		push hl
-		call sprite_from_index	;; HL = sprite address
-		call render_sprite
+		push hl			;; TODO: something quicker than push/pop
+		call tile_data_addr	;; HL = sprite data for tile
+		call render_tile
 		pop hl
 		inc l
-		jr nz,_render_maze_1
+		jr nz,_render_grid_1
 		ret
 
-read "maze/render-sprite.asm"
+read "maze/tiles.asm"
 read "maze/maze.asm"

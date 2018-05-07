@@ -56,20 +56,31 @@ The final bit pattern for each grid-cell looks as follows, where bit 0 is the le
 | 1 | Right exit |
 | 2 | Bottom exit |
 | 3 | Left exit |
-| 4 | "Visited" - used for maze generation |
-| 5 | _Currently unused_ |
-| 6 | _Currently unused_ |
-| 7 | _Currently unused_ |
+| 4 | Tile rotation (low bit) |
+| 5 | Tile rotation (high bit) |
+| 6 | Connected to power supply |
+| 7 | "Visited" - used for maze generation |
 
-## Sprites
+## Graphics
 
-Sprites for cells have been generated using [Retro Game Asset Studio (RGAS)](http://www.cpcwiki.eu/index.php/Retro_Game_Asset_Studio)
-and exported as raw byte data. There are 15 possible different combinations of exits for each cell and,
-for each of these, there are four rotation positions (to allow for relatively smooth rotation animation).
-In addition to these is another set of 15 "connected" cells (ie with a different colouring to represent
-being connected to the power supply). My next task is to work out how to get them to render to the screen.
-We want this code to run as fast as possible as there will be times when a lot of cells will be changing
-per frame
+The game will run in four-colour mode 1. Tiles for the cells are 16x16 pixels and the screen is
+setup to be 256x256 pixels. This doesn't leave _any_ room for anything apart from the game-grid
+(titles, banners, scores, timers, etc) so I may have to rethink either grid-size or screen layout
+but we'll carry on for now
+
+Graphics are generated using [Retro Game Asset Studio (RGAS)](http://www.cpcwiki.eu/index.php/Retro_Game_Asset_Studio)
+
+There are 15 possible different combinations of exits for each cell and, for each of these, there
+are four rotation positions (to allow for relatively smooth rotation animation). In addition to
+these is another set of 15 "connected" cells (ie with a different colouring to represent being
+connected to the power supply)
+
+In mode 1 each byte represents four pixels so each tile sprite takes 64 bytes. Total memory required
+for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connected) = 4800 bytes`. In
+actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
+combinations (ie include tiles which have no exits, even though they won't appear in the game) which
+turns out as 5120 bytes / 5Kb. Possibly we can use these extra tiles to hold other sprites (power
+supply, selected cell, etc)
 
 ![Cell sprites](./doc/sprites.gif)
 
@@ -83,10 +94,11 @@ going to change quite significantly as I gradually get stuff done...
 
 - [x] Maze generation
 - [x] Draw cell sprites
-- [ ] Render a single sprite
-- [ ] Render whole game-grid
+- [x] Render a single sprite
+- [x] Render whole game-grid
 - [ ] Show currently selected cell in rendered grid
 - [ ] Navigate around the grid using keyboard
 - [ ] Animate cell rotation
+- [ ] Add power supply
 - [ ] Calculate which cells are connected to power supply
 - [ ] ...

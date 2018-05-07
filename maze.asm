@@ -81,22 +81,16 @@ _mg_join	;; join current room to neighbour (from neighbour entry pointed to by D
 		ld (hl),a
 		jr _mg_loop_0			;; and loop again
 
-;; zero maze data table
-;; exit:
-;;	BC: &0000
-;;	DE: maze_data + &ff
-;;	HL: maze_data + &fe
-
 ;; zero maze data table then mark column and row to right and bottom of maze as "visited"
 ;; entry:
-;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
+;;	A: maze dimensions - height*16 + width (%hhhhwwww)
 ;; modifies:
 ;;	A,BC,DE,HL
 maze_reset	;; zero maze data table
 		ld hl,maze_data
 		ld de,maze_data+1
 		ld bc,&00ff
-		ld (hl),b			;; ld (hl),0
+		ld (hl),b		;; ld (hl),0
 		ldir
 		;; mark right and bottom edges
 		ld h,maze_data / 256

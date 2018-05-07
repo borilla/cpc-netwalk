@@ -1,34 +1,34 @@
-;; render a sprite
+;; render a tile
 ;; entry:
 ;;	DE: screen address (of top-left of sprite)
 ;;	HL: sprite data
 ;; modifies:
 ;;	AF,BC,DE,HL
-render_sprite	ld bc,&800 + &3d + 24		;; we want C to equal &3d after 24 LDI instructions
-		call _render_half_sprite
+render_tile	ld bc,&800 + &3d + 24		;; we want C to equal &3d after 24 LDI instructions
+		call _render_half_tile
 		ld b,&c8			;; add de,&c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
 		ld b,8
-_render_half_sprite
+_render_half_tile
 repeat 7
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
-		dec e:dec e:dec e		;; [3] reset to left of sprite
+		dec e:dec e:dec e		;; [3] reset to left of tile
 		ld a,d:add a,b:ld d,a		;; [3] add de,&800
 rend
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
 		ret
 
-;; get screen address of grid cell (origin + 4x + 128y)
+;; get screen address of tile (origin + 4x + 128y)
 ;; entry:
-;;	A: cell index [yyyyxxxx] (x + y * 16)
+;;	A: tile index [yyyyxxxx] (x + y * 16)
 ;; exit:
 ;;	A: same as D
-;;	DE: screen address corresponding to cell index
-cell_screen_addr
+;;	DE: screen address corresponding to tile index
+tile_screen_addr
 		rlca
 		rlca
 		ld d,a			;; use D for temporary storage
@@ -46,31 +46,30 @@ cell_screen_addr
 		ld d,a			;; D = (y * 128) / 256
 		ret
 
-;; get sprite address from its index (i * 64 + base)
+;; get tile data address from its index (i * 64 + base)
 ;; entry:
-;;	A: sprite index (0..79)
+;;	A: tile index (0..79)
 ;; exit:
 ;;	A: same as H
-;;	HL: sprite address
-sprite_from_index
-		rrca
+;;	HL: tile address
+tile_data_addr	rrca
 		rrca
 		ld l,a
 		and %00111111
 		ld h,a
 		ld a,l
 		and %11000000
-		add sprite_data and &ff	;; note: if sprite data is aligned to 256 byte page boundary then could skip this
+		add tile_data and &ff	;; note: if tile data is aligned to 256 byte page boundary then could skip this
 		ld l,a
-		ld a,sprite_data / 256
+		ld a,tile_data / 256
 		adc h
 		ld h,a
 		ret
 
 ;; ----------------------------------------------------------------
-;; sprite data
+;; tile data
 ;; ----------------------------------------------------------------
 
 align 64
-sprite_data
+tile_data
 read "maze/sprite-data.asm"
