@@ -1595,6 +1595,44 @@ defb &77,&08,&FF,&00,&FF,&00,&EE,&10; line 14
 defb &00,&A5,&00,&A5,&00,&A5,&00,&A5; line 15
 
 
+.tile_selected
+defb &5A,&5A,&5A,&5A; line 0
+defb &80,&00,&00,&01; line 1
+defb &08,&00,&00,&10; line 2
+defb &80,&00,&00,&01; line 3
+defb &08,&00,&00,&10; line 4
+defb &80,&00,&00,&01; line 5
+defb &08,&00,&00,&10; line 6
+defb &80,&00,&00,&01; line 7
+defb &08,&00,&00,&10; line 8
+defb &80,&00,&00,&01; line 9
+defb &08,&00,&00,&10; line 10
+defb &80,&00,&00,&01; line 11
+defb &08,&00,&00,&10; line 12
+defb &80,&00,&00,&01; line 13
+defb &08,&00,&00,&10; line 14
+defb &A5,&A5,&A5,&A5; line 15
+
+
+.tile_supply
+defb &00,&00,&00,&00; line 0
+defb &01,&0F,&0F,&08; line 1
+defb &01,&F0,&F0,&08; line 2
+defb &01,&87,&5A,&08; line 3
+defb &01,&87,&78,&08; line 4
+defb &01,&F0,&F0,&08; line 5
+defb &01,&F0,&F0,&08; line 6
+defb &01,&87,&1E,&08; line 7
+defb &01,&F0,&F0,&08; line 8
+defb &01,&87,&1E,&08; line 9
+defb &01,&F0,&F0,&08; line 10
+defb &01,&87,&1E,&08; line 11
+defb &01,&F0,&F0,&08; line 12
+defb &01,&0F,&0F,&08; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
+
+
 .maskLookupTable ; lookup table for masks, indexed by sprite byte. AND with screen data, then OR with pixel data.
 defb &FF,&EE,&DD,&CC,&BB,&AA,&99,&88,&77,&66,&55,&44,&33,&22,&11,&00,&EE,&EE,&CC,&CC,&AA,&AA,&88,&88,&66,&66,&44,&44,&22,&22,&00,&00
 defb &DD,&CC,&DD,&CC,&99,&88,&99,&88,&55,&44,&55,&44,&11,&00,&11,&00,&CC,&CC,&CC,&CC,&88,&88,&88,&88,&44,&44,&44,&44,&00,&00,&00,&00

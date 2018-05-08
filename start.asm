@@ -37,7 +37,7 @@ _render_grid_1	ld a,l
 		and %01111111
 		push hl			;; TODO: something quicker than push/pop
 		call tile_data_addr	;; HL = sprite data for tile
-		call render_tile
+		call tile_render
 		pop hl
 		inc l
 		jr nz,_render_grid_1
@@ -47,13 +47,25 @@ render_selected
 		ld a,0			;; selected tile index
 		call tile_screen_addr
 		ld hl,Selected
-		jp render_tile_trans
+		call tile_render_trans
+		ld a,2
+		ld bc,tile_mask_lookup	;; BC points at mask
+		call tile_screen_addr	;; DE points at screen
+		ld hl,tile_selected	;; HL points at sprite
+		call tile_render_mask
+		ret
 
 render_supply
 		ld a,17			;; supply tile index
 		call tile_screen_addr
 		ld hl,Supply
-		jp render_tile_trans
+		call tile_render_trans
+		ld a,19
+		ld bc,tile_mask_lookup	;; BC points at mask
+		call tile_screen_addr	;; DE points at screen
+		ld hl,tile_supply	;; HL points at sprite
+		call tile_render_mask
+		ret
 
 read "maze/tiles.asm"
 read "maze/maze.asm"

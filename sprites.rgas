@@ -1367,6 +1367,38 @@
         "_name": "Selected",
         "MaskDataInline": true,
         "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AgECAQIBAgECAQIBAgECAQEAAAAAAAAAAAAAAAAAAAICAAAAAAAAAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAACAgAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAICAAAAAAAAAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAAAAAAAAAACAgAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAICAAAAAAAAAAAAAAAAAAABAQIBAgECAQIBAgECAQIBAgA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "ead79c78-8379-4fc8-9380-cfc6bd0cd0f2",
+        "_name": "tile_selected",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAICAgICAgICAgIAAAAAAAACAQEBAQEBAQECAAAAAAAAAgECAgICAQIBAgAAAAAAAAIBAgICAgEBAQIAAAAAAAACAQEBAQEBAQECAAAAAAAAAgEBAQEBAQEBAgAAAAAAAAIBAgICAgICAQIAAAAAAAACAQEBAQEBAQECAAAAAAAAAgECAgICAgIBAgAAAAAAAAIBAQEBAQEBAQIAAAAAAAACAQICAgICAgECAAAAAAAAAgEBAQEBAQEBAgAAAAAAAAICAgICAgICAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        },
+        "Width": 16,
+        "Height": 16,
+        "_guid": "42bf01a2-6f94-4502-9ea8-c45c2b34caee",
+        "_name": "tile_supply",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": false
       }
     ]
   },
