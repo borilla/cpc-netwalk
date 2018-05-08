@@ -6,6 +6,7 @@ main		di			;; disable interrupts
 		call maze_generate
 		call render_grid
 		call render_selected
+		call render_supply
 game_loop	halt
 		jr game_loop
 
@@ -43,8 +44,15 @@ _render_grid_1	ld a,l
 		ret
 
 render_selected
-		ld de,&c000
+		ld a,0			;; selected tile index
+		call tile_screen_addr
 		ld hl,Selected
+		jp render_tile_trans
+
+render_supply
+		ld a,17			;; supply tile index
+		call tile_screen_addr
+		ld hl,Supply
 		jp render_tile_trans
 
 read "maze/tiles.asm"

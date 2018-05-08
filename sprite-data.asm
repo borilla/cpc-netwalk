@@ -1559,19 +1559,19 @@ defb &70,&F0,&F0,&F0; line 15
 
 .Supply
 defb &FF,&00,&FF,&00,&FF,&00,&FF,&00; line 0
-defb &FF,&00,&FF,&00,&FF,&00,&FF,&00; line 1
-defb &FF,&00,&FF,&00,&FF,&00,&FF,&00; line 2
-defb &FF,&00,&00,&F0,&00,&F0,&FF,&00; line 3
-defb &FF,&00,&00,&96,&00,&5A,&FF,&00; line 4
-defb &FF,&00,&00,&96,&00,&F0,&FF,&00; line 5
-defb &FF,&00,&00,&F0,&00,&F0,&FF,&00; line 6
-defb &FF,&00,&00,&87,&00,&1E,&FF,&00; line 7
-defb &FF,&00,&00,&F0,&00,&F0,&FF,&00; line 8
-defb &FF,&00,&00,&87,&00,&1E,&FF,&00; line 9
-defb &FF,&00,&00,&F0,&00,&F0,&FF,&00; line 10
-defb &FF,&00,&00,&87,&00,&1E,&FF,&00; line 11
-defb &FF,&00,&00,&F0,&00,&F0,&FF,&00; line 12
-defb &FF,&00,&FF,&00,&FF,&00,&FF,&00; line 13
+defb &EE,&01,&00,&0F,&00,&0F,&77,&08; line 1
+defb &EE,&01,&00,&F0,&00,&F0,&77,&08; line 2
+defb &EE,&01,&00,&87,&00,&5A,&77,&08; line 3
+defb &EE,&01,&00,&87,&00,&78,&77,&08; line 4
+defb &EE,&01,&00,&F0,&00,&F0,&77,&08; line 5
+defb &EE,&01,&00,&F0,&00,&F0,&77,&08; line 6
+defb &EE,&01,&00,&87,&00,&1E,&77,&08; line 7
+defb &EE,&01,&00,&F0,&00,&F0,&77,&08; line 8
+defb &EE,&01,&00,&87,&00,&1E,&77,&08; line 9
+defb &EE,&01,&00,&F0,&00,&F0,&77,&08; line 10
+defb &EE,&01,&00,&87,&00,&1E,&77,&08; line 11
+defb &EE,&01,&00,&F0,&00,&F0,&77,&08; line 12
+defb &EE,&01,&00,&0F,&00,&0F,&77,&08; line 13
 defb &FF,&00,&FF,&00,&FF,&00,&FF,&00; line 14
 defb &FF,&00,&FF,&00,&FF,&00,&FF,&00; line 15
 
