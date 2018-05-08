@@ -92,7 +92,7 @@ _rtt_2
 ;;	DE: screen address
 ;;	HL: sprite data
 ;; modifies:
-;;	AF,BC,DE,HL
+;;	AF,BC,DE,HL,LX
 tile_render_mask
 		ex de,hl			;; swap, so that DE points at sprite, HL points at screen
 		call _rtm_1

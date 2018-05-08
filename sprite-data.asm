@@ -1,21 +1,21 @@
 
-.S_0_00_0000
-defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&00; line 1
-defb &00,&00,&00,&00; line 2
-defb &00,&00,&00,&00; line 3
-defb &00,&00,&00,&00; line 4
-defb &00,&00,&00,&00; line 5
-defb &00,&00,&00,&00; line 6
-defb &00,&00,&00,&00; line 7
-defb &00,&00,&00,&00; line 8
-defb &00,&00,&00,&00; line 9
-defb &00,&00,&00,&00; line 10
-defb &00,&00,&00,&00; line 11
-defb &00,&00,&00,&00; line 12
-defb &00,&00,&00,&00; line 13
-defb &00,&00,&00,&00; line 14
-defb &00,&00,&00,&00; line 15
+.tile_selected
+defb &A5,&A5,&A5,&A5; line 0
+defb &08,&00,&00,&10; line 1
+defb &80,&00,&00,&01; line 2
+defb &08,&00,&00,&10; line 3
+defb &80,&00,&00,&01; line 4
+defb &08,&00,&00,&10; line 5
+defb &80,&00,&00,&01; line 6
+defb &08,&00,&00,&10; line 7
+defb &80,&00,&00,&01; line 8
+defb &08,&00,&00,&10; line 9
+defb &80,&00,&00,&01; line 10
+defb &08,&00,&00,&10; line 11
+defb &80,&00,&00,&01; line 12
+defb &08,&00,&00,&10; line 13
+defb &80,&00,&00,&01; line 14
+defb &5A,&5A,&5A,&5A; line 15
 
 
 .S_0_00_0001
@@ -139,16 +139,16 @@ defb &00,&20,&40,&11; line 2
 defb &00,&20,&40,&11; line 3
 defb &00,&20,&40,&11; line 4
 defb &00,&20,&40,&11; line 5
-defb &00,&20,&70,&F1; line 6
+defb &00,&20,&70,&F0; line 6
 defb &00,&20,&00,&11; line 7
 defb &00,&20,&00,&11; line 8
-defb &00,&20,&70,&F1; line 9
+defb &00,&20,&70,&F0; line 9
 defb &00,&20,&40,&11; line 10
 defb &00,&20,&40,&11; line 11
 defb &00,&20,&40,&11; line 12
 defb &00,&20,&40,&11; line 13
 defb &00,&20,&40,&11; line 14
-defb &FF,&FF,&FF,&FF; line 15
+defb &FF,&FD,&FB,&FF; line 15
 
 
 .S_0_00_1000
@@ -303,21 +303,21 @@ defb &00,&20,&40,&11; line 14
 defb &FF,&FD,&FB,&FF; line 15
 
 
-.S_0_01_0000
+.tile_supply
 defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&00; line 1
-defb &00,&00,&00,&00; line 2
-defb &00,&00,&00,&00; line 3
-defb &00,&00,&00,&00; line 4
-defb &00,&00,&00,&00; line 5
-defb &00,&00,&00,&00; line 6
-defb &00,&00,&00,&00; line 7
-defb &00,&00,&00,&00; line 8
-defb &00,&00,&00,&00; line 9
-defb &00,&00,&00,&00; line 10
-defb &00,&00,&00,&00; line 11
-defb &00,&00,&00,&00; line 12
-defb &00,&00,&00,&00; line 13
+defb &01,&0F,&0F,&08; line 1
+defb &01,&F0,&F0,&08; line 2
+defb &01,&87,&5A,&08; line 3
+defb &01,&87,&78,&08; line 4
+defb &01,&F0,&F0,&08; line 5
+defb &01,&F0,&F0,&08; line 6
+defb &01,&87,&1E,&08; line 7
+defb &01,&F0,&F0,&08; line 8
+defb &01,&87,&1E,&08; line 9
+defb &01,&F0,&F0,&08; line 10
+defb &01,&87,&1E,&08; line 11
+defb &01,&F0,&F0,&08; line 12
+defb &01,&0F,&0F,&08; line 13
 defb &00,&00,&00,&00; line 14
 defb &00,&00,&00,&00; line 15
 
@@ -1521,40 +1521,40 @@ defb &77,&FF,&FF,&FF; line 15
 
 .NodeConnected
 defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&0F,&0F,&90; line 5
-defb &10,&2D,&4B,&90; line 6
-defb &10,&0F,&0F,&90; line 7
-defb &10,&1E,&87,&90; line 8
-defb &10,&0F,&0F,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &10,&F0,&F0,&80; line 4
+defb &10,&0F,&0F,&80; line 5
+defb &10,&2D,&4B,&80; line 6
+defb &10,&0F,&0F,&80; line 7
+defb &10,&1E,&87,&80; line 8
+defb &10,&0F,&0F,&80; line 9
+defb &10,&F0,&F0,&80; line 10
+defb &00,&30,&C0,&00; line 11
+defb &00,&70,&E0,&00; line 12
+defb &00,&70,&E0,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
 
 
 .NodeDisconnected
 defb &00,&00,&00,&00; line 0
-defb &00,&00,&00,&10; line 1
-defb &00,&00,&00,&10; line 2
-defb &00,&00,&00,&10; line 3
-defb &10,&F0,&F0,&90; line 4
-defb &10,&00,&00,&90; line 5
-defb &10,&20,&40,&90; line 6
-defb &10,&50,&A0,&90; line 7
-defb &10,&20,&40,&90; line 8
-defb &10,&00,&00,&90; line 9
-defb &10,&F0,&F0,&90; line 10
-defb &00,&30,&C0,&10; line 11
-defb &00,&70,&E0,&10; line 12
-defb &00,&70,&E0,&10; line 13
-defb &00,&00,&00,&10; line 14
-defb &70,&F0,&F0,&F0; line 15
+defb &00,&00,&00,&00; line 1
+defb &00,&00,&00,&00; line 2
+defb &00,&00,&00,&00; line 3
+defb &10,&F0,&F0,&80; line 4
+defb &10,&00,&00,&80; line 5
+defb &10,&20,&40,&80; line 6
+defb &10,&50,&A0,&80; line 7
+defb &10,&20,&40,&80; line 8
+defb &10,&00,&00,&80; line 9
+defb &10,&F0,&F0,&80; line 10
+defb &00,&30,&C0,&00; line 11
+defb &00,&70,&E0,&00; line 12
+defb &00,&70,&E0,&00; line 13
+defb &00,&00,&00,&00; line 14
+defb &00,&00,&00,&00; line 15
 
 
 .Supply
@@ -1593,44 +1593,6 @@ defb &77,&08,&FF,&00,&FF,&00,&EE,&10; line 12
 defb &77,&80,&FF,&00,&FF,&00,&EE,&01; line 13
 defb &77,&08,&FF,&00,&FF,&00,&EE,&10; line 14
 defb &00,&A5,&00,&A5,&00,&A5,&00,&A5; line 15
-
-
-.tile_selected
-defb &5A,&5A,&5A,&5A; line 0
-defb &80,&00,&00,&01; line 1
-defb &08,&00,&00,&10; line 2
-defb &80,&00,&00,&01; line 3
-defb &08,&00,&00,&10; line 4
-defb &80,&00,&00,&01; line 5
-defb &08,&00,&00,&10; line 6
-defb &80,&00,&00,&01; line 7
-defb &08,&00,&00,&10; line 8
-defb &80,&00,&00,&01; line 9
-defb &08,&00,&00,&10; line 10
-defb &80,&00,&00,&01; line 11
-defb &08,&00,&00,&10; line 12
-defb &80,&00,&00,&01; line 13
-defb &08,&00,&00,&10; line 14
-defb &A5,&A5,&A5,&A5; line 15
-
-
-.tile_supply
-defb &00,&00,&00,&00; line 0
-defb &01,&0F,&0F,&08; line 1
-defb &01,&F0,&F0,&08; line 2
-defb &01,&87,&5A,&08; line 3
-defb &01,&87,&78,&08; line 4
-defb &01,&F0,&F0,&08; line 5
-defb &01,&F0,&F0,&08; line 6
-defb &01,&87,&1E,&08; line 7
-defb &01,&F0,&F0,&08; line 8
-defb &01,&87,&1E,&08; line 9
-defb &01,&F0,&F0,&08; line 10
-defb &01,&87,&1E,&08; line 11
-defb &01,&F0,&F0,&08; line 12
-defb &01,&0F,&0F,&08; line 13
-defb &00,&00,&00,&00; line 14
-defb &00,&00,&00,&00; line 15
 
 
 .maskLookupTable ; lookup table for masks, indexed by sprite byte. AND with screen data, then OR with pixel data.
