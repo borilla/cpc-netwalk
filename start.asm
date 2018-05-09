@@ -20,8 +20,9 @@ main		setup_minimal_interrupt_handler
 		call render_supply
 
 game_loop	call scan_keyboard
-		call check_direction_keys
-		call redraw_selected
+		call read_actions
+		call do_movement_actions
+		call redraw_selected_tile
 		halt
 		jr game_loop
 
@@ -29,11 +30,14 @@ game_loop	call scan_keyboard
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb 0
+grid_size		defb 0	;; TODO: fix stuff so we can have different grid sizes
 tile_index_prev		defb 0
 tile_index_selected	defb 0
 tile_index_supply	defb 0
 movement_countdown	defb 0
+
+actions			defb 0
+actions_prev		defb 0
 
 ;; ----------------------------------------------------------------
 ;; subroutines
@@ -81,43 +85,6 @@ render_grid_tile
 		call tile_render
 		ret
 
-;; overlay transparent "selected" border on top of tile
-;; entry
-;;	A: index of tile
-;; modifies:
-;;	AF,BC,DE,HL,LX
-render_selected
-		ld bc,tile_mask_lookup	;; BC points at mask
-		call tile_screen_addr	;; DE points at screen
-		ld hl,tile_selected	;; HL points at sprite
-		call tile_render_mask
-		ret
-
-;; if selected tile has changed then redraw both it and previously selected
-;; modifies:
-;;	Af,BC,DE,HL,IXL
-redraw_selected
-		ld a,(tile_index_selected)
-		ld hl,tile_index_prev
-		cp (hl)				;; compare current and prev selected tiles
-		ret z				;; if unchanged then return
-
-		ld b,a				;; B = current tile index
-		ld a,(hl)			;; A = prev tile index
-		ld (hl),b			;; prev tile = current tile
-
-		ld ixl,a			;; IXL = prev tile index
-		call render_grid_tile		;; draw prev tile
-		
-		ld hl,tile_index_supply		;; is prev tile same as supply
-		ld a,ixl
-		cp (hl)
-		call z,render_supply
-
-		ld a,(tile_index_selected)	;; draw selected border around current tile
-		jp render_selected		;; return directly from render_selected
-		;; ret
-
 ;; overlay power supply on top of tile
 ;; entry
 ;;	A: index of tile
@@ -130,35 +97,91 @@ render_supply
 		call tile_render_mask
 		ret
 
-;; check if direction key(s) pressed and update selected tile appropriately
+;; overlay transparent "selected" border on top of tile
+;; entry
+;;	A: index of tile
 ;; modifies:
-;;	A,BC,HL
-check_direction_keys
-		xor a			;; B stores direction in bits:
-		ld b,a			;; 1 = up, 2 = right, 3 = down, 4 = left
-		check_key key_up	;; TODO: just read keyboard row into A once (instead of using macro)
-		jr nz,$+4
-		set 0,b
-		check_key key_right
-		jr nz,$+4
-		set 1,b
-		check_key key_down
-		jr nz,$+4
-		set 2,b
-		check_key key_left
-		jr nz,$+4
-		set 3,b
-
-		ld hl,movement_countdown
-		inc b				;; check if B is zero
-		dec b
-		jr nz,_do_move			;; if not zero then do movement
-		ld (hl),1			;; no movement, reset movement countdown
+;;	AF,BC,DE,HL,LX
+render_selected
+		ld bc,tile_mask_lookup	;; BC points at mask
+		call tile_screen_addr	;; DE points at screen
+		ld hl,tile_selected	;; HL points at sprite
+		call tile_render_mask
 		ret
 
-_do_move	dec (hl)			;; decrement movement countdown
-		ret nz				;; if countdown not reached zero then don't do movement yet
-		ld (hl),40			;; otherwise, reset countdown
+;; render grid tile and (possibly) overlay power supply
+;; entry:
+;;	A: index of grid tile
+;; modifies:
+;;	AF,BC,DE,HL,IXL
+render_tile_plus_supply
+		ld ixl,a
+		call render_grid_tile
+		ld a,ixl
+		ld hl,tile_index_supply
+		cp (hl)
+		ret nz
+		jp render_supply
+
+;; if selected tile has changed then redraw both it and previously selected
+;; modifies:
+;;	Af,BC,DE,HL,IXL
+redraw_selected_tile
+		ld a,(tile_index_selected)
+		ld hl,tile_index_prev
+		cp (hl)				;; compare current and prev selected tiles
+		ret z				;; if unchanged then return
+
+		ld a,(hl)			;; render prev tile
+		call render_tile_plus_supply
+
+		ld a,(tile_index_selected)
+		ld (tile_index_prev),a		;; set prev tile index to current
+		jp render_selected		;; draw "selected" border around current tile
+
+;; update `actions` based on pressed keys
+;; modifies:
+;;	A,B,HL
+read_actions
+		ld b,0			;; store actions in B
+		check_key key_up	;; TODO: just read each keyboard row into A once (instead of using macro)
+		jr nz,$+4
+		set 0,b			;; bit 0 = move up
+		check_key key_right
+		jr nz,$+4
+		set 1,b			;; bit 1 = move right
+		check_key key_down
+		jr nz,$+4
+		set 2,b			;; bit 2 = move down
+		check_key key_left
+		jr nz,$+4
+		set 3,b			;; bit 3 = move left
+
+		ld hl,actions
+		ld a,(hl)
+		ld (actions_prev),a	;; store previous actions
+		ld (hl),b		;; update current actions
+		ret
+
+;; update currently selected tile based on current `actions`
+do_movement_actions
+		ld a,(actions)
+		and %00001111			;; isolate "movement" actions
+		ret z
+
+		ld b,a				;; store current actions in B
+		ld a,(actions_prev)		;; check if we've just started moving
+		and %00001111
+
+		ld hl,movement_countdown
+		ld a,90				;; load A with long countdown timer
+		jr z,_do_move			;; if weren't previously moving, act immediately (setting long timer)
+
+		dec (hl)			;; otherwise, decrement movement countdown
+		ret nz				;; if not counted down yet then return
+		ld a,30				;; next countdown will use short timer
+
+_do_move	ld (hl),a			;; reset countdown (to long or short timer)
 		ld hl,tile_index_selected	;; HL points at tile index
 		ld a,(hl)			;; A is tile index
 
