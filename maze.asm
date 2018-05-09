@@ -94,7 +94,7 @@ maze_reset	;; zero maze data table
 		ldir
 		;; mark right and bottom edges
 		ld h,maze_data / 256
-		ld de,16 * 256 + exits_all + is_visited	;; ld d,16, ld e,"visited"
+		ld de,16 * 256 + is_visited	;; ld d,16, ld e,"visited"
 		ld c,a			;; keep copy of original maze dimensions in C
 		and 15			;; extract width (0..15)
 		jr z,_me_bottom		;; if width is zero then skip right edge
