@@ -10,6 +10,8 @@ read "inc/macros.asm"
 
 main		setup_minimal_interrupt_handler
 		call setup_screen
+generate_maze	ld a,r				;; set random seed for maze
+		ld (choose_random_index + 1),a
 		ld a,(grid_size)
 		call maze_generate
 		call render_grid
@@ -24,6 +26,11 @@ game_loop	call scan_keyboard
 		call do_movement_actions
 		call redraw_selected_tile
 		halt
+
+		ld hl,actions
+		bit 7,(hl)
+		jr nz,generate_maze
+
 		jr game_loop
 
 ;; ----------------------------------------------------------------
@@ -156,6 +163,10 @@ read_actions
 		check_key key_left
 		jr nz,$+4
 		set 3,b			;; bit 3 = move left
+
+		check_key key_r
+		jr nz,$+4
+		set 7,b			;; bit 7 = regenerate maze
 
 		ld hl,actions
 		ld a,(hl)

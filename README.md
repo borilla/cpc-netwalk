@@ -34,8 +34,8 @@ calculating connected cells, etc
 ## Cell structure
 
 Each cell is a single byte. The bits of this byte are used to represent different properties of the
-cell. My original intuition was to use the lowest four bits to represent exits to top, right, bottom
-and left respectively. Amazingly this coincided exactly with the subset of the [Amstrad CPC character
+cell. My original intuition was to use the lowest four bits to represent exits to *top*, *right*, *bottom*
+and *left* respectively. Amazingly this coincided exactly with the subset of the [Amstrad CPC character
 set](http://cpctech.cpc-live.com/docs/cpckybd.pdf) between `&90` and `&9f` used to represent maze-type
 shapes
 
@@ -63,7 +63,7 @@ The final bit pattern for each grid-cell looks as follows, where bit 0 is the le
 
 ## Graphics
 
-The game will run in four-colour mode 1. Tiles for the cells are 16x16 pixels and the screen is
+The game will run in four-colour *mode 1*. Tiles for the cells are 16x16 pixels and the screen is
 setup to be 256x256 pixels. This doesn't leave _any_ room for anything apart from the game-grid
 (titles, banners, scores, timers, etc) so I may have to rethink either grid-size or screen layout
 but we'll carry on for now
@@ -75,11 +75,11 @@ are four rotation positions (to allow for relatively smooth rotation animation).
 these is another set of 15 "connected" cells (ie with a different colouring to represent being
 connected to the power supply)
 
-In mode 1 each byte represents four pixels so each tile sprite takes 64 bytes. Total memory required
+In mode 1 each byte represents four pixels so each tile sprite takes `64 bytes`. Total memory required
 for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connected) = 4800 bytes`. In
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
 combinations (ie include tiles which have no exits, even though they won't appear in the game) which
-turns out as 5120 bytes / 5Kb. Possibly we can use these extra tiles to hold other sprites (power
+turns out as `5120 bytes / 5Kb`. Possibly we can use these extra tiles to hold other sprites (power
 supply, selected cell, etc)
 
 ![Cell sprites](./doc/sprites.gif)
@@ -99,6 +99,8 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Show currently selected cell in rendered grid
 - [x] Navigate around the grid using keyboard
 - [ ] Animate cell rotation
-- [ ] Add power supply
+- [x] Add power supply
 - [ ] Calculate which cells are connected to power supply
 - [ ] ...
+- [ ] Add sound/music
+- [ ] Add menus
