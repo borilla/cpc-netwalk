@@ -5,114 +5,35 @@
 read "inc/macros.asm"
 
 ;; ----------------------------------------------------------------
-;; constants
-;; ----------------------------------------------------------------
-
-key_repeat_speed	equ 50
-
-;; ----------------------------------------------------------------
 ;; main
 ;; ----------------------------------------------------------------
 
 main		setup_minimal_interrupt_handler
 		call setup_screen
-		xor a			;; ld a,0 (so maze will be 16 x 16)
+		ld a,(grid_size)
 		call maze_generate
 		call render_grid
-		ld a,(selected_tile_index)
+		ld a,(tile_index_selected)
 		call render_selected
 		ld a,r
-		ld (supply_tile_index),a
+		ld (tile_index_supply),a
 		call render_supply
 
 game_loop	call scan_keyboard
-
-check_key_down	check_key key_down
-		ld hl,key_repeat_vertical
-		jr z,move_down
-		ld (hl),1
-		jr check_key_up
-move_down	dec (hl)
-		jr nz,check_key_up
-		ld (hl),key_repeat_speed	;; reset repeat countdown
-		ld a,(selected_tile_index)
-		add 16
-		ld (selected_tile_index),a
-
-check_key_up	check_key key_up
-		ld hl,key_repeat_vertical
-		jr z,move_up
-		ld (hl),1
-		jr check_key_left
-move_up		dec (hl)
-		jr nz,check_key_left
-		ld (hl),key_repeat_speed	;; reset repeat countdown
-		ld a,(selected_tile_index)
-		sub 16
-		ld (selected_tile_index),a
-
-check_key_left	check_key key_left
-		ld hl,left_key_repeat
-		jr z,move_left
-		ld (hl),1
-		jr check_key_right
-move_left	dec (hl)
-		jr nz,check_key_right
-		ld (hl),key_repeat_speed	;; reset repeat countdown
-		ld a,(selected_tile_index)
-		ld b,a
-		dec a
-		and %00001111
-		ld c,a
-		ld a,b
-		and %11110000
-		or c
-		ld (selected_tile_index),a
-
-check_key_right	check_key key_right
-		ld hl,right_key_repeat
-		jr z,move_right
-		ld (hl),1
-		jr end_check_keys
-move_right	dec (hl)
-		jr nz,end_check_keys
-		ld (hl),key_repeat_speed	;; reset repeat countdown
-		ld a,(selected_tile_index)
-		ld b,a
-		inc a
-		and %00001111
-		ld c,a
-		ld a,b
-		and %11110000
-		or c
-		ld (selected_tile_index),a
-
-end_check_keys	halt
-
-		;; if selected tile has changed then redraw
-		ld a,(selected_tile_index)
-		ld b,a
-		ld a,(prev_tile_index)
-		cp b
-		jp z,game_loop
-		call render_grid_tile		;; over-draw prev tile
-		ld a,(selected_tile_index)
-		ld (prev_tile_index),a
-		call render_selected		;; draw "selected" border around new tile
-
-		jp game_loop
+		call check_direction_keys
+		call redraw_selected
+		halt
+		jr game_loop
 
 ;; ----------------------------------------------------------------
 ;; data
 ;; ----------------------------------------------------------------
 
-prev_tile_index		defb 0
-selected_tile_index	defb 0
-supply_tile_index	defb 0
-
-key_repeat_vertical	defb 1
-left_key_repeat		defb 1
-right_key_repeat	defb 1
+grid_size		defb 0
+tile_index_prev		defb 0
+tile_index_selected	defb 0
+tile_index_supply	defb 0
+movement_countdown	defb 0
 
 ;; ----------------------------------------------------------------
 ;; subroutines
@@ -149,7 +70,7 @@ _render_grid_1	ld a,lx
 ;; entry:
 ;;	A: index of grid tile to render
 ;; modifies:
-;;	AF,BC,DE,HL,IX
+;;	AF,BC,DE,HL
 render_grid_tile
 		ld h,maze_data / 256
 		ld l,a
@@ -172,6 +93,31 @@ render_selected
 		call tile_render_mask
 		ret
 
+;; if selected tile has changed then redraw both it and previously selected
+;; modifies:
+;;	Af,BC,DE,HL,IXL
+redraw_selected
+		ld a,(tile_index_selected)
+		ld hl,tile_index_prev
+		cp (hl)				;; compare current and prev selected tiles
+		ret z				;; if unchanged then return
+
+		ld b,a				;; B = current tile index
+		ld a,(hl)			;; A = prev tile index
+		ld (hl),b			;; prev tile = current tile
+
+		ld ixl,a			;; IXL = prev tile index
+		call render_grid_tile		;; draw prev tile
+		
+		ld hl,tile_index_supply		;; is prev tile same as supply
+		ld a,ixl
+		cp (hl)
+		call z,render_supply
+
+		ld a,(tile_index_selected)	;; draw selected border around current tile
+		jp render_selected		;; return directly from render_selected
+		;; ret
+
 ;; overlay power supply on top of tile
 ;; entry
 ;;	A: index of tile
@@ -182,6 +128,77 @@ render_supply
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_supply	;; HL points at sprite
 		call tile_render_mask
+		ret
+
+;; check if direction key(s) pressed and update selected tile appropriately
+;; modifies:
+;;	A,BC,HL
+check_direction_keys
+		xor a			;; B stores direction in bits:
+		ld b,a			;; 1 = up, 2 = right, 3 = down, 4 = left
+		check_key key_up	;; TODO: just read keyboard row into A once (instead of using macro)
+		jr nz,$+4
+		set 0,b
+		check_key key_right
+		jr nz,$+4
+		set 1,b
+		check_key key_down
+		jr nz,$+4
+		set 2,b
+		check_key key_left
+		jr nz,$+4
+		set 3,b
+
+		ld hl,movement_countdown
+		inc b				;; check if B is zero
+		dec b
+		jr nz,_do_move			;; if not zero then do movement
+		ld (hl),1			;; no movement, reset movement countdown
+		ret
+
+_do_move	dec (hl)			;; decrement movement countdown
+		ret nz				;; if countdown not reached zero then don't do movement yet
+		ld (hl),40			;; otherwise, reset countdown
+		ld hl,tile_index_selected	;; HL points at tile index
+		ld a,(hl)			;; A is tile index
+
+_do_move_up	bit 0,b
+		jr z,_do_move_down		;; not moving up
+		ld c,a				;; check that can move up
+		and %11110000
+		ld a,c
+		jr z,_do_move_right		;; can't move up
+		sub 16				;; move up
+;;		jr _do_move_right		;; we've moved up, so can't also move down
+
+_do_move_down	bit 2,b
+		jr z,_do_move_right		;; not moving down
+		ld c,a				;; check that can move down
+		and %11110000
+		cp %11110000			;; TODO: cp grid-height
+		ld a,c
+		jr z,_do_move_right		;; can't move down
+		add 16				;; move down
+
+_do_move_right	bit 1,b
+		jr z,_do_move_left		;; not moving right
+		ld c,a				;; check that can move right
+		and %00001111
+		cp %00001111			;; TODO: cp grid-width
+		ld a,c
+		jr z,_do_move_end		;; can't move right
+		inc a				;; move right
+;;		jr _do_move_end			;; we've moved right, so can't also move left
+
+_do_move_left	bit 3,b
+		jr z,_do_move_end		;; not moving left
+		ld c,a				;; check that can move left
+		and %00001111
+		ld a,c
+		jr z,_do_move_end		;; can't move left
+		dec a				;; move left
+
+_do_move_end	ld (hl),a			;; write (possibly) new tile index
 		ret
 
 ;; ----------------------------------------------------------------
