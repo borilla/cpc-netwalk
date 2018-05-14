@@ -23,8 +23,26 @@ generate_maze	ld a,r				;; set random seed for maze
 
 game_loop	call scan_keyboard
 		call read_actions
-		call do_movement_actions
-		call redraw_selected_tile
+		call do_movement_action
+		call update_rotating_tile
+		call do_rotate_action
+
+		call render_prev
+		call render_rotating
+		call render_selected
+		call render_supply
+
+		halt
+		halt
+		halt
+		halt
+		halt
+		halt
+		halt
+		halt
+		halt
+		halt
+		halt
 		halt
 
 		ld hl,actions
@@ -38,13 +56,18 @@ game_loop	call scan_keyboard
 ;; ----------------------------------------------------------------
 
 grid_size		defb 0	;; TODO: fix stuff so we can have different grid sizes
+tile_index_supply	defb 0
+
 tile_index_prev		defb 0
 tile_index_selected	defb 0
-tile_index_supply	defb 0
-movement_countdown	defb 0
 
 actions			defb 0
 actions_prev		defb 0
+movement_countdown	defb 0
+
+rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
+rotation_queue_cur	defb 0	;; index of current position in queue
+rotation_queue_next	defb 0	;; index to insert next item in queue
 
 ;; ----------------------------------------------------------------
 ;; subroutines
@@ -92,59 +115,57 @@ render_grid_tile
 		call tile_render
 		ret
 
+;; if selected tile has changed then redraw both it and previously selected
+;; modifies:
+;;	Af,BC,DE,HL,IXL
+render_prev
+		ld a,(tile_index_prev)
+		ld b,a
+		ld a,(tile_index_selected)
+		cp b				;; compare current and prev selected tiles
+		ret z				;; if unchanged then return
+
+		ld (tile_index_prev),a		;; set prev tile index to current
+		ld a,b
+		jp render_grid_tile
+
+;; redraw currently rotating tile
+render_rotating
+		ld a,(rotation_queue_cur)
+		ld hl,rotation_queue
+		add_hl_a			;; (HL) = current queue item
+		ld a,(hl)			;; A = rotating tile index
+		ld hl,tile_index_selected
+		cp (hl)
+		ret z
+		jp render_grid_tile
+
 ;; overlay power supply on top of tile
 ;; entry
 ;;	A: index of tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
 render_supply
+		ld a,(tile_index_supply)
 		ld bc,tile_mask_lookup	;; BC points at mask
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_supply	;; HL points at sprite
-		call tile_render_mask
-		ret
+		jp tile_render_mask
 
-;; overlay transparent "selected" border on top of tile
+;; overlay "selected" border on top of tile
 ;; entry
 ;;	A: index of tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
 render_selected
+		ld a,(tile_index_selected)
+		call render_grid_tile
+
+		ld a,(tile_index_selected)
 		ld bc,tile_mask_lookup	;; BC points at mask
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_selected	;; HL points at sprite
-		call tile_render_mask
-		ret
-
-;; render grid tile and (possibly) overlay power supply
-;; entry:
-;;	A: index of grid tile
-;; modifies:
-;;	AF,BC,DE,HL,IXL
-render_tile_plus_supply
-		ld ixl,a
-		call render_grid_tile
-		ld a,ixl
-		ld hl,tile_index_supply
-		cp (hl)
-		ret nz
-		jp render_supply
-
-;; if selected tile has changed then redraw both it and previously selected
-;; modifies:
-;;	Af,BC,DE,HL,IXL
-redraw_selected_tile
-		ld a,(tile_index_selected)
-		ld hl,tile_index_prev
-		cp (hl)				;; compare current and prev selected tiles
-		ret z				;; if unchanged then return
-
-		ld a,(hl)			;; render prev tile
-		call render_tile_plus_supply
-
-		ld a,(tile_index_selected)
-		ld (tile_index_prev),a		;; set prev tile index to current
-		jp render_selected		;; draw "selected" border around current tile
+		jp tile_render_mask
 
 ;; update `actions` based on pressed keys
 ;; modifies:
@@ -163,7 +184,9 @@ read_actions
 		check_key key_left
 		jr nz,$+4
 		set 3,b			;; bit 3 = move left
-
+		check_key key_space
+		jr nz,$+4
+		set 4,b			;; bit 4 = rotate tile
 		check_key key_r
 		jr nz,$+4
 		set 7,b			;; bit 7 = regenerate maze
@@ -175,7 +198,7 @@ read_actions
 		ret
 
 ;; update currently selected tile based on current `actions`
-do_movement_actions
+do_movement_action
 		ld a,(actions)
 		and %00001111			;; isolate "movement" actions
 		ret z
@@ -233,6 +256,69 @@ _do_move_left	bit 3,b
 		dec a				;; move left
 
 _do_move_end	ld (hl),a			;; write (possibly) new tile index
+		ret
+
+update_rotating_tile
+		;; TODO: store rotation_queue_cur in register (BC?)
+		ld hl,rotation_queue_next
+		ld a,(rotation_queue_cur)	;; index of current item in queue
+		cp (hl)
+		ret z				;; no rotating tile
+
+		ld hl,rotation_queue		;; get tile index from queue
+		add_hl_a
+		ld a,(hl)
+
+		ld h,maze_data / 256		;; HL points at rotating tile
+		ld l,a
+		ld a,(hl)			;; A = grid tile value
+
+		ld b,a				;; keep copy in B
+		add 16				;; increment rotation value
+		xor b
+		and %00110000			;; (isolate rotation bits)
+		xor b				;; A = tile with new rotation value
+
+		ld e,a				;; store rotated value in E
+		and %00110000			;; check if rotation has returned to 0
+		jr nz,_write_rotated_value	;; if not returned to zero yet then write new value
+
+		ld d,rot_nibble_data / 256	;; if returned to zero then rotate exits
+		ld a,(de)			;; read rotated value from DE
+		ld e,a
+
+		ld a,(rotation_queue_cur)	;; update queue index
+		inc a
+		and %00001111
+		ld (rotation_queue_cur),a
+
+_write_rotated_value
+		ld (hl),e			;; store new grid tile value
+		ret
+
+;; react to `rotate` action
+do_rotate_action
+		ld a,(actions)			;; get "new" actions in A
+		ld b,a
+		ld hl,actions_prev
+		xor (hl)
+		and b
+
+		bit 4,a				;; check for "new" rotate action
+		ret z
+
+		ld hl,rotation_queue		;; insert currently selected index into queue
+		ld a,(rotation_queue_next)
+		ld b,a
+		add_hl_a
+		ld a,(tile_index_selected)
+		ld (hl),a
+
+		ld a,b				;; update "next" index
+		inc a
+		and %00001111			;; A = A mod 16
+		ld (rotation_queue_next),a
+
 		ret
 
 ;; ----------------------------------------------------------------
