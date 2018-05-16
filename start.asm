@@ -8,44 +8,34 @@ read "inc/macros.asm"
 ;; main
 ;; ----------------------------------------------------------------
 
-main		setup_minimal_interrupt_handler
-		call setup_screen
-generate_maze	ld a,r				;; set random seed for maze
+main		call setup_screen
+generate_maze	di
+		ld a,r				;; set random seed for maze
 		ld (choose_random_index + 1),a
 		ld a,(grid_size)
 		call maze_generate
-		call render_grid
-		ld a,(tile_index_selected)
-		call render_selected
-		ld a,r
-		ld (tile_index_supply),a
-		call render_supply
 
-game_loop	call scan_keyboard
-		call read_actions
-		call do_movement_action
-		call update_rotating_tile
-		call do_rotate_action
+		xor a				;; reset actions
+		ld (actions),a
+		ld (actions_new),a
 
-		call render_prev
-		call render_rotating
-		call render_selected
-		call render_supply
+		call setup_interrupts
+		assign_interrupt 0,do_rendering
+		assign_interrupt 1,render_two_tiles
+		assign_interrupt 2,render_two_tiles
+		assign_interrupt 3,render_two_tiles
+		assign_interrupt 4,render_two_tiles
+		assign_interrupt 5,render_two_tiles
+		assign_interrupt 6,get_actions
+		assign_interrupt 7,render_two_tiles
+		assign_interrupt 8,render_two_tiles
+		assign_interrupt 9,render_two_tiles
+		assign_interrupt 10,render_two_tiles
+		assign_interrupt 11,render_two_tiles
 
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
-		halt
+game_loop	;;call render_next_tile
 
-		ld hl,actions
+		ld hl,actions_new
 		bit 7,(hl)
 		jr nz,generate_maze
 
@@ -63,14 +53,38 @@ tile_index_selected	defb 0
 
 actions			defb 0
 actions_prev		defb 0
+actions_new		defb 0
 movement_countdown	defb 0
 
 rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
 rotation_queue_cur	defb 0	;; index of current position in queue
 rotation_queue_next	defb 0	;; index to insert next item in queue
 
+align 256
+rendered_tiles	defs 255,0
+
 ;; ----------------------------------------------------------------
 ;; subroutines
+;; ----------------------------------------------------------------
+
+render_two_tiles
+		call render_next_tile
+		call render_next_tile
+		ret
+
+;; ----------------------------------------------------------------
+
+do_rendering	call render_selected_overlay
+		jp render_supply_overlay
+
+;; ----------------------------------------------------------------
+
+get_actions	call scan_keyboard
+		call read_actions
+		call do_movement_action
+		call update_rotating_tile
+		jp do_rotate_action
+
 ;; ----------------------------------------------------------------
 
 ;; set mode, screen size, colours etc
@@ -92,6 +106,8 @@ setup_screen	;; set screen mode
 		ga_set_pen 16,ink_black		;; border
 		ret
 
+;; ----------------------------------------------------------------
+
 ;; render entire grid
 render_grid	ld lx,0			;; use LX as grid index
 _render_grid_1	ld a,lx
@@ -99,6 +115,45 @@ _render_grid_1	ld a,lx
 		inc lx
 		jr nz,_render_grid_1
 		ret
+
+;; ----------------------------------------------------------------
+
+;; render next tile that needs rendering (if any)
+render_next_tile
+next_tile	equ $+1
+		ld a,0			;; LD A,(next_tile)
+		ld b,64			;; max number of loops
+		ld d,maze_data / 256
+		ld h,rendered_tiles / 256
+_rnt_loop
+		ld e,a			;; point DE at tile state
+		ld l,a			;; point HL at rendered state
+
+		ld a,(de)		;; is tile state same as rendered state?
+		cp (hl)
+		jr nz,_rnt_render	;; if not then render
+
+		ld a,e			;; go to next (pseudo-random) index
+		add a,a
+		add a,a
+		add a,e
+		inc a
+
+		djnz _rnt_loop
+		ret			;; no tile to render this time
+_rnt_render
+		;; at this point, A = tile state, DE points to tile state, HL points to rendered state
+		ld (hl),a		;; update rendered state
+		ld a,l
+		ld (next_tile),a
+
+		ld a,(de)
+		call tile_data_addr	;; HL = sprite data for tile
+		ld a,e
+		call tile_screen_addr	;; DE = screen address for tile
+		jp tile_render	;; render the tile
+
+;; ----------------------------------------------------------------
 
 ;; render a single grid tile
 ;; entry:
@@ -110,62 +165,41 @@ render_grid_tile
 		ld l,a
 		call tile_screen_addr	;; DE = screen address for tile
 		ld a,(hl)
+		ld h,rendered_tiles / 256	;; update rendered tile
+		ld (hl),a
 		and %01111111
 		call tile_data_addr	;; HL = sprite data for tile
-		call tile_render
-		ret
+		jp tile_render
 
-;; if selected tile has changed then redraw both it and previously selected
-;; modifies:
-;;	Af,BC,DE,HL,IXL
-render_prev
-		ld a,(tile_index_prev)
-		ld b,a
-		ld a,(tile_index_selected)
-		cp b				;; compare current and prev selected tiles
-		ret z				;; if unchanged then return
-
-		ld (tile_index_prev),a		;; set prev tile index to current
-		ld a,b
-		jp render_grid_tile
-
-;; redraw currently rotating tile
-render_rotating
-		ld a,(rotation_queue_cur)
-		ld hl,rotation_queue
-		add_hl_a			;; (HL) = current queue item
-		ld a,(hl)			;; A = rotating tile index
-		ld hl,tile_index_selected
-		cp (hl)
-		ret z
-		jp render_grid_tile
+;; ----------------------------------------------------------------
 
 ;; overlay power supply on top of tile
 ;; entry
 ;;	A: index of tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
-render_supply
+render_supply_overlay
 		ld a,(tile_index_supply)
 		ld bc,tile_mask_lookup	;; BC points at mask
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_supply	;; HL points at sprite
 		jp tile_render_mask
 
+;; ----------------------------------------------------------------
+
 ;; overlay "selected" border on top of tile
 ;; entry
 ;;	A: index of tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
-render_selected
-		ld a,(tile_index_selected)
-		call render_grid_tile
-
+render_selected_overlay
 		ld a,(tile_index_selected)
 		ld bc,tile_mask_lookup	;; BC points at mask
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_selected	;; HL points at sprite
 		jp tile_render_mask
+
+;; ----------------------------------------------------------------
 
 ;; update `actions` based on pressed keys
 ;; modifies:
@@ -195,7 +229,13 @@ read_actions
 		ld a,(hl)
 		ld (actions_prev),a	;; store previous actions
 		ld (hl),b		;; update current actions
+		xor b
+		and b
+		ld (actions_new),a	;; store "new" actions
+
 		ret
+
+;; ----------------------------------------------------------------
 
 ;; update currently selected tile based on current `actions`
 do_movement_action
@@ -208,12 +248,12 @@ do_movement_action
 		and %00001111
 
 		ld hl,movement_countdown
-		ld a,90				;; load A with long countdown timer
+		ld a,10				;; load A with long countdown timer
 		jr z,_do_move			;; if weren't previously moving, act immediately (setting long timer)
 
 		dec (hl)			;; otherwise, decrement movement countdown
 		ret nz				;; if not counted down yet then return
-		ld a,30				;; next countdown will use short timer
+		ld a,5				;; next countdown will use short timer
 
 _do_move	ld (hl),a			;; reset countdown (to long or short timer)
 		ld hl,tile_index_selected	;; HL points at tile index
@@ -255,8 +295,15 @@ _do_move_left	bit 3,b
 		jr z,_do_move_end		;; can't move left
 		dec a				;; move left
 
-_do_move_end	ld (hl),a			;; write (possibly) new tile index
-		ret
+_do_move_end	cp (hl)				;; is index changed?
+		ret z
+
+		ld b,a
+		ld a,(hl)
+		ld (hl),b
+		jp render_grid_tile		;; render prev tile
+
+;; ----------------------------------------------------------------
 
 update_rotating_tile
 		;; TODO: store rotation_queue_cur in register (BC?)
@@ -294,17 +341,16 @@ update_rotating_tile
 
 _write_rotated_value
 		ld (hl),e			;; store new grid tile value
-		ret
+		ld a,l
+		jp render_grid_tile		;; render the tile
 
-;; react to `rotate` action
+;; ----------------------------------------------------------------
+
+;; if `rotate` key is pressed then add current cell to rotate queue
 do_rotate_action
-		ld a,(actions)			;; get "new" actions in A
-		ld b,a
-		ld hl,actions_prev
-		xor (hl)
-		and b
+		ld a,(actions_new)		;; get "new" actions in A
 
-		bit 4,a				;; check for "new" rotate action
+		bit 4,a				;; check for rotate action
 		ret z
 
 		ld hl,rotation_queue		;; insert currently selected index into queue
@@ -326,5 +372,6 @@ do_rotate_action
 ;; ----------------------------------------------------------------
 
 read "inc/scan_keyboard.asm"
+read "maze/interrupts.asm"
 read "maze/tiles.asm"
 read "maze/maze.asm"

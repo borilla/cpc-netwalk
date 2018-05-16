@@ -47,7 +47,7 @@ This made writing a quick BASIC program to help debugging so much easier
 
 ### Cell bit pattern
 
-The final bit pattern for each grid-cell looks as follows, where bit 0 is the least-significant bit
+The bit pattern for each grid-cell looks as follows, where bit 0 is the least-significant bit
 (LSB), bit 7 is most-significant bit (MSB):
 
 | Bit | Usage |
@@ -63,8 +63,8 @@ The final bit pattern for each grid-cell looks as follows, where bit 0 is the le
 
 ## Graphics
 
-The game will run in four-colour *mode 1*. Tiles for the cells are 16x16 pixels and the screen is
-setup to be 256x256 pixels. This doesn't leave _any_ room for anything apart from the game-grid
+The game will run in four-colour [mode 1](http://www.cpcwiki.eu/index.php/Video_modes#Mode_1_graphics). Tiles for the cells are 16x16 pixels and the screen is
+setup to be 256x256 pixels. If the grid-size is 16x16 cells this doesn't leave _any_ room for anything apart from the game-grid
 (titles, banners, scores, timers, etc) so I may have to rethink either grid-size or screen layout
 but we'll carry on for now
 
@@ -78,11 +78,11 @@ connected to the power supply)
 In mode 1 each byte represents four pixels so each tile sprite takes `64 bytes`. Total memory required
 for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connected) = 4800 bytes`. In
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
-combinations (ie include tiles which have no exits, even though they won't appear in the game) which
-turns out as `5120 bytes / 5Kb`. Possibly we can use these extra tiles to hold other sprites (power
-supply, selected cell, etc)
+combinations (ie include tiles representing cells that have no exits, even though they won't appear
+in the game) which turns out as `5120 bytes / 5Kb`. In actual fact, rather than wasting this space,
+we use these extra tiles to hold other sprites (power supply, selected cell)
 
-![Cell sprites](./doc/sprites.gif)
+![Tile sprites](./doc/sprites.gif)
 
 I'm not a pixel artist at all so they're _very_ raw at the moment. Hopefully I can do them a bit better
 in future and just output from RGAS over the top of the current crappy ones
@@ -93,14 +93,19 @@ Here's a quick list of tasks in the approximate order I intend to do them. Not c
 going to change quite significantly as I gradually get stuff done...
 
 - [x] Maze generation
-- [x] Draw cell sprites
+- [x] Draw tile sprites
 - [x] Render a single sprite
 - [x] Render whole game-grid
 - [x] Show currently selected cell in rendered grid
 - [x] Navigate around the grid using keyboard
-- [ ] Animate cell rotation
-- [x] Add power supply
+- [x] Animate tile rotation
+- [x] Add power supply tile
 - [ ] Calculate which cells are connected to power supply
-- [ ] ...
-- [ ] Add sound/music
-- [ ] Add menus
+- [ ] Display connected tiles
+- [ ] Shuffle rotations before game
+- [ ] Recognise when game is complete (ie all terminals connected)
+- [ ] Game menus
+- [ ] Logo graphics
+- [ ] Sound effects
+- [ ] Music
+- [ ] Loading screen
