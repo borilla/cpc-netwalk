@@ -8,39 +8,34 @@
 ;; constants
 ;; ----------------------------------------------------------------
 
-exits_top	equ 1
-exits_right	equ 2
-exits_bottom	equ 4
-exits_left	equ 8
-exits_all	equ 15
-is_unvisited	equ 128
-visited_bit	equ 7
+exits_top_bit		equ 0
+exits_right_bit		equ 1
+exits_bottom_bit	equ 2
+exits_left_bit		equ 3
+is_connected_bit	equ 6
+is_visited_bit		equ 7
+
+exits_top		equ 1
+exits_right		equ 2
+exits_bottom		equ 4
+exits_left		equ 8
+is_connected		equ 64
+is_visited		equ 128
 
 ;; ----------------------------------------------------------------
 ;; subroutines
 ;; ----------------------------------------------------------------
 
-;; rotate exits of room indexed in A (clockwise)
-;; entry:
-;;	A: index of room
-maze_rotate	ld h,maze_data / 256
-		ld l,a
-		ld a,(hl)
-		ld d,rot_nibble_data / 256
-		ld e,a
-		ld a,(de)
-		ld (hl),a
-		ret
-
-;; generate maze. Before calling this, set bytes at maze_width and maze_height to size maze
+;; generate maze
 ;; entry:
 ;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
 ;; modifies:
 ;;	A,BC.DE,HL
-maze_generate	call maze_reset			;; Note: could inline maze_reset(?)
+maze_generate	call maze_reset			;; clear all maze data
+		call modify_index_limits	;; modify max width and height index values in subroutines
 		ld hl,maze_data + 17		;; HL points to current room (starting one in from top-left)
 		ld bc,maze_stack		;; BC points to stack of pending rooms
-_mg_loop_0	res visited_bit,(hl)		;; mark current room as visited
+_mg_loop_0	res is_visited_bit,(hl)		;; mark current room as visited
 _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
 		rr e				;; E = count of neighbours
 		jr nz,_mg_choose		;; if there are unvisited neighbours then choose one
@@ -81,37 +76,34 @@ _mg_join	;; join current room to neighbour (from neighbour entry pointed to by D
 		ld (hl),a
 		jr _mg_loop_0			;; and loop again
 
+;; set constants for index-limits in "find-neighbour" subroutines
+;; entry:
+;;	A: maze dimensions - height*16 + width (%hhhhwwww)
+;; modifies:
+;;	A,C
+modify_index_limits
+		ld c,a
+		dec a
+		and %00001111
+		ld (_fun_right + 3),a
+		ld a,c
+		sub 16
+		and %11110000
+		ld (_fun_bottom + 3),a
+		ret
+
 ;; zero maze data table then mark column and row to right and bottom of maze as "visited"
 ;; entry:
 ;;	A: maze dimensions - height*16 + width (%hhhhwwww)
 ;; modifies:
 ;;	A,BC,DE,HL
-maze_reset	;; clear exit bits and set "is_unvisited" bit for all cells
+maze_reset	;; clear exit bits and set "visited" bit for all cells
 		ld hl,maze_data
-		ld b,is_unvisited
+		ld b,is_visited
 		ld (hl),b
 		ld de,maze_data+1
 		ld bc,&00ff
 		ldir
-		;; mark right and bottom edges
-		ld h,maze_data / 256
-		ld de,16 * 256		;; ld d,16, ld e,0
-		ld c,a			;; keep copy of original maze dimensions in C
-		and 15			;; extract width (0..15)
-		jr z,_me_bottom		;; if width is zero then skip right edge
-		ld b,d			;; ld b,16
-_me_right_loop	ld l,a
-		ld (hl),e
-		add a,d			;; add a,16
-		djnz _me_right_loop
-_me_bottom	ld a,c
-		and 15 * 16		;; extract height (0..15) multiplied by 16
-		ret z			;; if height is zero then skip bottom edge
-		ld b,d			;; ld b,16
-		ld l,a
-_me_bottom_loop	ld (hl),e
-		inc l
-		djnz _me_bottom_loop
 		ret
 
 ;; find unvisited neighbours of a room
@@ -131,7 +123,7 @@ _fun_top	ld a,l			;; A is index of current room
 		jr z,_fun_right		;; if there is no top neighbour then check right neighbour
 		sub a,16		;; point HL at top neighbour
 		ld l,a
-		bit visited_bit,(hl)	;; check if "visited" bit is set
+		bit is_visited_bit,(hl)	;; check if "visited" bit is set
 		jr z,_fun_top_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_top	;; push direction
@@ -142,12 +134,12 @@ _fun_top	ld a,l			;; A is index of current room
 _fun_top_end	add a,16		;; reset to current room
 		ld l,a
 _fun_right	and &0f			;; extract column part of index
-		cp &0f
+		cp &0f			;; (maze-width - 1)
 		ld a,l
 		jr z,_fun_bottom	;; if there is no right neighbour then check bottom neighbour
 		inc a			;; point HL at right neighbour
 		ld l,a
-		bit visited_bit,(hl)	;; check if "visited" bit is set
+		bit is_visited_bit,(hl)	;; check if "visited" bit is set
 		jr z,_fun_right_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_right	;; push direction
@@ -158,12 +150,12 @@ _fun_right	and &0f			;; extract column part of index
 _fun_right_end	dec a			;; reset to current room
 		ld l,a
 _fun_bottom	and &f0			;; extract row part of index
-		cp &f0
+		cp &f0			;; (maze-height - 1)
 		ld a,l
 		jr z,_fun_left		;; if there is no bottom neighbour then check left neighbour
 		add a,16		;; point HL at bottom neighbour
 		ld l,a
-		bit visited_bit,(hl)	;; check if "visited" bit is set
+		bit is_visited_bit,(hl)	;; check if "visited" bit is set
 		jr z,_fun_bottom_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_bottom	;; push direction
@@ -178,7 +170,7 @@ _fun_left	and &0f			;; extract column part of index
 		ret z			;; if there is no left neighbour then return
 		dec a			;; point HL at left neighbour
 		ld l,a
-		bit visited_bit,(hl)	;; check if "visited" bit is set
+		bit is_visited_bit,(hl)	;; check if "visited" bit is set
 		jr z,_fun_left_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_left	;; push direction
@@ -238,6 +230,7 @@ mod_3		ld a,c			;; add nibbles
 		and 3
 		dec a
 		ret
+
 
 ;; ----------------------------------------------------------------
 ;; data
