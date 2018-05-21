@@ -84,7 +84,6 @@ _rtt_2
 
 		jr _rtt_2
 
-
 ;; render a transparent tile, using a table to lookup mask
 ;; note: assumes tile data all sits in same 256 byte page
 ;; entry:
@@ -101,7 +100,7 @@ tile_render_mask
 		add hl,bc
 		ld b,a				;; restore BC to point at mask table
 _rtm_1
-		ld lx,8				;; use LX as row count
+		ld ixl,8			;; use IXL as row count
 _rtm_2
 		ld a,(de)			;; [2] read sprite byte
 		ld c,a				;; [1] point BC at mask byte
@@ -138,7 +137,7 @@ _rtm_2
 		ld (hl),a
 		inc e
 
-		dec lx				;; if last row then return
+		dec ixl				;; if last row then return
 		ret z
 
 		dec l				;; reset to left of tile

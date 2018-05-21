@@ -105,6 +105,8 @@ going to change quite significantly as I gradually get stuff done...
 - [ ] Shuffle rotations before game
 - [ ] Recognise when game is complete (ie all terminals connected)
 - [ ] Game menus
+- [ ] Allow different grid-sizes
+- [ ] Add timer
 - [ ] Logo graphics
 - [ ] Sound effects
 - [ ] Music

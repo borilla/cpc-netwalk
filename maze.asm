@@ -231,6 +231,116 @@ mod_3		ld a,c			;; add nibbles
 		dec a
 		ret
 
+;; find all cells connected to initial cell
+;; after this call, all connected cells will have "visited" bit set
+;; entry:
+;;	A: index of initial cell
+;; exit:
+;;	DE: top of stack of (indexes of) connected cells
+connected_cells
+		ld de,maze_stack	;; DE points at top of stack
+		ld (de),a		;; add initial stack item
+		ld iyl,e		;; IXL is index of current item in stack
+
+		ld h,maze_data / 256	;; HL points at current cell in maze-data
+		ld l,a
+		set is_visited_bit,(hl)	;; mark initial cell as visited
+		ld b,h			;; BC is used to point at neighbours in maze-data
+_cc_loop
+		ld c,e			;; temporarily store E
+		ld e,iyl		;; DE points at current stack item
+		ld a,(de)		;; A is index of current cell
+		ld e,c			;; restore E
+
+		ld l,a			;; HL points at current item
+		ld a,(hl)		;; A contains current cell data
+		and %00110000		;; if cell is currently rotating then can't be connected to neighbours
+		jr nz,_cc_end
+
+_cc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_cc_right
+		ld a,l
+		and %11110000
+		jr z,_cc_right
+		ld a,l			;; point BC at neighbour
+		sub 16
+		ld c,a
+		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
+		and is_visited + %00110000 + exits_bottom
+		cp exits_bottom
+		jr nz,_cc_right
+		ld a,(bc)		;; mark neighbour as "visited"
+		or is_visited
+		ld (bc),a
+		inc e			;; push (index of) neighbour onto stack
+		ld a,c
+		ld (de),a
+
+_cc_right	bit exits_right_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_cc_bottom
+		ld a,l
+		and %00001111
+		cp %00001111		;; maze-width - 1
+		jr z,_cc_bottom
+		ld a,l			;; point BC at neighbour
+		inc a
+		ld c,a
+		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
+		and is_visited + %00110000 + exits_left
+		cp exits_left
+		jr nz,_cc_bottom
+		ld a,(bc)		;; mark neighbour as "visited"
+		or is_visited
+		ld (bc),a
+		inc e			;; push (index of) neighbour onto stack
+		ld a,c
+		ld (de),a
+
+_cc_bottom	bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_cc_left
+		ld a,l
+		and %11110000
+		cp %11110000
+		jr z,_cc_left
+		ld a,l			;; point BC at neighbour
+		add 16
+		ld c,a
+		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
+		and is_visited + %00110000 + exits_top
+		cp exits_top
+		jr nz,_cc_left
+		ld a,(bc)		;; mark neighbour as "visited"
+		or is_visited
+		ld (bc),a
+		inc e			;; push (index of) neighbour onto stack
+		ld a,c
+		ld (de),a
+
+_cc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_cc_end
+		ld a,l
+		and %00001111
+		jr z,_cc_end
+		ld a,l			;; point BC at neighbour
+		dec a
+		ld c,a
+		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
+		and is_visited + %00110000 + exits_right
+		cp exits_right
+		jr nz,_cc_end
+		ld a,(bc)		;; mark neighbour as "visited"
+		or is_visited
+		ld (bc),a
+		inc e			;; push (index of) neighbour onto stack
+		ld a,c
+		ld (de),a
+
+_cc_end		ld a,iyl		;; is current item same as top item on stack?
+		cp e
+		ret z
+
+		inc iyl			;; go to next stack item
+		jp _cc_loop
 
 ;; ----------------------------------------------------------------
 ;; data
