@@ -35,7 +35,7 @@ maze_generate	call maze_reset			;; clear all maze data
 		call modify_index_limits	;; modify max width and height index values in subroutines
 		ld hl,maze_data + 17		;; HL points to current room (starting one in from top-left)
 		ld bc,maze_stack		;; BC points to stack of pending rooms
-_mg_loop_0	res is_visited_bit,(hl)		;; mark current room as visited
+_mg_loop_0	set is_connected_bit,(hl)	;; mark current room as visited
 _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
 		rr e				;; E = count of neighbours
 		jr nz,_mg_choose		;; if there are unvisited neighbours then choose one
@@ -92,15 +92,12 @@ modify_index_limits
 		ld (_fun_bottom + 3),a
 		ret
 
-;; zero maze data table then mark column and row to right and bottom of maze as "visited"
-;; entry:
-;;	A: maze dimensions - height*16 + width (%hhhhwwww)
+;; zero maze data table
 ;; modifies:
-;;	A,BC,DE,HL
-maze_reset	;; clear exit bits and set "visited" bit for all cells
+;;	BC,DE,HL
+maze_reset
 		ld hl,maze_data
-		ld b,is_visited
-		ld (hl),b
+		ld (hl),l
 		ld de,maze_data+1
 		ld bc,&00ff
 		ldir
@@ -123,8 +120,8 @@ _fun_top	ld a,l			;; A is index of current room
 		jr z,_fun_right		;; if there is no top neighbour then check right neighbour
 		sub a,16		;; point HL at top neighbour
 		ld l,a
-		bit is_visited_bit,(hl)	;; check if "visited" bit is set
-		jr z,_fun_top_end	;; if bit is not set then check next neighbour
+		bit is_connected_bit,(hl)	;; check if "connected" bit is set
+		jr nz,_fun_top_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_top	;; push direction
 		inc l
@@ -139,8 +136,8 @@ _fun_right	and &0f			;; extract column part of index
 		jr z,_fun_bottom	;; if there is no right neighbour then check bottom neighbour
 		inc a			;; point HL at right neighbour
 		ld l,a
-		bit is_visited_bit,(hl)	;; check if "visited" bit is set
-		jr z,_fun_right_end	;; if bit is not set then check next neighbour
+		bit is_connected_bit,(hl)	;; check if "connected" bit is set
+		jr nz,_fun_right_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_right	;; push direction
 		inc l
@@ -155,8 +152,8 @@ _fun_bottom	and &f0			;; extract row part of index
 		jr z,_fun_left		;; if there is no bottom neighbour then check left neighbour
 		add a,16		;; point HL at bottom neighbour
 		ld l,a
-		bit is_visited_bit,(hl)	;; check if "visited" bit is set
-		jr z,_fun_bottom_end	;; if bit is not set then check next neighbour
+		bit is_connected_bit,(hl)	;; check if "connected" bit is set
+		jr nz,_fun_bottom_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_bottom	;; push direction
 		inc l
@@ -170,8 +167,8 @@ _fun_left	and &0f			;; extract column part of index
 		ret z			;; if there is no left neighbour then return
 		dec a			;; point HL at left neighbour
 		ld l,a
-		bit is_visited_bit,(hl)	;; check if "visited" bit is set
-		jr z,_fun_left_end	;; if bit is not set then check next neighbour
+		bit is_connected_bit,(hl)	;; check if "connected" bit is set
+		jr nz,_fun_left_end	;; if bit is not set then check next neighbour
 		ex de,hl
 		ld (hl),exits_left	;; push direction
 		inc l
@@ -232,7 +229,7 @@ mod_3		ld a,c			;; add nibbles
 		ret
 
 ;; find all cells connected to initial cell
-;; after this call, all connected cells will have "visited" bit set
+;; after this call, all connected cells will have "connected" bit set
 ;; entry:
 ;;	A: index of initial cell
 ;; exit:
@@ -244,7 +241,7 @@ connected_cells
 
 		ld h,maze_data / 256	;; HL points at current cell in maze-data
 		ld l,a
-		set is_visited_bit,(hl)	;; mark initial cell as visited
+		set is_connected_bit,(hl)	;; mark initial cell as connected
 		ld b,h			;; BC is used to point at neighbours in maze-data
 _cc_loop
 		ld c,e			;; temporarily store E
@@ -266,11 +263,11 @@ _cc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
 		sub 16
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
-		and is_visited + %00110000 + exits_bottom
+		and is_connected + %00110000 + exits_bottom
 		cp exits_bottom
 		jr nz,_cc_right
-		ld a,(bc)		;; mark neighbour as "visited"
-		or is_visited
+		ld a,(bc)		;; mark neighbour as "connected"
+		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
@@ -286,11 +283,11 @@ _cc_right	bit exits_right_bit,(hl)	;; is cell connected to neighbour?
 		inc a
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
-		and is_visited + %00110000 + exits_left
+		and is_connected + %00110000 + exits_left
 		cp exits_left
 		jr nz,_cc_bottom
-		ld a,(bc)		;; mark neighbour as "visited"
-		or is_visited
+		ld a,(bc)		;; mark neighbour as "connected"
+		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
@@ -306,11 +303,11 @@ _cc_bottom	bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
 		add 16
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
-		and is_visited + %00110000 + exits_top
+		and is_connected + %00110000 + exits_top
 		cp exits_top
 		jr nz,_cc_left
-		ld a,(bc)		;; mark neighbour as "visited"
-		or is_visited
+		ld a,(bc)		;; mark neighbour as "connected"
+		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
@@ -325,11 +322,11 @@ _cc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
 		dec a
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
-		and is_visited + %00110000 + exits_right
+		and is_connected + %00110000 + exits_right
 		cp exits_right
 		jr nz,_cc_end
-		ld a,(bc)		;; mark neighbour as "visited"
-		or is_visited
+		ld a,(bc)		;; mark neighbour as "connected"
+		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
