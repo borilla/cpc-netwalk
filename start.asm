@@ -16,28 +16,26 @@ generate_maze	di
 		call maze_generate
 
 		xor a				;; reset actions
+		ld (actions_prev),a
 		ld (actions),a
 		ld (actions_new),a
 
 		call setup_interrupts
 		assign_interrupt 0,do_rendering
-		assign_interrupt 1,render_two_tiles
-		assign_interrupt 2,render_two_tiles
-		assign_interrupt 3,render_two_tiles
-		assign_interrupt 4,render_two_tiles
-		assign_interrupt 5,render_two_tiles
 		assign_interrupt 6,get_actions
-		assign_interrupt 7,render_two_tiles
-		assign_interrupt 8,render_two_tiles
-		assign_interrupt 9,render_two_tiles
-		assign_interrupt 10,render_two_tiles
-		assign_interrupt 11,render_two_tiles
 
-game_loop	;;call render_next_tile
-
-		ld hl,actions_new
+game_loop	ld hl,actions_new
 		bit 7,(hl)
 		jr nz,generate_maze
+
+		call render_next_tile
+
+		ld a,(recalc_required)
+		or a
+		jr z,game_loop
+		call recalc_connected_tiles
+		xor a
+		ld (recalc_required),a
 
 		jr game_loop
 
@@ -45,7 +43,7 @@ game_loop	;;call render_next_tile
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb 0	;; TODO: fix stuff so we can have different grid sizes
+grid_size		defb 0
 tile_index_supply	defb 0
 
 tile_index_prev		defb 0
@@ -60,21 +58,17 @@ rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
 rotation_queue_cur	defb 0	;; index of current position in queue
 rotation_queue_next	defb 0	;; index to insert next item in queue
 
-align 256
-rendered_tiles	defs 255,0
+recalc_required		defb 0	;; flag that we need to recalculate connected tiles
+
+align &100
+rendered_tiles	defs &100,0
 
 ;; ----------------------------------------------------------------
 ;; subroutines
 ;; ----------------------------------------------------------------
 
-render_two_tiles
-		call render_next_tile
-		call render_next_tile
-		ret
-
-;; ----------------------------------------------------------------
-
-do_rendering	call render_selected_overlay
+do_rendering	call update_rotating_tile
+		call render_selected_overlay
 		jp render_supply_overlay
 
 ;; ----------------------------------------------------------------
@@ -82,8 +76,9 @@ do_rendering	call render_selected_overlay
 get_actions	call scan_keyboard
 		call read_actions
 		call do_movement_action
-		call update_rotating_tile
-		jp do_rotate_action
+		call do_rotate_action
+		call render_selected_overlay
+		jp render_supply_overlay
 
 ;; ----------------------------------------------------------------
 
@@ -108,21 +103,11 @@ setup_screen	;; set screen mode
 
 ;; ----------------------------------------------------------------
 
-;; render entire grid
-render_grid	ld lx,0			;; use LX as grid index
-_render_grid_1	ld a,lx
-		call render_grid_tile
-		inc lx
-		jr nz,_render_grid_1
-		ret
-
-;; ----------------------------------------------------------------
-
 ;; render next tile that needs rendering (if any)
 render_next_tile
-next_tile	equ $+1
-		ld a,0			;; LD A,(next_tile)
-		ld b,64			;; max number of loops
+next_tile_index	equ $+1
+		ld a,0			;; LD A,(next_tile_index)
+		ld b,0			;; max number of loops
 		ld d,maze_data / 256
 		ld h,rendered_tiles / 256
 _rnt_loop
@@ -140,14 +125,16 @@ _rnt_loop
 		inc a
 
 		djnz _rnt_loop
+		ld (next_tile_index),a
 		ret			;; no tile to render this time
 _rnt_render
 		;; at this point, A = tile state, DE points to tile state, HL points to rendered state
 		ld (hl),a		;; update rendered state
 		ld a,l
-		ld (next_tile),a
+		ld (next_tile_index),a
 
 		ld a,(de)
+		and %01111111
 		call tile_data_addr	;; HL = sprite data for tile
 		ld a,e
 		call tile_screen_addr	;; DE = screen address for tile
@@ -163,12 +150,12 @@ _rnt_render
 render_grid_tile
 		ld h,maze_data / 256
 		ld l,a
-		call tile_screen_addr	;; DE = screen address for tile
+		call tile_screen_addr		;; DE = screen address for tile
 		ld a,(hl)
 		ld h,rendered_tiles / 256	;; update rendered tile
 		ld (hl),a
 		and %01111111
-		call tile_data_addr	;; HL = sprite data for tile
+		call tile_data_addr		;; HL = sprite data for tile
 		jp tile_render
 
 ;; ----------------------------------------------------------------
@@ -228,10 +215,10 @@ read_actions
 		ld hl,actions
 		ld a,(hl)
 		ld (actions_prev),a	;; store previous actions
-		ld (hl),b		;; update current actions
+		ld (hl),b		;; store current actions
 		xor b
 		and b
-		ld (actions_new),a	;; store "new" actions
+		ld (actions_new),a	;; store new actions
 
 		ret
 
@@ -251,9 +238,14 @@ do_movement_action
 		ld a,10				;; load A with long countdown timer
 		jr z,_do_move			;; if weren't previously moving, act immediately (setting long timer)
 
+		ld a,(actions_new)		;; if a new direction key has been pressed
+		and %00001111			;; then move immediately
+		ld a,(hl)
+		jr nz,_do_move
+
 		dec (hl)			;; otherwise, decrement movement countdown
 		ret nz				;; if not counted down yet then return
-		ld a,5				;; next countdown will use short timer
+		ld a,4				;; next countdown will use short timer
 
 _do_move	ld (hl),a			;; reset countdown (to long or short timer)
 		ld hl,tile_index_selected	;; HL points at tile index
@@ -298,17 +290,17 @@ _do_move_left	bit 3,b
 _do_move_end	cp (hl)				;; is index changed?
 		ret z
 
-		ld b,a
+		ld c,a
 		ld a,(hl)
-		ld (hl),b
+		ld (hl),c
 		jp render_grid_tile		;; render prev tile
 
 ;; ----------------------------------------------------------------
 
 update_rotating_tile
-		;; TODO: store rotation_queue_cur in register (BC?)
+		ld bc,rotation_queue_cur 
 		ld hl,rotation_queue_next
-		ld a,(rotation_queue_cur)	;; index of current item in queue
+		ld a,(bc)			;; index of current item in queue
 		cp (hl)
 		ret z				;; no rotating tile
 
@@ -320,11 +312,8 @@ update_rotating_tile
 		ld l,a
 		ld a,(hl)			;; A = grid tile value
 
-		ld b,a				;; keep copy in B
 		add 16				;; increment rotation value
-		xor b
-		and %00110000			;; (isolate rotation bits)
-		xor b				;; A = tile with new rotation value
+		and %00111111			;; (isolate rotation bits)
 
 		ld e,a				;; store rotated value in E
 		and %00110000			;; check if rotation has returned to 0
@@ -334,13 +323,16 @@ update_rotating_tile
 		ld a,(de)			;; read rotated value from DE
 		ld e,a
 
-		ld a,(rotation_queue_cur)	;; update queue index
+		ld a,1				;; flag that we need to recalculate connected tiles
+		ld (recalc_required),a
+
+		ld a,(bc)			;; update queue index
 		inc a
 		and %00001111
-		ld (rotation_queue_cur),a
+		ld (bc),a
 
 _write_rotated_value
-		ld (hl),e			;; store new grid tile value
+		ld (hl),e			;; store new (rotated) tile value
 		ld a,l
 		jp render_grid_tile		;; render the tile
 
@@ -364,6 +356,22 @@ do_rotate_action
 		inc a
 		and %00001111			;; A = A mod 16
 		ld (rotation_queue_next),a
+
+		ret
+
+;; ----------------------------------------------------------------
+
+recalc_connected_tiles
+		;; reset connected bits for all maze cells
+		ld hl,maze_data
+_uct_loop_1	ld a,(hl)
+		and %00111111
+		ld (hl),a
+		inc l
+		jr nz,_uct_loop_1
+
+		ld a,(tile_index_supply)
+		call connected_cells
 
 		ret
 
