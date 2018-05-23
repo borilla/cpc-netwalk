@@ -9,6 +9,8 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 main		call setup_screen
+		ld a,r				;; initialise rand16 by setting high byte of seed
+		ld (rand16+2),a
 generate_maze	di
 		ld a,r				;; set random seed for maze
 		ld (choose_random_index + 1),a
@@ -380,6 +382,7 @@ _uct_loop_1	ld a,(hl)
 ;; ----------------------------------------------------------------
 
 read "inc/scan_keyboard.asm"
+read "maze/rand16.asm"
 read "maze/interrupts.asm"
 read "maze/tiles.asm"
 read "maze/maze.asm"

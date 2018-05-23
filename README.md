@@ -80,7 +80,7 @@ for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connect
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
 combinations (ie include tiles representing cells that have no exits, even though they won't appear
 in the game) which turns out as `5120 bytes / 5Kb`. In actual fact, rather than wasting this space,
-we use these extra tiles to hold other sprites (power supply, selected cell)
+we use these extra tiles to hold other sprites (power supply, selected cell, etc)
 
 ![Tile sprites](./doc/sprites.gif)
 
@@ -100,8 +100,8 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Navigate around the grid using keyboard
 - [x] Animate tile rotation
 - [x] Add power supply tile
-- [ ] Calculate which cells are connected to power supply
-- [ ] Display connected tiles
+- [x] Calculate which cells are connected to power supply
+- [x] Display connected tiles
 - [ ] Shuffle rotations before game
 - [ ] Recognise when game is complete (ie all terminals connected)
 - [ ] Game menus
