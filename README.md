@@ -59,14 +59,15 @@ The bit pattern for each grid-cell looks as follows, where bit 0 is the least-si
 | 4 | Tile rotation (low bit) |
 | 5 | Tile rotation (high bit) |
 | 6 | Connected to power supply |
-| 7 | "Visited" - used for maze generation |
+| 7 | _Currently unused_ |
 
 ## Graphics
 
-The game will run in four-colour [mode 1](http://www.cpcwiki.eu/index.php/Video_modes#Mode_1_graphics). Tiles for the cells are 16x16 pixels and the screen is
-setup to be 256x256 pixels. If the grid-size is 16x16 cells this doesn't leave _any_ room for anything apart from the game-grid
-(titles, banners, scores, timers, etc) so I may have to rethink either grid-size or screen layout
-but we'll carry on for now
+The game runs in four-colour [mode 1](http://www.cpcwiki.eu/index.php/Video_modes#Mode_1_graphics).
+Tiles for the cells are 16x16 pixels and the screen is setup to be 256x256 pixels. If the grid-size
+is 16x16 cells this doesn't leave _any_ room for anything apart from the game-grid (titles, banners,
+scores, timers, etc) so I may have to rethink either grid-size or screen layout but we'll carry on
+for now
 
 Graphics are generated using [Retro Game Asset Studio (RGAS)](http://www.cpcwiki.eu/index.php/Retro_Game_Asset_Studio)
 
@@ -80,12 +81,9 @@ for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connect
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
 combinations (ie include tiles representing cells that have no exits, even though they won't appear
 in the game) which turns out as `5120 bytes / 5Kb`. In actual fact, rather than wasting this space,
-we use these extra tiles to hold other sprites (power supply, selected cell, etc)
+we use these extra tiles to hold other sprites such as power supply and selected cell border
 
 ![Tile sprites](./doc/sprites.gif)
-
-I'm not a pixel artist at all so they're _very_ raw at the moment. Hopefully I can do them a bit better
-in future and just output from RGAS over the top of the current crappy ones
 
 ## Progress
 

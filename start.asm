@@ -107,7 +107,6 @@ setup_screen	;; set screen mode
 
 ;; render next tile that needs rendering (if any)
 render_next_tile
-next_tile_index	equ $+1
 		ld a,0			;; LD A,(next_tile_index)
 		ld b,0			;; max number of loops
 		ld d,maze_data / 256
@@ -127,13 +126,13 @@ _rnt_loop
 		inc a
 
 		djnz _rnt_loop
-		ld (next_tile_index),a
+		ld (render_next_tile + 1),a
 		ret			;; no tile to render this time
 _rnt_render
 		;; at this point, A = tile state, DE points to tile state, HL points to rendered state
 		ld (hl),a		;; update rendered state
 		ld a,l
-		ld (next_tile_index),a
+		ld (render_next_tile + 1),a
 
 		ld a,(de)
 		and %01111111

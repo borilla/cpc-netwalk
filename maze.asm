@@ -28,27 +28,28 @@ is_visited		equ 128
 
 ;; generate maze
 ;; entry:
-;;	A: maze dimensions - height*16 + width (0xHHHHWWWW)
+;;	A: maze dimensions - height*16 + width (%hhhhwwww)
 ;; modifies:
 ;;	A,BC.DE,HL
-maze_generate	call maze_reset			;; clear all maze data
+maze_generate
+		call maze_reset			;; clear all maze data
 		call modify_index_limits	;; modify max width and height index values in subroutines
-		ld hl,maze_data + 17		;; HL points to current room (starting one in from top-left)
-		ld bc,maze_stack		;; BC points to stack of pending rooms
-_mg_loop_0	set is_connected_bit,(hl)	;; mark current room as visited
+		ld hl,maze_data + 17		;; HL points to current cell (starting at starter cell)
+		ld bc,maze_stack		;; BC points to stack of pending cells
+_mg_loop_0	set is_connected_bit,(hl)	;; mark current cell as visited
 _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
 		rr e				;; E = count of neighbours
 		jr nz,_mg_choose		;; if there are unvisited neighbours then choose one
 		inc c				;; otherwise, check if pending stack is empty
 		dec c
 		ret z				;; if stack is empty then we've finished(!!!!)
-		dec c				;; otherwise, pop last room from stack
+		dec c				;; otherwise, pop last cell from stack
 		ld a,(bc)
-		ld l,a				;; and point HL at that room
-		jr _mg_loop_1			;; rooms on stack are already visited so no need to set bit
+		ld l,a				;; and point HL at that cell
+		jr _mg_loop_1			;; cells on stack are already visited so no need to set bit
 _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		jr z,_mg_join			;; if only one neighbour then join to that one
-		ld a,l				;; otherwise, push current room onto stack
+		ld a,l				;; otherwise, push current cell onto stack
 		ld (bc),a
 		inc c
 		ld b,c				;; temporarily store value of C (in B)
@@ -57,11 +58,11 @@ _mg_choose	dec e				;; E = number of neighbours - 1 (ie max index)
 		ld b,maze_stack / 256		;; restore value of B
 		add a,a				;; double value of random index
 		ld e,a				;; copy (doubled) value into E
-_mg_join	;; join current room to neighbour (from neighbour entry pointed to by DE)
+_mg_join	;; join current cell to neighbour (from neighbour entry pointed to by DE)
 		ld a,(de)			;; read direction of neighbour into A
-		or (hl)				;; add exit to current room
+		or (hl)				;; add exit to current cell
 		ld (hl),a
-		;; join neighbour to current room and make neighbour current room
+		;; join neighbour to current cell and make neighbour current cell
 		ld h,rot_nibble_data / 256	;; get opposite of neighbour direction
 		ld a,(de)			;; point HL at entry in rotation table
 		ld l,a
@@ -95,8 +96,7 @@ modify_index_limits
 ;; zero maze data table
 ;; modifies:
 ;;	BC,DE,HL
-maze_reset
-		ld hl,maze_data
+maze_reset	ld hl,maze_data
 		ld (hl),l
 		ld de,maze_data+1
 		ld bc,&00ff
@@ -104,17 +104,19 @@ maze_reset
 		ret
 
 ;; find unvisited neighbours of a room
+;; find unvisited neighbours of a cell
 ;; entry:
-;;	HL: address of current room in maze_data
+;;	HL: address of current cell in maze_data
 ;; exit:
-;;	HL: address of current room in maze data (not modified)
-;;	DE: top of neighbours_list (2 bytes each so E = number of neighbours * 2)
-;;	A: index of current room (same as L)
+;;	HL: unmodified
+;;	BC: unmodified
+;;	DE: top of maze_neighbours_list (2 bytes each, so E = number of neighbours * 2)
+;;	A: index of current cell (same as L)
 ;; flags:
 ;;	C: reset
 find_unvisited_neighbours
-		ld de,neighbours_list
-_fun_top	ld a,l			;; A is index of current room
+		ld de,maze_neighbours_list
+_fun_top	ld a,l			;; A is index of current cell
 		and &f0			;; extract row part of index
 		ld a,l
 		jr z,_fun_right		;; if there is no top neighbour then check right neighbour
@@ -125,10 +127,10 @@ _fun_top	ld a,l			;; A is index of current room
 		ex de,hl
 		ld (hl),exits_top	;; push direction
 		inc l
-		ld (hl),a		;; push room index
+		ld (hl),a		;; push cell index
 		inc l
 		ex de,hl
-_fun_top_end	add a,16		;; reset to current room
+_fun_top_end	add a,16		;; reset to current cell
 		ld l,a
 _fun_right	and &0f			;; extract column part of index
 		cp &0f			;; (maze-width - 1)
@@ -141,10 +143,10 @@ _fun_right	and &0f			;; extract column part of index
 		ex de,hl
 		ld (hl),exits_right	;; push direction
 		inc l
-		ld (hl),a		;; push room index
+		ld (hl),a		;; push cell index
 		inc l
 		ex de,hl
-_fun_right_end	dec a			;; reset to current room
+_fun_right_end	dec a			;; reset to current cell
 		ld l,a
 _fun_bottom	and &f0			;; extract row part of index
 		cp &f0			;; (maze-height - 1)
@@ -157,10 +159,10 @@ _fun_bottom	and &f0			;; extract row part of index
 		ex de,hl
 		ld (hl),exits_bottom	;; push direction
 		inc l
-		ld (hl),a		;; push room index
+		ld (hl),a		;; push cell index
 		inc l
 		ex de,hl
-_fun_bottom_end	sub a,16		;; reset to current room
+_fun_bottom_end	sub a,16		;; reset to current cell
 		ld l,a
 _fun_left	and &0f			;; extract column part of index
 		ld a,l
@@ -172,11 +174,11 @@ _fun_left	and &0f			;; extract column part of index
 		ex de,hl
 		ld (hl),exits_left	;; push direction
 		inc l
-		ld (hl),a		;; push room index
+		ld (hl),a		;; push cell index
 		inc l
 		ex de,hl
-_fun_left_end	inc a			;; reset A to current room (will also clear carry before ret)
-		ld l,a			;; restore HL to original room
+_fun_left_end	inc a			;; reset A to current cell (will also clear carry before ret)
+		ld l,a			;; restore HL to original cell
 _fun_ret	ret
 
 ;; get a random number between 0 and E
@@ -365,5 +367,5 @@ rot_nibble_data	defb &00,&02,&04,&06,&08,&0a,&0c,&0e,&01,&03,&05,&07,&09,&0b,&0d
 		defb &e0,&e2,&e4,&e6,&e8,&ea,&ec,&ee,&e1,&e3,&e5,&e7,&e9,&eb,&ed,&ef
 		defb &f0,&f2,&f4,&f6,&f8,&fa,&fc,&fe,&f1,&f3,&f5,&f7,&f9,&fb,&fd,&ff
 
-neighbours_list	defs 4*2,&00
+maze_neighbours_list	defs 4*2,&00
 end
