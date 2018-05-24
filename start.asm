@@ -11,22 +11,27 @@ read "inc/macros.asm"
 main		call setup_screen
 		ld a,r
 		ld (rand16+2),a			;; initialise (high byte of) random number generator
+
 generate_maze	di
 		ld a,(grid_size)
 		call maze_generate
 		call maze_shuffle
 		call recalc_connected_tiles
 
-		xor a				;; reset actions
-		ld (actions_prev),a
-		ld (actions),a
-		ld (actions_new),a
+wait_for_key_release
+		call read_actions
+		ld a,(actions)
+		jr nz,wait_for_key_release
 
 		call setup_interrupts
 		assign_interrupt 0,do_rendering
 		assign_interrupt 6,get_actions
 
 game_loop	ld hl,actions_new
+		bit 5,(hl)
+		jr nz,enlarge_grid
+		bit 6,(hl)
+		jr nz,shrink_grid
 		bit 7,(hl)
 		jr nz,generate_maze
 
@@ -44,6 +49,28 @@ game_loop	ld hl,actions_new
 ;; ----------------------------------------------------------------
 ;; subroutines
 ;; ----------------------------------------------------------------
+
+enlarge_grid	ld a,(grid_size)
+		or a		;; if A=0 then already max size
+		jr z,generate_maze
+		cp #ff		;; if A=#ff (15x15) then next size is #00 (16x16)
+		jr nz,_eg_skip
+		xor a
+		jr _eg_end
+_eg_skip	add #11		;; for all other values, add 16+1
+_eg_end		ld (grid_size),a
+		jr generate_maze
+
+shrink_grid	ld a,(grid_size)
+		cp #22		;; min size is 2x2
+		jr z,generate_maze
+		or a		;; if A=#00 (16x16) then next size is #ff (15x15)
+		jr nz,_sg_skip
+		dec a		;; #00 -> #ff
+		jr _sg_end
+_sg_skip	sub #11		;; subtract 16+1
+_sg_end		ld (grid_size),a
+		jr generate_maze
 
 do_rendering	call update_rotating_tile
 		call render_selected_overlay
@@ -184,6 +211,12 @@ read_actions
 		check_key key_space
 		jr nz,$+4
 		set 4,b			;; bit 4 = rotate tile
+		check_key key_q
+		jr nz,$+4
+		set 5,b			;; bit 5 = enlarge grid
+		check_key key_a
+		jr nz,$+4
+		set 6,b			;; bit 6 = shrink grid
 		check_key key_r
 		jr nz,$+4
 		set 7,b			;; bit 7 = regenerate maze
