@@ -9,11 +9,9 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 main		call setup_screen
-		ld a,r				;; initialise rand16 by setting high byte of seed
-		ld (rand16+2),a
+		ld a,r
+		ld (rand16+2),a			;; initialise (high byte of) random number generator
 generate_maze	di
-		ld a,r				;; set random seed for maze
-		ld (choose_random_index + 1),a
 		ld a,(grid_size)
 		call maze_generate
 
@@ -40,30 +38,6 @@ game_loop	ld hl,actions_new
 		ld (recalc_required),a
 
 		jr game_loop
-
-;; ----------------------------------------------------------------
-;; data
-;; ----------------------------------------------------------------
-
-grid_size		defb 0
-tile_index_supply	defb 0
-
-tile_index_prev		defb 0
-tile_index_selected	defb 0
-
-actions			defb 0
-actions_prev		defb 0
-actions_new		defb 0
-movement_countdown	defb 0
-
-rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
-rotation_queue_cur	defb 0	;; index of current position in queue
-rotation_queue_next	defb 0	;; index to insert next item in queue
-
-recalc_required		defb 0	;; flag that we need to recalculate connected tiles
-
-align &100
-rendered_tiles	defs &100,0
 
 ;; ----------------------------------------------------------------
 ;; subroutines
@@ -107,6 +81,7 @@ setup_screen	;; set screen mode
 
 ;; render next tile that needs rendering (if any)
 render_next_tile
+next_tile_index	equ $+1
 		ld a,0			;; LD A,(next_tile_index)
 		ld b,0			;; max number of loops
 		ld d,maze_data / 256
@@ -119,27 +94,26 @@ _rnt_loop
 		cp (hl)
 		jr nz,_rnt_render	;; if not then render
 
-		ld a,e			;; go to next (pseudo-random) index
+		ld a,e			;; otherwise, go to next (pseudo-random) index
 		add a,a
 		add a,a
 		add a,e
 		inc a
 
 		djnz _rnt_loop
-		ld (render_next_tile + 1),a
+		ld (next_tile_index),a
 		ret			;; no tile to render this time
 _rnt_render
 		;; at this point, A = tile state, DE points to tile state, HL points to rendered state
 		ld (hl),a		;; update rendered state
 		ld a,l
-		ld (render_next_tile + 1),a
+		ld (next_tile_index),a
 
 		ld a,(de)
-		and %01111111
 		call tile_data_addr	;; HL = sprite data for tile
 		ld a,e
 		call tile_screen_addr	;; DE = screen address for tile
-		jp tile_render	;; render the tile
+		jp tile_render		;; render the tile
 
 ;; ----------------------------------------------------------------
 
@@ -155,7 +129,6 @@ render_grid_tile
 		ld a,(hl)
 		ld h,rendered_tiles / 256	;; update rendered tile
 		ld (hl),a
-		and %01111111
 		call tile_data_addr		;; HL = sprite data for tile
 		jp tile_render
 
@@ -167,7 +140,7 @@ render_grid_tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
 render_supply_overlay
-		ld a,(tile_index_supply)
+		ld a,(maze_start_cell)
 		ld bc,tile_mask_lookup	;; BC points at mask
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_supply	;; HL points at sprite
@@ -371,10 +344,8 @@ _uct_loop_1	ld a,(hl)
 		inc l
 		jr nz,_uct_loop_1
 
-		ld a,(tile_index_supply)
-		call connected_cells
-
-		ret
+		ld a,(maze_start_cell)
+		jp connected_cells
 
 ;; ----------------------------------------------------------------
 ;; include subroutines
@@ -385,3 +356,27 @@ read "maze/rand16.asm"
 read "maze/interrupts.asm"
 read "maze/tiles.asm"
 read "maze/maze.asm"
+
+;; ----------------------------------------------------------------
+;; data
+;; ----------------------------------------------------------------
+
+grid_size		defb %10001000
+
+tile_index_prev		defb 0
+tile_index_selected	defb 0
+
+actions			defb 0
+actions_prev		defb 0
+actions_new		defb 0
+movement_countdown	defb 0
+
+rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
+rotation_queue_cur	defb 0	;; index of current position in queue
+rotation_queue_next	defb 0	;; index to insert next item in queue
+
+recalc_required		defb 0	;; flag that we need to recalculate connected tiles
+
+			align &100
+
+rendered_tiles		defs &100,0

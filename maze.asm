@@ -31,10 +31,13 @@ is_visited		equ 128
 ;;	A: maze dimensions - height*16 + width (%hhhhwwww)
 ;; modifies:
 ;;	A,BC.DE,HL
-maze_generate
+maze_generate	ld (maze_dimensions),a
 		call maze_reset			;; clear all maze data
 		call modify_index_limits	;; modify max width and height index values in subroutines
-		ld hl,maze_data + 17		;; HL points to current cell (starting at starter cell)
+		call random_cell		;; choose random starter cell
+		ld (maze_start_cell),a
+		ld l,a				;; HL points to current cell (starting at starter cell)
+		ld h,maze_data / 256
 		ld bc,maze_stack		;; BC points to stack of pending cells
 _mg_loop_0	set is_connected_bit,(hl)	;; mark current cell as visited
 _mg_loop_1	call find_unvisited_neighbours	;; get array of unvisited neighbours (in DE)
@@ -80,8 +83,10 @@ _mg_join	;; join current cell to neighbour (from neighbour entry pointed to by D
 ;; set constants for index-limits in "find-neighbour" subroutines
 ;; entry:
 ;;	A: maze dimensions - height*16 + width (%hhhhwwww)
+;; exit:
+;;	A: unmodified
 ;; modifies:
-;;	A,C
+;;	C
 modify_index_limits
 		ld c,a
 		dec a
@@ -91,6 +96,7 @@ modify_index_limits
 		sub 16
 		and %11110000
 		ld (_fun_bottom + 3),a
+		ld a,c
 		ret
 
 ;; zero maze data table
@@ -103,7 +109,43 @@ maze_reset	ld hl,maze_data
 		ldir
 		ret
 
-;; find unvisited neighbours of a room
+;; choose a random cell (within maze limits)
+;; entry
+;;	A: maze limits (%hhhhwwww)
+;; exit
+;;	A: index of cell
+;; modifies:
+;;	A,BC,HL
+random_cell	ld b,a
+		call rand16		;; A is random number
+		ld c,a
+
+		ld a,b			;; get low nibble (x-coord)
+		and &0f
+		ld h,a
+		ld a,c
+		jr z,_rc_skip1		;; if width is zero then skip subtraction, return random nibble
+		and &0f
+		sub h
+		jr nc,$-1
+		add h
+_rc_skip1	and &0f			;; extra AND here is just for skipped case
+		ld l,a			;; store x-coord in low nibble of L
+
+		ld a,b			;; get high nibble (y-coord)
+		and &f0
+		ld h,a
+		ld a,c
+		jr z,_rc_skip2		;; if height is zero then skip subtraction, return random nibble
+		and &f0
+		sub h
+		jr nc,$-1
+		add h
+_rc_skip2	and &f0			;; extra AND here is just for skipped case
+		or l			;; merge y-coord with x-coord
+
+		ret
+
 ;; find unvisited neighbours of a cell
 ;; entry:
 ;;	HL: address of current cell in maze_data
@@ -345,7 +387,8 @@ _cc_end		ld a,iyl		;; is current item same as top item on stack?
 ;; data
 ;; ----------------------------------------------------------------
 
-		align &100,&11
+		align &100
+
 maze_data	defs &100,&00
 
 maze_stack	defs &100,&00
@@ -367,5 +410,10 @@ rot_nibble_data	defb &00,&02,&04,&06,&08,&0a,&0c,&0e,&01,&03,&05,&07,&09,&0b,&0d
 		defb &e0,&e2,&e4,&e6,&e8,&ea,&ec,&ee,&e1,&e3,&e5,&e7,&e9,&eb,&ed,&ef
 		defb &f0,&f2,&f4,&f6,&f8,&fa,&fc,&fe,&f1,&f3,&f5,&f7,&f9,&fb,&fd,&ff
 
-maze_neighbours_list	defs 4*2,&00
-end
+maze_neighbours_list
+		defs 4*2,&00
+
+maze_dimensions	defb 0
+maze_start_cell	defb 0
+
+maze_end
