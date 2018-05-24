@@ -35,13 +35,13 @@ calculating connected cells, etc
 
 Each cell is a single byte. The bits of this byte are used to represent different properties of the
 cell. My original intuition was to use the lowest four bits to represent exits to *top*, *right*, *bottom*
-and *left* respectively. Amazingly this coincided exactly with the subset of the [Amstrad CPC character
+and *left* respectively. Amazingly this coincided _exactly_ with the subset of the [Amstrad CPC character
 set](http://cpctech.cpc-live.com/docs/cpckybd.pdf) between `&90` and `&9f` used to represent maze-type
 shapes
 
 ![Amstrad CPC maze characters](./doc/maze-chars.gif)
 
-This made writing a quick BASIC program to help debugging so much easier
+This made writing a quick BASIC program to help debugging the maze generator very simple
 
 ![BASIC test prorgam](./doc/basic-test.gif)
 
@@ -59,7 +59,7 @@ The bit pattern for each grid-cell looks as follows, where bit 0 is the least-si
 | 4 | Tile rotation (low bit) |
 | 5 | Tile rotation (high bit) |
 | 6 | Connected to power supply |
-| 7 | _Currently unused_ |
+| 7 | _[unused]_ |
 
 ## Graphics
 
@@ -100,11 +100,11 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Add power supply tile
 - [x] Calculate which cells are connected to power supply
 - [x] Display connected tiles
-- [ ] Shuffle rotations before game
+- [x] Shuffle rotations before game
 - [ ] Recognise when game is complete (ie all terminals connected)
-- [ ] Game menus
 - [ ] Allow different grid-sizes
-- [ ] Add timer
+- [ ] Add timer/countdown
+- [ ] Game menus
 - [ ] Logo graphics
 - [ ] Sound effects
 - [ ] Music

@@ -14,6 +14,8 @@ main		call setup_screen
 generate_maze	di
 		ld a,(grid_size)
 		call maze_generate
+		call maze_shuffle
+		call recalc_connected_tiles
 
 		xor a				;; reset actions
 		ld (actions_prev),a
@@ -361,7 +363,7 @@ read "maze/maze.asm"
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb %10001000
+grid_size		defb 0
 
 tile_index_prev		defb 0
 tile_index_selected	defb 0

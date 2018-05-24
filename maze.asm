@@ -109,6 +109,32 @@ maze_reset	ld hl,maze_data
 		ldir
 		ret
 
+;; apply random rotation to all maze cells
+maze_shuffle	call rand16
+		ld hl,maze_data
+		ld d,rot_nibble_data / 256
+_ms_loop_1
+		ld b,a
+		add a,a
+		add a,a
+		add a,b
+		inc a
+		ld b,a
+		and %00000011
+		jr z,_ms_loop_end
+
+		ld b,a
+		ld e,(hl)
+_ms_loop_2
+		ld a,(de)
+		ld e,a
+		djnz _ms_loop_2
+		ld (hl),a
+_ms_loop_end
+		inc l
+		jr nz,_ms_loop_1
+		ret
+
 ;; choose a random cell (within maze limits)
 ;; entry
 ;;	A: maze limits (%hhhhwwww)
