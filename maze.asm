@@ -110,6 +110,8 @@ maze_reset	ld hl,maze_data
 		ret
 
 ;; apply random rotation to all maze cells
+;; modifies:
+;;	A,DE,HL
 maze_shuffle	call rand16
 		ld hl,maze_data
 		ld d,rot_nibble_data / 256

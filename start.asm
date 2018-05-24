@@ -14,6 +14,7 @@ main		call setup_screen
 
 generate_maze	di
 		ld a,(grid_size)
+		call tile_calculate_origin
 		call maze_generate
 		call maze_shuffle
 		call recalc_connected_tiles
@@ -27,7 +28,7 @@ wait_for_key_release
 		assign_interrupt 0,do_rendering
 		assign_interrupt 6,get_actions
 
-game_loop	ld hl,actions_new
+game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
 		jr nz,enlarge_grid
 		bit 6,(hl)
@@ -35,6 +36,7 @@ game_loop	ld hl,actions_new
 		bit 7,(hl)
 		jr nz,generate_maze
 
+_ignore_special_actions
 		call render_next_tile
 
 		ld a,(recalc_required)
@@ -52,7 +54,7 @@ game_loop	ld hl,actions_new
 
 enlarge_grid	ld a,(grid_size)
 		or a		;; if A=0 then already max size
-		jr z,generate_maze
+		jr z,_ignore_special_actions
 		cp #ff		;; if A=#ff (15x15) then next size is #00 (16x16)
 		jr nz,_eg_skip
 		xor a
@@ -63,7 +65,7 @@ _eg_end		ld (grid_size),a
 
 shrink_grid	ld a,(grid_size)
 		cp #22		;; min size is 2x2
-		jr z,generate_maze
+		jr z,_ignore_special_actions
 		or a		;; if A=#00 (16x16) then next size is #ff (15x15)
 		jr nz,_sg_skip
 		dec a		;; #00 -> #ff
@@ -396,7 +398,7 @@ read "maze/maze.asm"
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb 0
+grid_size		defb %10001000
 
 tile_index_prev		defb 0
 tile_index_selected	defb 0
