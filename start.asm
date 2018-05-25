@@ -13,6 +13,11 @@ main		call setup_screen
 		ld (rand16+2),a			;; initialise (high byte of) random number generator
 
 generate_maze	di
+
+		call maze_reset
+_cag_loop	call render_next_tile
+		jr nz,_cag_loop
+
 		ld a,(grid_size)
 		call tile_calculate_origin
 		call maze_generate
@@ -111,6 +116,8 @@ setup_screen	;; set screen mode
 ;; ----------------------------------------------------------------
 
 ;; render next tile that needs rendering (if any)
+;; flags:
+;;	Z: set if no tile was rendered
 render_next_tile
 next_tile_index	equ $+1
 		ld a,0			;; LD A,(next_tile_index)
@@ -133,6 +140,7 @@ _rnt_loop
 
 		djnz _rnt_loop
 		ld (next_tile_index),a
+		xor a			;; set Z flag
 		ret			;; no tile to render this time
 _rnt_render
 		;; at this point, A = tile state, DE points to tile state, HL points to rendered state
