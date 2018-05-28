@@ -5,7 +5,7 @@ This repo is a record of my attempt to make a "[netwalk](https://netwalk.github.
 assembly language
 
 _Note: Are you kidding me; there's a [russian wikipedia page for netwalk](https://ru.wikipedia.org/wiki/NetWalk)
-but no english?!_
+but no english?_
 
 ## Maze algorithm
 

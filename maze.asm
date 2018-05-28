@@ -32,9 +32,10 @@ is_visited		equ 128
 ;; modifies:
 ;;	A,BC.DE,HL
 maze_generate	ld (maze_dimensions),a
+		call calc_index_limits		;; calculate index limits, modify max width and height index values in subroutines
 		call maze_reset			;; clear all maze data
-		call modify_index_limits	;; modify max width and height index values in subroutines
-		call random_cell		;; choose random starter cell
+		ld a,(maze_dimensions)		;; choose random starter cell
+		call random_cell
 		ld (maze_start_cell),a
 		ld l,a				;; HL points to current cell (starting at starter cell)
 		ld h,maze_data / 256
@@ -80,23 +81,27 @@ _mg_join	;; join current cell to neighbour (from neighbour entry pointed to by D
 		ld (hl),a
 		jr _mg_loop_0			;; and loop again
 
-;; set constants for index-limits in "find-neighbour" subroutines
+;; calculate and store index-limits based on maze dimensions
+;; also, modify constants for index-limits in "find-neighbour" subroutines
 ;; entry:
 ;;	A: maze dimensions - height*16 + width (%hhhhwwww)
 ;; exit:
-;;	A: unmodified
+;;	A: index limits (%yyyyxxxx)
+;;	C: maze dimensions (original value of A)
 ;; modifies:
-;;	C
-modify_index_limits
+;;	A,BC
+calc_index_limits
 		ld c,a
 		dec a
 		and %00001111
 		ld (_fun_right + 3),a
+		ld b,a
 		ld a,c
 		sub 16
 		and %11110000
 		ld (_fun_bottom + 3),a
-		ld a,c
+		or b
+		ld (maze_index_limits),a
 		ret
 
 ;; zero maze data table
@@ -104,6 +109,13 @@ modify_index_limits
 ;;	BC,DE,HL
 maze_reset	ld hl,maze_data
 		ld (hl),l
+		ld de,maze_data+1
+		ld bc,&00ff
+		ldir
+		ret
+
+maze_reset_a	ld hl,maze_data
+		ld (hl),a
 		ld de,maze_data+1
 		ld bc,&00ff
 		ldir
@@ -139,7 +151,7 @@ _ms_loop_end
 
 ;; choose a random cell (within maze limits)
 ;; entry
-;;	A: maze limits (%hhhhwwww)
+;;	A: maze dimensions (%hhhhwwww)
 ;; exit
 ;;	A: index of cell
 ;; modifies:
@@ -415,33 +427,31 @@ _cc_end		ld a,iyl		;; is current item same as top item on stack?
 ;; data
 ;; ----------------------------------------------------------------
 
-		align &100
+			align &100
 
-maze_data	defs &100,&00
+maze_data		defs &100,&00
 
-maze_stack	defs &100,&00
+maze_stack		defs &100,&00
 
-rot_nibble_data	defb &00,&02,&04,&06,&08,&0a,&0c,&0e,&01,&03,&05,&07,&09,&0b,&0d,&0f
-		defb &10,&12,&14,&16,&18,&1a,&1c,&1e,&11,&13,&15,&17,&19,&1b,&1d,&1f
-		defb &20,&22,&24,&26,&28,&2a,&2c,&2e,&21,&23,&25,&27,&29,&2b,&2d,&2f
-		defb &30,&32,&34,&36,&38,&3a,&3c,&3e,&31,&33,&35,&37,&39,&3b,&3d,&3f
-		defb &40,&42,&44,&46,&48,&4a,&4c,&4e,&41,&43,&45,&47,&49,&4b,&4d,&4f
-		defb &50,&52,&54,&56,&58,&5a,&5c,&5e,&51,&53,&55,&57,&59,&5b,&5d,&5f
-		defb &60,&62,&64,&66,&68,&6a,&6c,&6e,&61,&63,&65,&67,&69,&6b,&6d,&6f
-		defb &70,&72,&74,&76,&78,&7a,&7c,&7e,&71,&73,&75,&77,&79,&7b,&7d,&7f
-		defb &80,&82,&84,&86,&88,&8a,&8c,&8e,&81,&83,&85,&87,&89,&8b,&8d,&8f
-		defb &90,&92,&94,&96,&98,&9a,&9c,&9e,&91,&93,&95,&97,&99,&9b,&9d,&9f
-		defb &a0,&a2,&a4,&a6,&a8,&aa,&ac,&ae,&a1,&a3,&a5,&a7,&a9,&ab,&ad,&af
-		defb &b0,&b2,&b4,&b6,&b8,&ba,&bc,&be,&b1,&b3,&b5,&b7,&b9,&bb,&bd,&bf
-		defb &c0,&c2,&c4,&c6,&c8,&ca,&cc,&ce,&c1,&c3,&c5,&c7,&c9,&cb,&cd,&cf
-		defb &d0,&d2,&d4,&d6,&d8,&da,&dc,&de,&d1,&d3,&d5,&d7,&d9,&db,&dd,&df
-		defb &e0,&e2,&e4,&e6,&e8,&ea,&ec,&ee,&e1,&e3,&e5,&e7,&e9,&eb,&ed,&ef
-		defb &f0,&f2,&f4,&f6,&f8,&fa,&fc,&fe,&f1,&f3,&f5,&f7,&f9,&fb,&fd,&ff
+rot_nibble_data		defb &00,&02,&04,&06,&08,&0a,&0c,&0e,&01,&03,&05,&07,&09,&0b,&0d,&0f
+			defb &10,&12,&14,&16,&18,&1a,&1c,&1e,&11,&13,&15,&17,&19,&1b,&1d,&1f
+			defb &20,&22,&24,&26,&28,&2a,&2c,&2e,&21,&23,&25,&27,&29,&2b,&2d,&2f
+			defb &30,&32,&34,&36,&38,&3a,&3c,&3e,&31,&33,&35,&37,&39,&3b,&3d,&3f
+			defb &40,&42,&44,&46,&48,&4a,&4c,&4e,&41,&43,&45,&47,&49,&4b,&4d,&4f
+			defb &50,&52,&54,&56,&58,&5a,&5c,&5e,&51,&53,&55,&57,&59,&5b,&5d,&5f
+			defb &60,&62,&64,&66,&68,&6a,&6c,&6e,&61,&63,&65,&67,&69,&6b,&6d,&6f
+			defb &70,&72,&74,&76,&78,&7a,&7c,&7e,&71,&73,&75,&77,&79,&7b,&7d,&7f
+			defb &80,&82,&84,&86,&88,&8a,&8c,&8e,&81,&83,&85,&87,&89,&8b,&8d,&8f
+			defb &90,&92,&94,&96,&98,&9a,&9c,&9e,&91,&93,&95,&97,&99,&9b,&9d,&9f
+			defb &a0,&a2,&a4,&a6,&a8,&aa,&ac,&ae,&a1,&a3,&a5,&a7,&a9,&ab,&ad,&af
+			defb &b0,&b2,&b4,&b6,&b8,&ba,&bc,&be,&b1,&b3,&b5,&b7,&b9,&bb,&bd,&bf
+			defb &c0,&c2,&c4,&c6,&c8,&ca,&cc,&ce,&c1,&c3,&c5,&c7,&c9,&cb,&cd,&cf
+			defb &d0,&d2,&d4,&d6,&d8,&da,&dc,&de,&d1,&d3,&d5,&d7,&d9,&db,&dd,&df
+			defb &e0,&e2,&e4,&e6,&e8,&ea,&ec,&ee,&e1,&e3,&e5,&e7,&e9,&eb,&ed,&ef
+			defb &f0,&f2,&f4,&f6,&f8,&fa,&fc,&fe,&f1,&f3,&f5,&f7,&f9,&fb,&fd,&ff
 
-maze_neighbours_list
-		defs 4*2,&00
+maze_neighbours_list	defs 4*2,&00
 
-maze_dimensions	defb 0
-maze_start_cell	defb 0
-
-maze_end
+maze_dimensions		defb 0
+maze_index_limits	defb 0
+maze_start_cell		defb 0
