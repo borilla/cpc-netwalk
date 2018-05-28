@@ -5,14 +5,17 @@
 ;;	HL: sprite data
 ;; modifies:
 ;;	AF,BC,DE,HL
+;; flags:
+;;	Z: reset
 tile_render	ld bc,&800 + &3d + 24		;; we want C to equal &3d after 24 LDI instructions
-		call _render_half_tile
+		call _tile_render_half
+		inc l
 		ld b,&c8			;; add de,&c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
 		ld b,8
-_render_half_tile
+_tile_render_half
 repeat 7
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
@@ -20,7 +23,7 @@ repeat 7
 		ld a,d:add a,b:ld d,a		;; [3] add de,&800
 rend
 		ldi:ldi:ldi			;; [15] copy three bytes
-		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
+		ld a,(hl):ld (de),a		;; [4] copy byte
 		ret
 
 ;; render a transparent tile, containing inline mask data
@@ -31,15 +34,15 @@ rend
 ;; modifies:
 ;;	AF,BC,DE,HL
 tile_render_trans
-		call _rtt_1
+		call _trt_1
 		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
-_rtt_1
+_trt_1
 		ld b,8				;; LD B,8 (row count)
 		ld c,b				;; LD C,8 (constant 8)
-_rtt_2
+_trt_2
 		ld a,(de)			;; [2] read screen data
 		and (hl)			;; [2] AND with pixel mask
 		inc l				;; [1]
@@ -82,7 +85,7 @@ _rtt_2
 		add c
 		ld d,a
 
-		jr _rtt_2
+		jr _trt_2
 
 ;; render a transparent tile, using a table to lookup mask
 ;; note: assumes tile data all sits in same 256 byte page
@@ -94,14 +97,14 @@ _rtt_2
 ;;	AF,BC,DE,HL,LX
 tile_render_mask
 		ex de,hl			;; swap, so that DE points at sprite, HL points at screen
-		call _rtm_1
+		call _trm_1
 		ld a,b				;; temporarily store high byte of mask table
 		ld bc,&c83d			;; move to next character row (-2048 * 7 + 64 - 3)
 		add hl,bc
 		ld b,a				;; restore BC to point at mask table
-_rtm_1
+_trm_1
 		ld ixl,8			;; use IXL as row count
-_rtm_2
+_trm_2
 		ld a,(de)			;; [2] read sprite byte
 		ld c,a				;; [1] point BC at mask byte
 		ld a,(bc)			;; [2] read pixel mask
@@ -148,7 +151,7 @@ _rtm_2
 		add a,8
 		ld h,a
 
-		jr _rtm_2
+		jr _trm_2
 
 ;; get screen address of tile (origin + 4x + 128y)
 ;; entry:
