@@ -46,9 +46,9 @@ _ignore_special_actions
 		ld a,(recalc_required)
 		or a
 		jr z,game_loop
-		call recalc_connected_tiles
 		xor a
 		ld (recalc_required),a
+		call recalc_connected_tiles
 		jr game_loop
 
 enlarge_grid	ld a,(grid_size)
@@ -63,7 +63,7 @@ _eg_end		ld (grid_size),a
 		jr generate_maze
 
 shrink_grid	ld a,(grid_size)
-		cp #22				;; min size is 2x2
+		cp #33				;; min size is 3x3
 		jr z,_ignore_special_actions
 		or a				;; if A=#00 (16x16) then next size is #ff (15x15)
 		jr nz,_sg_skip
@@ -98,6 +98,7 @@ setup_screen	;; set screen mode
 
 ;; ----------------------------------------------------------------
 
+;; scan keyboard, process movement and rotation
 get_actions	call scan_keyboard
 		call read_actions
 		call do_movement_action
