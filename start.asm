@@ -30,8 +30,8 @@ wait_for_key_release
 		jr nz,wait_for_key_release
 
 		call setup_interrupts
-		assign_interrupt 0,do_rendering
-		assign_interrupt 6,get_actions
+		assign_interrupt 0,get_actions
+		assign_interrupt 6,render_important_tiles
 
 game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
@@ -43,55 +43,38 @@ game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 
 _ignore_special_actions
 		call render_next_tile
-
 		ld a,(recalc_required)
 		or a
 		jr z,game_loop
 		call recalc_connected_tiles
 		xor a
 		ld (recalc_required),a
-
 		jr game_loop
 
-;; ----------------------------------------------------------------
-;; subroutines
-;; ----------------------------------------------------------------
-
 enlarge_grid	ld a,(grid_size)
-		or a		;; if A=0 then already max size
+		or a				;; if A=0 then already max size
 		jr z,_ignore_special_actions
-		cp #ff		;; if A=#ff (15x15) then next size is #00 (16x16)
+		cp #ff				;; if A=#ff (15x15) then next size is #00 (16x16)
 		jr nz,_eg_skip
 		xor a
 		jr _eg_end
-_eg_skip	add #11		;; for all other values, add 16+1
+_eg_skip	add #11				;; for all other values, add 16+1
 _eg_end		ld (grid_size),a
 		jr generate_maze
 
 shrink_grid	ld a,(grid_size)
-		cp #22		;; min size is 2x2
+		cp #22				;; min size is 2x2
 		jr z,_ignore_special_actions
-		or a		;; if A=#00 (16x16) then next size is #ff (15x15)
+		or a				;; if A=#00 (16x16) then next size is #ff (15x15)
 		jr nz,_sg_skip
-		dec a		;; #00 -> #ff
+		dec a				;; #00 -> #ff
 		jr _sg_end
-_sg_skip	sub #11		;; subtract 16+1
+_sg_skip	sub #11				;; subtract 16+1
 _sg_end		ld (grid_size),a
-		jr generate_maze
-
-do_rendering	call update_rotating_tile
-		call render_selected_overlay
-		jp render_supply_overlay
+		jp generate_maze
 
 ;; ----------------------------------------------------------------
-
-get_actions	call scan_keyboard
-		call read_actions
-		call do_movement_action
-		call do_rotate_action
-		call render_selected_overlay
-		jp render_supply_overlay
-
+;; subroutines
 ;; ----------------------------------------------------------------
 
 ;; set mode, screen size, colours etc
@@ -115,53 +98,104 @@ setup_screen	;; set screen mode
 
 ;; ----------------------------------------------------------------
 
+get_actions	call scan_keyboard
+		call read_actions
+		call do_movement_action
+		call do_rotate_action
+		jp update_rotating_tile
+
+;; ----------------------------------------------------------------
+
+;; render prev, current and rotating tiles (as necessary)
+render_important_tiles
+		call render_selected_tile
+		jp render_rotating_tile
+
+;; ----------------------------------------------------------------
+
+;; if prev tile not equal to currently selected tile then render both
+render_selected_tile
+		ld a,(tile_index_selected)
+		ld hl,tile_index_prev
+		cp (hl)
+		ret z
+		ld c,a
+		ld a,(hl)
+		ld (hl),c
+		call render_grid_tile
+		ld a,(tile_index_selected)
+		jp render_grid_tile
+
+;; render rotating tile if it is different from rendered state
+render_rotating_tile
+		ld hl,rotation_queue
+		ld a,(rotation_queue_cur)
+		add_hl_a
+		ld a,(hl)
+		jp render_if_modified
+
+;; ----------------------------------------------------------------
+
 ;; render next tile that needs rendering (if any)
+;; modifies:
+;;	A,BC,DE,HL,IX
 ;; flags:
-;;	Z: set if no tile was rendered
+;;	Z: if no tile was rendered
+;;	NZ: if tile was rendered
 render_next_tile
 next_tile_index	equ $+1
 		ld a,0			;; LD A,(next_tile_index)
 		ld b,0			;; max number of loops
-		ld d,maze_data / 256
-		ld h,rendered_tiles / 256
 _rnt_loop
-		ld e,a			;; point DE at tile state
-		ld l,a			;; point HL at rendered state
-
-		ld a,(de)		;; is tile state same as rendered state?
-		cp (hl)
-		jr nz,_rnt_render	;; if not then render
-
-		ld a,e			;; otherwise, go to next (pseudo-random) index
+		ld c,a			;; go to next (pseudo-random) index
 		add a,a
 		add a,a
-		add a,e
+		add a,c
 		inc a
 
-		djnz _rnt_loop
-		ld (next_tile_index),a
-		xor a			;; set Z flag
-		ret			;; no tile to render this time
-_rnt_render
-		;; at this point, A = tile state, DE points to tile state, HL points to rendered state
-		ld (hl),a		;; update rendered state
-		ld a,l
-		ld (next_tile_index),a
+		call render_if_modified
+		jr nz,_rnt_end		;; if tile was rendered then end loop
 
-		ld a,(de)
-		call tile_data_addr	;; HL = sprite data for tile
-		ld a,e
-		call tile_screen_addr	;; DE = screen address for tile
-		jp tile_render		;; render the tile
+		djnz _rnt_loop
+		xor a			;; no tile to render this time; set Z flag
+_rnt_end
+		ld (next_tile_index),a	;; store index for next call
+		ret
 
 ;; ----------------------------------------------------------------
 
-;; render a single grid tile
+;; render a grid tile if it has been modified from rendered state
 ;; entry:
 ;;	A: index of grid tile to render
+;; exit:
+;;	A: unmodified
 ;; modifies:
-;;	AF,BC,DE,HL
+;;	BC,DE,HL,IX
+;; flags:
+;;	Z: set if no tile is rendered, NZ if tile is rendered
+render_if_modified
+		ld h,maze_data / 256
+		ld l,a
+		ld a,(hl)
+		ld h,rendered_tiles / 256
+		cp (hl)
+		ld a,l
+		ret z
+		;; otherwise, fall through to render_grid_tile
+
+;; ----------------------------------------------------------------
+
+;; render a grid tile (and power supply and selected overlay if appropriate)
+;; entry:
+;;	A: index of grid tile to render
+;; exit:
+;;	A: unmodified
+;; modifies:
+;;	BC,DE,HL,IX
+;; flags:
+;;	Z: always reset
 render_grid_tile
+		ld ixh,a			;; keep original index
 		ld h,maze_data / 256
 		ld l,a
 		call tile_screen_addr		;; DE = screen address for tile
@@ -169,34 +203,48 @@ render_grid_tile
 		ld h,rendered_tiles / 256	;; update rendered tile
 		ld (hl),a
 		call tile_data_addr		;; HL = sprite data for tile
-		jp tile_render
+		call tile_render		;; render the tile
+
+		ld a,ixh
+		ld c,a
+		ld a,(maze_start_cell)
+		cp c
+		call z,render_power_supply
+
+		ld a,ixh
+		ld c,a
+		ld a,(tile_index_selected)
+		cp c
+		call z,render_selected_overlay
+
+		or 1				;; reset Z flag
+		ld a,ixh			;; restore A
+		ret
 
 ;; ----------------------------------------------------------------
 
-;; overlay power supply on top of tile
-;; entry
-;;	A: index of tile
+;; render power supply overlay
+;; entry:
+;;	A: index of grid tile to render
 ;; modifies:
-;;	AF,BC,DE,HL,LX
-render_supply_overlay
-		ld a,(maze_start_cell)
-		ld bc,tile_mask_lookup	;; BC points at mask
-		call tile_screen_addr	;; DE points at screen
-		ld hl,tile_supply	;; HL points at sprite
+;;	AF,BC,DE,HL,IXL
+render_power_supply
+		call tile_screen_addr		;; DE points at screen
+		ld hl,tile_supply		;; HL points at sprite
+		ld bc,tile_mask_lookup		;; BC points at mask
 		jp tile_render_mask
 
 ;; ----------------------------------------------------------------
 
-;; overlay "selected" border on top of tile
+;; overlay "selected" border overlay
 ;; entry
 ;;	A: index of tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
 render_selected_overlay
-		ld a,(tile_index_selected)
-		ld bc,tile_mask_lookup	;; BC points at mask
 		call tile_screen_addr	;; DE points at screen
 		ld hl,tile_selected	;; HL points at sprite
+		ld bc,tile_mask_lookup	;; BC points at mask
 		jp tile_render_mask
 
 ;; ----------------------------------------------------------------
@@ -311,8 +359,32 @@ _do_move_end	cp (hl)				;; is index changed?
 
 		ld c,a
 		ld a,(hl)
+		ld (tile_index_prev),a
 		ld (hl),c
-		jp render_grid_tile		;; render prev tile
+		ret
+
+;; ----------------------------------------------------------------
+
+;; if `rotate` key is pressed then add current cell to rotate queue
+do_rotate_action
+		ld a,(actions_new)		;; get "new" actions in A
+
+		bit 4,a				;; check for rotate action
+		ret z
+
+		ld hl,rotation_queue		;; insert currently selected index into queue
+		ld a,(rotation_queue_next)
+		ld b,a
+		add_hl_a
+		ld a,(tile_index_selected)
+		ld (hl),a
+
+		ld a,b				;; update "next" index
+		inc a
+		and %00001111			;; A = A mod 16
+		ld (rotation_queue_next),a
+
+		ret
 
 ;; ----------------------------------------------------------------
 
@@ -354,29 +426,6 @@ _write_rotated_value
 		ld (hl),e			;; store new (rotated) tile value
 		ld a,l
 		jp render_grid_tile		;; render the tile
-
-;; ----------------------------------------------------------------
-
-;; if `rotate` key is pressed then add current cell to rotate queue
-do_rotate_action
-		ld a,(actions_new)		;; get "new" actions in A
-
-		bit 4,a				;; check for rotate action
-		ret z
-
-		ld hl,rotation_queue		;; insert currently selected index into queue
-		ld a,(rotation_queue_next)
-		ld b,a
-		add_hl_a
-		ld a,(tile_index_selected)
-		ld (hl),a
-
-		ld a,b				;; update "next" index
-		inc a
-		and %00001111			;; A = A mod 16
-		ld (rotation_queue_next),a
-
-		ret
 
 ;; ----------------------------------------------------------------
 

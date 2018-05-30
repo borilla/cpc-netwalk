@@ -33,6 +33,8 @@ rend
 ;;	HL: sprite data
 ;; modifies:
 ;;	AF,BC,DE,HL
+;; flags:
+;;	Z: set
 tile_render_trans
 		call _trt_1
 		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3)
@@ -95,6 +97,8 @@ _trt_2
 ;;	HL: sprite data
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
+;; flags:
+;;	Z: set
 tile_render_mask
 		ex de,hl			;; swap, so that DE points at sprite, HL points at screen
 		call _trm_1

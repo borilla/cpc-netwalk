@@ -608,22 +608,22 @@ defb &77,&FF,&FF,&FF; line 15
 
 
 .tile_selected
-defb &05,&05,&05,&05; line 0
-defb &08,&00,&00,&00; line 1
-defb &00,&00,&00,&01; line 2
-defb &08,&00,&00,&00; line 3
-defb &00,&00,&00,&01; line 4
-defb &08,&00,&00,&00; line 5
-defb &00,&00,&00,&01; line 6
-defb &08,&00,&00,&00; line 7
-defb &00,&00,&00,&01; line 8
-defb &08,&00,&00,&00; line 9
-defb &00,&00,&00,&01; line 10
-defb &08,&00,&00,&00; line 11
-defb &00,&00,&00,&01; line 12
-defb &08,&00,&00,&00; line 13
-defb &00,&00,&00,&01; line 14
-defb &0A,&0A,&0A,&0A; line 15
+defb &0F,&08,&01,&0F; line 0
+defb &08,&00,&00,&01; line 1
+defb &08,&00,&00,&01; line 2
+defb &08,&00,&00,&01; line 3
+defb &08,&00,&00,&01; line 4
+defb &00,&00,&00,&00; line 5
+defb &00,&00,&00,&00; line 6
+defb &00,&00,&00,&00; line 7
+defb &00,&00,&00,&00; line 8
+defb &00,&00,&00,&00; line 9
+defb &00,&00,&00,&00; line 10
+defb &08,&00,&00,&01; line 11
+defb &08,&00,&00,&01; line 12
+defb &08,&00,&00,&01; line 13
+defb &08,&00,&00,&01; line 14
+defb &0F,&08,&01,&0F; line 15
 
 
 .S_0_10_0001
