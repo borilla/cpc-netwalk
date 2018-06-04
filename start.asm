@@ -9,14 +9,16 @@ read "inc/macros.asm"
 ;; ----------------------------------------------------------------
 
 main		call setup_screen
+		call setup_interrupts
+
+generate_maze	unassign_interrupt 0
+		unassign_interrupt 6
+		call clear_screen
+
+		ld hl,rand16+2			;; update (high byte of) random number generator
 		ld a,r
-		ld (rand16+2),a			;; initialise (high byte of) random number generator
-
-generate_maze	di
-
-		call maze_reset
-_cag_loop	call render_next_tile
-		jr nz,_cag_loop
+		add (hl)
+		ld (hl),a
 
 		ld a,(grid_size)
 		call tile_calculate_origin
@@ -29,7 +31,6 @@ wait_for_key_release
 		ld a,(actions)
 		jr nz,wait_for_key_release
 
-		call setup_interrupts
 		assign_interrupt 0,get_actions
 		assign_interrupt 6,render_important_tiles
 
@@ -98,6 +99,33 @@ setup_screen	;; set screen mode
 
 ;; ----------------------------------------------------------------
 
+clear_screen	xor a			;; ld a,0
+		call tile_calculate_origin
+		call tile_data_addr	;; HL = tile data address
+		xor a
+_cs_loop
+		ld c,a			;; go to next (pseudo-random) index
+		add a,a
+		add a,a
+		add a,c
+		inc a
+
+		push hl
+		push af
+		call tile_screen_addr	;; DE = tile screen address
+		call tile_render
+		pop af
+		ld h,rendered_tiles / 256
+		ld l,a
+		ld (hl),0
+		pop hl
+
+		or a
+		jr nz,_cs_loop
+		ret
+
+;; ----------------------------------------------------------------
+
 ;; scan keyboard, process movement and rotation
 get_actions	call scan_keyboard
 		call read_actions
@@ -158,7 +186,9 @@ _rnt_loop
 		jr nz,_rnt_end		;; if tile was rendered then end loop
 
 		djnz _rnt_loop
+		ld c,a
 		xor a			;; no tile to render this time; set Z flag
+		ld a,c
 _rnt_end
 		ld (next_tile_index),a	;; store index for next call
 		ret
@@ -446,9 +476,9 @@ _uct_loop_1	ld a,(hl)
 ;; include subroutines
 ;; ----------------------------------------------------------------
 
+read "inc/interrupts_12.asm"
 read "inc/scan_keyboard.asm"
 read "maze/rand16.asm"
-read "maze/interrupts.asm"
 read "maze/tiles.asm"
 read "maze/maze.asm"
 
