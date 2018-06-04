@@ -333,7 +333,7 @@ do_movement_action
 		and %00001111
 
 		ld hl,movement_countdown
-		ld a,10				;; load A with long countdown timer
+		ld a,6				;; load A with long countdown timer
 		jr z,_do_move			;; if weren't previously moving, act immediately (setting long timer)
 
 		ld a,(actions_new)		;; if a new direction key has been pressed
@@ -343,9 +343,18 @@ do_movement_action
 
 		dec (hl)			;; otherwise, decrement movement countdown
 		ret nz				;; if not counted down yet then return
-		ld a,4				;; next countdown will use short timer
+		ld a,3				;; next countdown will use short timer
 
 _do_move	ld (hl),a			;; reset countdown (to long or short timer)
+
+		ld a,(maze_index_limits)
+		ld e,a
+		and %00001111
+		ld d,a				;; D is maximum x-value
+		ld a,e
+		and %11110000
+		ld e,a				;; E is maximum y-value
+
 		ld hl,tile_index_selected	;; HL points at tile index
 		ld a,(hl)			;; A is tile index
 
@@ -362,7 +371,7 @@ _do_move_down	bit 2,b
 		jr z,_do_move_right		;; not moving down
 		ld c,a				;; check that can move down
 		and %11110000
-		cp %11110000			;; TODO: cp grid-height
+		cp e				;; cp max-y-value
 		ld a,c
 		jr z,_do_move_right		;; can't move down
 		add 16				;; move down
@@ -371,7 +380,7 @@ _do_move_right	bit 1,b
 		jr z,_do_move_left		;; not moving right
 		ld c,a				;; check that can move right
 		and %00001111
-		cp %00001111			;; TODO: cp grid-width
+		cp d				;; cp max-x-value
 		ld a,c
 		jr z,_do_move_end		;; can't move right
 		inc a				;; move right
