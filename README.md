@@ -102,7 +102,7 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Display connected tiles
 - [x] Shuffle rotations before game
 - [ ] Recognise when game is complete (ie all terminals connected)
-- [ ] Allow different grid-sizes
+- [x] Allow different grid-sizes
 - [ ] Add timer/countdown
 - [ ] Game menus
 - [ ] Logo graphics

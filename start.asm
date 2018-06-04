@@ -14,6 +14,8 @@ main		call setup_screen
 generate_maze	unassign_interrupt 0
 		unassign_interrupt 6
 		call clear_screen
+		xor a
+		ld (tile_index_selected),a
 
 		ld hl,rand16+2			;; update (high byte of) random number generator
 		ld a,r
