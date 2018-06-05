@@ -35,6 +35,8 @@ wait_for_key_release
 
 		assign_interrupt 0,get_actions
 		assign_interrupt 6,render_important_tiles
+		assign_interrupt 1,render_clock
+		assign_interrupt 7,render_clock
 
 game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
@@ -80,6 +82,50 @@ _sg_end		ld (grid_size),a
 ;; subroutines
 ;; ----------------------------------------------------------------
 
+set_palette_text
+		ga_set_pen 0,ink_black
+		ga_set_pen 3,ink_bright_white
+		ret
+
+set_pelette_grid
+		ga_set_pen 0,ink_pastel_blue	;; background
+		ga_set_pen 3,ink_sky_blue	;; tile edges
+		ret
+
+render_clock
+		call set_pelette_grid
+		ld de,&c000
+		ld hl,char_data_0
+		call char_render
+		ld de,&c002
+		ld hl,char_data_1
+		call char_render
+		ld de,&c004
+		ld hl,char_data_2
+		call char_render
+		ld de,&c006
+		ld hl,char_data_3
+		call char_render
+		ld de,&c008
+		ld hl,char_data_4
+		call char_render
+		ld de,&c00a
+		ld hl,char_data_5
+		call char_render
+		ld de,&c00c
+		ld hl,char_data_6
+		call char_render
+		ld de,&c00e
+		ld hl,char_data_7
+		call char_render
+		ld de,&c010
+		ld hl,char_data_8
+		call char_render
+		ld de,&c012
+		ld hl,char_data_9
+		call char_render
+		ret
+
 ;; set mode, screen size, colours etc
 ;; disable firmware interrupts before calling
 setup_screen	;; set screen mode
@@ -96,7 +142,7 @@ setup_screen	;; set screen mode
 		ga_set_pen 1,ink_black		;; outlines
 		ga_set_pen 2,ink_lime		;; power flow
 		ga_set_pen 3,ink_sky_blue	;; tile edges
-		ga_set_pen 16,ink_black		;; border
+		ga_set_pen 16,ink_red		;; border
 		ret
 
 ;; ----------------------------------------------------------------
@@ -129,7 +175,8 @@ _cs_loop
 ;; ----------------------------------------------------------------
 
 ;; scan keyboard, process movement and rotation
-get_actions	call scan_keyboard
+get_actions	call set_palette_text
+		call scan_keyboard
 		call read_actions
 		call do_movement_action
 		call do_rotate_action
@@ -139,6 +186,7 @@ get_actions	call scan_keyboard
 
 ;; render prev, current and rotating tiles (as necessary)
 render_important_tiles
+		call set_palette_text
 		call render_selected_tile
 		jp render_rotating_tile
 
@@ -491,13 +539,14 @@ read "inc/interrupts_12.asm"
 read "inc/scan_keyboard.asm"
 read "maze/rand16.asm"
 read "maze/tiles.asm"
+read "maze/char.asm"
 read "maze/maze.asm"
 
 ;; ----------------------------------------------------------------
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb %10001000
+grid_size		defb %11101110
 
 tile_index_prev		defb 0
 tile_index_selected	defb 0

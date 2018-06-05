@@ -1,0 +1,282 @@
+﻿{
+  "$type": "RGAS.PlatformProviders.AmstradSpriteSet, RGAS",
+  "PlusInks": {
+    "$type": "System.UInt16[], mscorlib",
+    "$values": [
+      255,
+      0,
+      1092,
+      240,
+      2032,
+      3568,
+      4000,
+      3920,
+      3842,
+      3849,
+      3855,
+      2575,
+      527,
+      95,
+      175,
+      4095
+    ]
+  },
+  "_ImageList": {
+    "$type": "System.Collections.Generic.List`1[[RGAS.SpriteBase, RGAS]], mscorlib",
+    "$values": [
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAADAwMAAAAAAwMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAADAwMDAwMDAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s1",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAADAwMDAwAAAwAAAAAAAAADAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAADAwMDAwMDAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s2",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAADAwMDAwAAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s3",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AwAAAAADAwADAAAAAAMDAAMAAAAAAwMAAwAAAAADAwADAAAAAAMDAAADAwMDAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s4",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AwMDAwMDAwADAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAADAAAAAAAAAAADAwMDAwAAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s5",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAAAAwMAAwAAAAAAAAADAAAAAAAAAAMDAwMDAwAAAwAAAAADAwADAAAAAAMDAAMAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s6",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AwMDAwMDAwADAwAAAAMDAAAAAAAAAwMAAAAAAAADAwAAAAAAAAMDAAAAAwMDAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s7",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAADAwMDAwAAAwAAAAMDAwADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s8",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAADAwMDAwMAAAAAAAADAwAAAAAAAAMDAAAAAAAAAwMAAwAAAAADAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s9",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAMDAwMDAAADAAAAAAMDAAMAAAAAAwMAAwAAAAADAwADAAAAAAMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAMDAwMDAwMAAwMDAwMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "s0",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMAAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAADAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+        },
+        "Width": 8,
+        "Height": 12,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "scolon",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      }
+    ]
+  },
+  "_levelList": {
+    "$type": "System.Collections.Generic.List`1[[RGAS.GameLevel, RGAS]], mscorlib",
+    "$values": [
+      {
+        "$type": "RGAS.GameLevel, RGAS",
+        "_width": 5,
+        "_height": 8,
+        "_aspectRatio": 1.0,
+        "_bgColour": "Black",
+        "_name": "NewLevel",
+        "__tileIndexes": {
+          "$type": "System.Int32[], mscorlib",
+          "$values": [
+            1,
+            2,
+            11,
+            3,
+            4,
+            5,
+            6,
+            11,
+            7,
+            8,
+            10,
+            9,
+            11,
+            5,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            7,
+            11,
+            6,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "_sound": {
+    "$type": "RGAS.SoundSet, RGAS",
+    "MusicList": {
+      "$type": "System.Collections.Generic.List`1[[RGAS.AYMusic, RGAS]], mscorlib",
+      "$values": []
+    }
+  },
+  "Mode": 1,
+  "_targetPlatform": 0,
+  "Inks": {
+    "$type": "System.Byte[], mscorlib",
+    "$value": "AAELGgMNBxARBgIOFAkSFw=="
+  },
+  "_formatterType": "RGAS.PlatformProviders.AmstradSpriteSet+AmstradBasicFormatter, RGAS, Version=1.2.5.0, Culture=neutral, PublicKeyToken=null",
+  "OSPlatform": "Microsoft Windows NT 6.1.7601 Service Pack 1 C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\",
+  "RGASVersion": "1.2.5.0",
+  "EncodeLevelsRLE": false,
+  "OutputSpriteDimensions": false
+}
