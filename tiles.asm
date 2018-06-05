@@ -214,7 +214,7 @@ tile_data_addr	rrca
 ;; modifies:
 ;;	C,HL
 tile_calculate_origin
-		ld hl,&c000
+		ld hl,&c800
 		ld c,a			;; B = copy of grid size
 
 		and %00001111		;; isolate width
@@ -233,9 +233,11 @@ _tco_calc_y
 		sla a
 		rl d
 		ld e,a
-		or a
+		or a			;; clear carry
 		ld h,&c4
 		sbc hl,de
+		ld de,&0040		;; shift down one row (for game-data at top of screen)
+		adc hl,de
 _tco_end
 		ld (tile_origin),hl
 		ld a,c
