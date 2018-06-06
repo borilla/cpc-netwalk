@@ -31,12 +31,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAADAwMAAAAAAwMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAADAwMDAwMDAAAAAAAAAAAAAA=="
+          "$value": "AAMDAwMDAAADAAAAAAMDAAMAAAAAAwMAAwAAAAADAwADAAAAAAMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAMDAwMDAwMAAwMDAwMDAwAAAwMDAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s1",
+        "_name": "char_data_0",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -47,12 +47,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAADAwMDAwAAAwAAAAAAAAADAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAADAwMDAwMDAAAAAAAAAAAAAA=="
+          "$value": "AAADAwMAAAAAAwMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAADAwMDAwMDAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s2",
+        "_name": "char_data_1",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -63,12 +63,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAADAwMDAwAAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAADAwMDAwAAAwAAAAAAAAADAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAADAwMDAwMDAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s3",
+        "_name": "char_data_2",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -79,12 +79,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AwAAAAADAwADAAAAAAMDAAMAAAAAAwMAAwAAAAADAwADAAAAAAMDAAADAwMDAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMAAAAAAAAAAAAAAA=="
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAADAwMDAwAAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s4",
+        "_name": "char_data_3",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -95,12 +95,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AwMDAwMDAwADAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAADAAAAAAAAAAADAwMDAwAAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+          "$value": "AwAAAAADAwADAAAAAAMDAAMAAAAAAwMAAwAAAAADAwADAAAAAAMDAAADAwMDAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s5",
+        "_name": "char_data_4",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -111,12 +111,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAAAAwMAAwAAAAAAAAADAAAAAAAAAAMDAwMDAwAAAwAAAAADAwADAAAAAAMDAAMAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+          "$value": "AwMDAwMDAwADAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAADAAAAAAAAAAADAwMDAwAAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s6",
+        "_name": "char_data_5",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -127,12 +127,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AwMDAwMDAwADAwAAAAMDAAAAAAAAAwMAAAAAAAADAwAAAAAAAAMDAAAAAwMDAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAAAAAAAAA=="
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAAAAwMAAwAAAAAAAAADAAAAAAAAAAMDAwMDAwAAAwAAAAADAwADAAAAAAMDAAMAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s7",
+        "_name": "char_data_6",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -143,12 +143,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAADAwMDAwAAAwAAAAMDAwADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+          "$value": "AwMDAwMDAwADAwAAAAMDAAAAAAAAAwMAAAAAAAADAwAAAAAAAAMDAAAAAwMDAwMAAAAAAAMDAwAAAAAAAwMDAAAAAAADAwMAAAAAAAMDAwAAAAAAAwMDAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s8",
+        "_name": "char_data_7",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -159,12 +159,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAADAwMDAwMAAAAAAAADAwAAAAAAAAMDAAAAAAAAAwMAAwAAAAADAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAADAwMDAwAAAwAAAAMDAwADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwAAAwMDAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s9",
+        "_name": "char_data_8",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -175,12 +175,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAMDAwMDAAADAAAAAAMDAAMAAAAAAwMAAwAAAAADAwADAAAAAAMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAMDAwMDAwMAAwMDAwMDAwAAAwMDAwMAAAAAAAAAAAAAAA=="
+          "$value": "AAMDAwMDAAADAAAAAwMDAAMAAAADAwMAAwAAAAMDAwADAAAAAwMDAAADAwMDAwMAAAAAAAADAwAAAAAAAAMDAAAAAAAAAwMAAwAAAAADAwAAAwMDAwMAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "s0",
+        "_name": "char_data_9",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -191,12 +191,12 @@
         "GenerateHorizontalMirror": false,
         "pixels": {
           "$type": "System.Byte[], mscorlib",
-          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMAAAAAAAADAwAAAAAAAAAAAAAAAAAAAwMAAAAAAAADAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAMDAAAAAAAAAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwMAAAAAAAADAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
         },
         "Width": 8,
-        "Height": 12,
+        "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "scolon",
+        "_name": "char_data_colon",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       }
@@ -211,35 +211,35 @@
         "_height": 8,
         "_aspectRatio": 1.0,
         "_bgColour": "Black",
-        "_name": "NewLevel",
+        "_name": "clock_digit_test",
         "__tileIndexes": {
           "$type": "System.Int32[], mscorlib",
           "$values": [
-            1,
             2,
-            11,
             3,
+            11,
             4,
             5,
             6,
+            7,
+            11,
+            8,
+            9,
+            1,
+            10,
+            11,
+            6,
+            8,
+            0,
+            0,
+            0,
+            0,
+            0,
+            8,
+            8,
             11,
             7,
             8,
-            10,
-            9,
-            11,
-            5,
-            7,
-            0,
-            0,
-            0,
-            0,
-            0,
-            7,
-            7,
-            11,
-            6,
-            7,
             0,
             0,
             0,
@@ -274,7 +274,7 @@
     "$type": "System.Byte[], mscorlib",
     "$value": "AAELGgMNBxARBgIOFAkSFw=="
   },
-  "_formatterType": "RGAS.PlatformProviders.AmstradSpriteSet+AmstradBasicFormatter, RGAS, Version=1.2.5.0, Culture=neutral, PublicKeyToken=null",
+  "_formatterType": "RGAS.PlatformProviders.AmstradSpriteSet+AmstradMaxamFormatter, RGAS, Version=1.2.5.0, Culture=neutral, PublicKeyToken=null",
   "OSPlatform": "Microsoft Windows NT 6.1.7601 Service Pack 1 C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\",
   "RGASVersion": "1.2.5.0",
   "EncodeLevelsRLE": false,

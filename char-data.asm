@@ -11,7 +11,6 @@ defb &88,&EE; line 7
 defb &FF,&EE; line 8
 defb &FF,&EE; line 9
 defb &77,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_1
@@ -26,7 +25,6 @@ defb &33,&88; line 7
 defb &33,&88; line 8
 defb &33,&88; line 9
 defb &FF,&EE; line 10
-defb &00,&00; line 11
 
 
 .char_data_2
@@ -41,7 +39,6 @@ defb &88,&00; line 7
 defb &88,&00; line 8
 defb &88,&00; line 9
 defb &FF,&EE; line 10
-defb &00,&00; line 11
 
 
 .char_data_3
@@ -56,7 +53,6 @@ defb &00,&EE; line 7
 defb &00,&EE; line 8
 defb &88,&EE; line 9
 defb &77,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_4
@@ -71,7 +67,6 @@ defb &00,&EE; line 7
 defb &00,&EE; line 8
 defb &00,&EE; line 9
 defb &00,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_5
@@ -86,7 +81,6 @@ defb &00,&EE; line 7
 defb &00,&EE; line 8
 defb &88,&EE; line 9
 defb &77,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_6
@@ -101,7 +95,6 @@ defb &88,&66; line 7
 defb &88,&EE; line 8
 defb &88,&EE; line 9
 defb &77,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_7
@@ -116,7 +109,6 @@ defb &00,&EE; line 7
 defb &00,&EE; line 8
 defb &00,&EE; line 9
 defb &00,&EE; line 10
-defb &00,&00; line 11
 
 
 .char_data_8
@@ -131,7 +123,6 @@ defb &88,&EE; line 7
 defb &88,&EE; line 8
 defb &88,&EE; line 9
 defb &77,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_9
@@ -146,19 +137,17 @@ defb &00,&66; line 7
 defb &00,&66; line 8
 defb &88,&66; line 9
 defb &77,&CC; line 10
-defb &00,&00; line 11
 
 
 .char_data_colon
 defb &00,&00; line 0
 defb &00,&00; line 1
-defb &00,&00; line 2
+defb &11,&88; line 2
 defb &11,&88; line 3
-defb &11,&88; line 4
+defb &00,&00; line 4
 defb &00,&00; line 5
 defb &11,&88; line 6
 defb &11,&88; line 7
 defb &00,&00; line 8
 defb &00,&00; line 9
 defb &00,&00; line 10
-defb &00,&00; line 11
