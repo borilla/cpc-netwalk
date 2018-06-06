@@ -17,6 +17,7 @@ generate_maze
 		assign_interrupt 1,set_palette_grid
 		assign_interrupt 7,set_palette_grid
 		call clear_screen
+		call time_init
 		xor a
 		ld (tile_index_selected),a
 
@@ -97,36 +98,7 @@ set_palette_grid
 
 render_clock
 		call set_palette_grid
-		ld de,&c000
-		ld hl,char_data_0
-		call char_render
-		ld de,&c002
-		ld hl,char_data_1
-		call char_render
-		ld de,&c004
-		ld hl,char_data_2
-		call char_render
-		ld de,&c006
-		ld hl,char_data_3
-		call char_render
-		ld de,&c008
-		ld hl,char_data_4
-		call char_render
-		ld de,&c00a
-		ld hl,char_data_5
-		call char_render
-		ld de,&c00c
-		ld hl,char_data_6
-		call char_render
-		ld de,&c00e
-		ld hl,char_data_7
-		call char_render
-		ld de,&c010
-		ld hl,char_data_8
-		call char_render
-		ld de,&c012
-		ld hl,char_data_9
-		call char_render
+		call time_inc_ms_lo
 		ret
 
 ;; set mode, screen size, colours etc
@@ -145,7 +117,7 @@ setup_screen	;; set screen mode
 		ga_set_pen 1,ink_black		;; outlines
 		ga_set_pen 2,ink_lime		;; power flow
 		ga_set_pen 3,ink_sky_blue	;; tile edges
-		ga_set_pen 16,ink_red		;; border
+		ga_set_pen 16,ink_black		;; border
 		ret
 
 ;; ----------------------------------------------------------------
@@ -544,6 +516,7 @@ read "inc/scan_keyboard.asm"
 read "maze/rand16.asm"
 read "maze/tiles.asm"
 read "maze/char.asm"
+read "maze/time.asm"
 read "maze/maze.asm"
 
 ;; ----------------------------------------------------------------

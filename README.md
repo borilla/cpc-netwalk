@@ -103,7 +103,7 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Shuffle rotations before game
 - [ ] Recognise when game is complete (ie all terminals connected)
 - [x] Allow different grid-sizes
-- [ ] Add timer/countdown
+- [x] Add timer/countdown
 - [ ] Game menus
 - [ ] Logo graphics
 - [ ] Sound effects
