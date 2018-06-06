@@ -18,6 +18,8 @@ generate_maze
 		assign_interrupt 7,set_palette_grid
 		call clear_screen
 		call time_init
+		call moves_init
+		call rotations_init
 		xor a
 		ld (tile_index_selected),a
 
@@ -488,6 +490,12 @@ update_rotating_tile
 		and %00001111
 		ld (bc),a
 
+		push de
+		push hl
+		call rotations_inc		;; update rotations-count
+		pop hl
+		pop de
+
 _write_rotated_value
 		ld (hl),e			;; store new (rotated) tile value
 		ld a,l
@@ -517,6 +525,7 @@ read "maze/rand16.asm"
 read "maze/tiles.asm"
 read "maze/char.asm"
 read "maze/time.asm"
+read "maze/moves.asm"
 read "maze/maze.asm"
 
 ;; ----------------------------------------------------------------
