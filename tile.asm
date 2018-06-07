@@ -251,7 +251,8 @@ tile_origin	defw #c000
 
 		align #100
 
-tile_mask_lookup ; lookup table for masks, indexed by sprite byte. AND with screen data, then OR with pixel data.
+;; lookup table for masking out ink 0 pixels. AND with screen data, then OR with pixel data.
+tile_mask_lookup
 		defb &ff,&ee,&dd,&cc,&bb,&aa,&99,&88,&77,&66,&55,&44,&33,&22,&11,&00,&ee,&ee,&cc,&cc,&aa,&aa,&88,&88,&66,&66,&44,&44,&22,&22,&00,&00
 		defb &dd,&cc,&dd,&cc,&99,&88,&99,&88,&55,&44,&55,&44,&11,&00,&11,&00,&cc,&cc,&cc,&cc,&88,&88,&88,&88,&44,&44,&44,&44,&00,&00,&00,&00
 		defb &bb,&aa,&99,&88,&bb,&aa,&99,&88,&33,&22,&11,&00,&33,&22,&11,&00,&aa,&aa,&88,&88,&aa,&aa,&88,&88,&22,&22,&00,&00,&22,&22,&00,&00
@@ -261,4 +262,4 @@ tile_mask_lookup ; lookup table for masks, indexed by sprite byte. AND with scre
 		defb &33,&22,&11,&00,&33,&22,&11,&00,&33,&22,&11,&00,&33,&22,&11,&00,&22,&22,&00,&00,&22,&22,&00,&00,&22,&22,&00,&00,&22,&22,&00,&00
 		defb &11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00
 
-tile_data	read "maze/sprite-data.asm"
+tile_data	read "maze/tile-data.asm"

@@ -81,7 +81,7 @@ for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connect
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
 combinations (ie include tiles representing cells that have no exits, even though they won't appear
 in the game) which turns out as `5120 bytes / 5Kb`. In actual fact, rather than wasting this space,
-we use these extra tiles to hold other sprites such as power supply and selected cell border
+we could use these extra tiles to hold other sprites, used elsewhere in the game
 
 ![Tile sprites](./doc/sprites.gif)
 
@@ -92,7 +92,7 @@ going to change quite significantly as I gradually get stuff done...
 
 - [x] Maze generation
 - [x] Draw tile sprites
-- [x] Render a single sprite
+- [x] Render a single tile
 - [x] Render whole game-grid
 - [x] Show currently selected cell in rendered grid
 - [x] Navigate around the grid using keyboard

@@ -291,7 +291,7 @@ render_grid_tile
 ;;	AF,BC,DE,HL,IXL
 render_power_supply
 		call tile_screen_addr		;; DE points at screen
-		ld hl,tile_supply_trans		;; HL points at sprite
+		ld hl,tile_supply_trans		;; HL points at tile data
 		jp tile_render_trans
 
 ;; ----------------------------------------------------------------
@@ -303,7 +303,7 @@ render_power_supply
 ;;	AF,BC,DE,HL,LX
 render_selected_overlay
 		call tile_screen_addr		;; DE points at screen
-		ld hl,tile_selected_trans	;; HL points at sprite
+		ld hl,tile_selected_trans	;; HL points at tile data
 		jp tile_render_trans
 
 ;; ----------------------------------------------------------------
@@ -528,7 +528,7 @@ _uct_loop_1	ld a,(hl)
 read "inc/interrupts_12.asm"
 read "inc/scan_keyboard.asm"
 read "maze/rand16.asm"
-read "maze/tiles.asm"
+read "maze/tile.asm"
 read "maze/char.asm"
 read "maze/time.asm"
 read "maze/moves.asm"
