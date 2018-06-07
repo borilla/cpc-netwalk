@@ -52,13 +52,62 @@ rotations_init
 		call char_render
 		ret
 
-rotations_inc
-		ld hl,(rot_data_count_lo)
+moves_inc
+		ld hl,(mov_data_count)
 		ld a,l
+		or a				;; clear flags before DAA
 		inc a
 		daa
 		ld l,a
-		ld (rot_data_count_lo),hl
+		ld (mov_data_count),hl
+		and %00001111
+		ld de,&c00e
+		push hl
+		call char_render_digit
+		pop hl
+		ld a,l
+		and %11110000
+		rrca
+		rrca
+		rrca
+		rrca
+		ld de,&c00c
+		push hl
+		call char_render_digit
+		pop hl
+
+		ld a,l
+		or a
+		ret nz
+
+		ld a,h
+		inc a
+		daa
+		ld h,a
+		ld (mov_data_count),hl
+		and %00001111
+		ld de,&c00a
+		push hl
+		call char_render_digit
+		pop hl
+		ld a,h
+		and %11110000
+		rrca
+		rrca
+		rrca
+		rrca
+		ld de,&c008
+		call char_render_digit
+		ret
+
+rotations_inc
+		ld hl,(rot_data_count)
+		ld a,l
+		or a				;; clear flags before DAA
+		inc a
+		daa
+		ld l,a
+		ld (rot_data_count),hl
 		and %00001111
 		ld de,&c027
 		push hl
@@ -79,18 +128,17 @@ rotations_inc
 		or a
 		ret nz
 
-		ld hl,(rot_data_count_hi)
-		ld a,l
+		ld a,h
 		inc a
 		daa
-		ld l,a
-		ld (rot_data_count_hi),hl
+		ld h,a
+		ld (rot_data_count),hl
 		and %00001111
 		ld de,&c023
 		push hl
 		call char_render_digit
 		pop hl
-		ld a,l
+		ld a,h
 		and %11110000
 		rrca
 		rrca
@@ -100,5 +148,5 @@ rotations_inc
 		call char_render_digit
 		ret
 
-rot_data_count_lo	defw 0
-rot_data_count_hi	defw 0
+mov_data_count	defw 0
+rot_data_count	defw 0

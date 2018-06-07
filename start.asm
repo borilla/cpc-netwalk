@@ -425,6 +425,12 @@ _do_move_left	bit 3,b
 _do_move_end	cp (hl)				;; is index changed?
 		ret z
 
+		push af
+		push hl
+		call moves_inc
+		pop hl
+		pop af
+
 		ld c,a
 		ld a,(hl)
 		ld (tile_index_prev),a
