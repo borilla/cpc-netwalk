@@ -93,13 +93,11 @@ _sg_end		ld (grid_size),a
 ;; ----------------------------------------------------------------
 
 set_palette_text
-		ga_set_pen 0,ink_black
 		ga_set_pen 3,ink_bright_white
 		ret
 
 set_palette_grid
-		ga_set_pen 0,ink_pastel_blue	;; background
-		ga_set_pen 3,ink_sky_blue	;; tile edges
+		ga_set_pen 3,ink_lime	;; tile edges
 		ret
 
 render_clock
@@ -119,10 +117,10 @@ setup_screen	;; set screen mode
 		crtc_write_register 6,32	;; vertical displayed: 32 characters, 256 pixels
 		crtc_write_register 7,34	;; vertical sync position
 		;; set pen colors
-		ga_set_pen 0,ink_pastel_blue	;; background
-		ga_set_pen 1,ink_black		;; outlines
-		ga_set_pen 2,ink_lime		;; power flow
-		ga_set_pen 3,ink_sky_blue	;; tile edges
+		ga_set_pen 0,ink_black		;; outlines
+		ga_set_pen 1,ink_pastel_blue	;; tile background
+		ga_set_pen 2,ink_sky_blue	;; tile outline
+		ga_set_pen 3,ink_lime		;; power flow
 		ga_set_pen 16,ink_black		;; border
 		ret
 
@@ -293,9 +291,8 @@ render_grid_tile
 ;;	AF,BC,DE,HL,IXL
 render_power_supply
 		call tile_screen_addr		;; DE points at screen
-		ld hl,tile_supply		;; HL points at sprite
-		ld bc,tile_mask_lookup		;; BC points at mask
-		jp tile_render_mask
+		ld hl,tile_supply_trans		;; HL points at sprite
+		jp tile_render_trans
 
 ;; ----------------------------------------------------------------
 
@@ -305,10 +302,9 @@ render_power_supply
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
 render_selected_overlay
-		call tile_screen_addr	;; DE points at screen
-		ld hl,tile_selected	;; HL points at sprite
-		ld bc,tile_mask_lookup	;; BC points at mask
-		jp tile_render_mask
+		call tile_screen_addr		;; DE points at screen
+		ld hl,tile_selected_trans	;; HL points at sprite
+		jp tile_render_trans
 
 ;; ----------------------------------------------------------------
 
