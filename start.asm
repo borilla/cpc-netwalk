@@ -13,9 +13,11 @@ main		call setup_screen
 
 generate_maze
 		assign_interrupt 0,set_palette_text
-		assign_interrupt 6,set_palette_text
 		assign_interrupt 1,set_palette_grid
+		unassign_interrupt 2
+		assign_interrupt 6,set_palette_text
 		assign_interrupt 7,set_palette_grid
+		unassign_interrupt 8
 		call clear_screen
 		call time_init
 		call moves_init
@@ -40,9 +42,11 @@ wait_for_key_release
 		jr nz,wait_for_key_release
 
 		assign_interrupt 0,get_actions
-		assign_interrupt 6,render_important_tiles
 		assign_interrupt 1,render_clock
+		assign_interrupt 2,moves_render
+		assign_interrupt 6,render_important_tiles
 		assign_interrupt 7,render_clock
+		assign_interrupt 8,rotations_render
 
 game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
@@ -50,7 +54,7 @@ game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 6,(hl)
 		jr nz,shrink_grid
 		bit 7,(hl)
-		jr nz,generate_maze
+		jp nz,generate_maze
 
 _ignore_special_actions
 		call render_next_tile
