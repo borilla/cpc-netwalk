@@ -34,6 +34,9 @@ generate_maze
 		call tile_calculate_origin
 		call maze_generate
 		call maze_shuffle
+		ld a,(grid_size)
+		call maze_random_cell		;; choose random cell for power supply
+		ld (tile_index_supply),a
 		call recalc_connected_tiles
 
 wait_for_key_release
@@ -268,7 +271,7 @@ render_grid_tile
 
 		ld a,ixh
 		ld c,a
-		ld a,(maze_start_cell)
+		ld a,(tile_index_supply)
 		cp c
 		call z,render_power_supply
 
@@ -518,8 +521,8 @@ _uct_loop_1	ld a,(hl)
 		inc l
 		jr nz,_uct_loop_1
 
-		ld a,(maze_start_cell)
-		jp connected_cells
+		ld a,(tile_index_supply)
+		jp maze_mark_connected
 
 ;; ----------------------------------------------------------------
 ;; include subroutines
@@ -542,6 +545,7 @@ grid_size		defb %11101110
 
 tile_index_prev		defb 0
 tile_index_selected	defb 0
+tile_index_supply	defb 0
 
 actions			defb 0
 actions_prev		defb 0

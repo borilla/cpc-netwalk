@@ -35,8 +35,7 @@ maze_generate	ld (maze_dimensions),a
 		call calc_index_limits		;; calculate index limits, modify max width and height index values in subroutines
 		call maze_reset			;; clear all maze data
 		ld a,(maze_dimensions)		;; choose random starter cell
-		call random_cell
-		ld (maze_start_cell),a
+		call maze_random_cell
 		ld l,a				;; HL points to current cell (starting at starter cell)
 		ld h,maze_data / 256
 		ld bc,maze_stack		;; BC points to stack of pending cells
@@ -153,10 +152,11 @@ _ms_loop_end
 ;; entry
 ;;	A: maze dimensions (%hhhhwwww)
 ;; exit
-;;	A: index of cell
+;;	A: index of random cell
 ;; modifies:
 ;;	A,BC,HL
-random_cell	ld b,a
+maze_random_cell
+		ld b,a
 		call rand16		;; A is random number
 		ld c,a
 
@@ -312,16 +312,16 @@ mod_3		ld a,c			;; add nibbles
 		dec a
 		ret
 
-;; find all cells connected to initial cell
+;; mark all cells connected to initial cell
 ;; after this call, all connected cells will have "connected" bit set
 ;; entry:
 ;;	A: index of initial cell
 ;; exit:
 ;;	DE: top of stack of (indexes of) connected cells
-connected_cells
+maze_mark_connected
 		ld de,maze_stack	;; DE points at top of stack
 		ld (de),a		;; add initial stack item
-		ld iyl,e		;; IXL is index of current item in stack
+		ld iyl,e		;; IYL is index of current item in stack
 
 		ld h,maze_data / 256	;; HL points at current cell in maze-data
 		ld l,a
@@ -454,4 +454,3 @@ maze_neighbours_list	defs 4*2,&00
 
 maze_dimensions		defb 0
 maze_index_limits	defb 0
-maze_start_cell		defb 0
