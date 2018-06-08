@@ -8,7 +8,9 @@ read "inc/macros.asm"
 ;; main
 ;; ----------------------------------------------------------------
 
-main		call setup_screen
+main
+		call clear_screen
+		call setup_screen
 		call setup_interrupts
 
 generate_maze
@@ -18,7 +20,7 @@ generate_maze
 		assign_interrupt 6,set_palette_text
 		assign_interrupt 7,set_palette_grid
 		unassign_interrupt 8
-		call clear_screen
+		call clear_grid
 		call time_init
 		call moves_init
 		call rotations_init
@@ -130,8 +132,17 @@ setup_screen	;; set screen mode
 ;; ----------------------------------------------------------------
 
 clear_screen	ld hl,&c000
-		ld (tile_origin),hl
-		xor a 
+		ld de,&c001
+		ld bc,&3fff
+		ld (hl),l
+		ldir
+		ret
+
+;; ----------------------------------------------------------------
+
+clear_grid	ld a,%11111111		;; largest grid possible (15x15 tiles)
+		call tile_calculate_origin
+		xor a
 		call tile_data_addr	;; HL = tile data address
 		xor a
 _cs_loop
@@ -141,17 +152,30 @@ _cs_loop
 		add a,c
 		inc a
 
+		ld c,a
+		ld b,%00001111		;; don't render column 15
+		and b
+		cp b
+		ld a,c
+		jr z,_cs_end
+
+		ld b,%11110000		;; don't render row 15
+		and b
+		cp b
+		ld a,c
+		jr z,_cs_end
+
 		push hl
 		push af
 		call tile_screen_addr	;; DE = tile screen address
-		call tile_render
+		call tile_render_blank
 		pop af
 		ld h,rendered_tiles / 256
 		ld l,a
 		ld (hl),0
 		pop hl
 
-		or a
+_cs_end		or a
 		jr nz,_cs_loop
 		ret
 

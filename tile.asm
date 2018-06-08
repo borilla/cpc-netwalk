@@ -24,6 +24,7 @@ repeat 7
 rend
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a		;; [4] copy byte
+						;; =[201]
 		ret
 
 ;; render a transparent tile, containing inline mask data
@@ -156,6 +157,43 @@ _trm_2
 		ld h,a
 
 		jr _trm_2
+
+;; render a blank tile (ie all ink 0)
+;; entry:
+;;	DE: screen address (of top-left of sprite)
+;; modifies:
+;;	AF,BC,DE,HL
+tile_render_blank
+		ex de,hl			;; use HL as screen address
+		call _tile_render_blank_half
+		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3) (&c040 - 3)
+		add hl,bc
+_tile_render_blank_half
+		ld bc,&800			;; B = 8, C = 0
+		ld a,h
+repeat 7
+		ld (hl),c			;; [2]
+		inc l				;; [1]
+		ld (hl),c			;; [2]
+		inc l				;; [1]
+		ld (hl),c			;; [2]
+		inc l				;; [1]
+		ld (hl),c			;; [2]
+		dec l				;; [1]
+		dec l				;; [1]
+		dec l				;; [1]
+		add a,b				;; [1]
+		ld h,a				;; [1]
+rend
+		ld (hl),c			;; [2]
+		inc l				;; [1]
+		ld (hl),c			;; [2]
+		inc l				;; [1]
+		ld (hl),c			;; [2]
+		inc l				;; [1]
+		ld (hl),c			;; [2]
+						;; =[109]
+		ret
 
 ;; get screen address of tile (origin + 4x + 128y)
 ;; entry:
