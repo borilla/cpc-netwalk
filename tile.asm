@@ -195,6 +195,49 @@ rend
 						;; =[109]
 		ret
 
+;; render a half-blank tile (ie every other pixel is ink 0)
+;; entry:
+;;	DE: screen address (of top-left of sprite)
+;; modifies:
+;;	AF,BC,DE,HL
+tile_render_blankish
+		ex de,hl			;; use HL as screen address
+		ld de,%1010101001010101		;; D = %10101010, E = %01010101
+		call _tile_render_blankish_half
+		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3) (&c040 - 3)
+		add hl,bc
+_tile_render_blankish_half
+		ld b,8				;; B = 8
+		ld a,h
+repeat 3
+		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and d:ld (hl),a	;; [6]
+		dec l:dec l:dec l		;; [2]
+		ld a,h:add b:ld h,a		;; [4]
+
+		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and e:ld (hl),a	;; [6]
+		dec l:dec l:dec l		;; [2]
+		ld a,h:add b:ld h,a		;; [4]
+rend
+		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and d:ld (hl),a	;; [6]
+		dec l:dec l:dec l		;; [2]
+		ld a,h:add b:ld h,a		;; [4]
+
+		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
+		ld a,(hl):and e:ld (hl),a	;; [6]
+
+		ret
+
 ;; get screen address of tile (origin + 4x + 128y)
 ;; entry:
 ;;	A: tile index [yyyyxxxx] (x + y * 16)
