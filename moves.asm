@@ -1,15 +1,32 @@
+connections_screen_addr	equ &c000
+moves_screen_addr	equ &c010
+rotations_screen_addr	equ &c020
+
+;; initialise connected terminals info
+connections_init
+		ld de,connections_screen_addr
+		ld hl,char_data_0
+		call char_render
+		ld de,connections_screen_addr + 2
+		ld hl,char_data_0
+		call char_render
+		ld de,connections_screen_addr + 4
+		ld hl,char_data_slash
+		call char_render
+		ld de,connections_screen_addr + 6
+		ld hl,char_data_0
+		call char_render
+		ld de,connections_screen_addr + 8
+		ld hl,char_data_0
+		call char_render
+		ret
+
 ;; initialise moves count and render
 moves_init
-		ld de,&c000
+		ld de,moves_screen_addr
 		ld hl,char_data_M
 		call char_render
-		ld de,&c002
-		ld hl,char_data_O
-		call char_render
-		ld de,&c004
-		ld hl,char_data_V
-		call char_render
-		ld de,&c006
+		ld de,moves_screen_addr + 2
 		ld hl,char_data_colon
 		call char_render
 
@@ -21,16 +38,10 @@ moves_init
 
 ;; initialise rotations count and render
 rotations_init
-		ld de,&c019
+		ld de,rotations_screen_addr
 		ld hl,char_data_R
 		call char_render
-		ld de,&c01b
-		ld hl,char_data_O
-		call char_render
-		ld de,&c01d
-		ld hl,char_data_T
-		call char_render
-		ld de,&c01f
+		ld de,rotations_screen_addr + 2
 		ld hl,char_data_colon
 		call char_render
 
@@ -40,14 +51,14 @@ rotations_init
 		ld (rotations_data_rendered),hl
 		jp rotations_render
 
-;; increment rotations count
-rotations_inc
-		ld hl,rotations_data_count
-		jp inc_decimal_word
-
 ;; increment moves count
 moves_inc
 		ld hl,moves_data_count
+		jp inc_decimal_word
+
+;; increment rotations count
+rotations_inc
+		ld hl,rotations_data_count
 		;; fall through...
 
 ;; increment binary-coded-decimal word in memory
@@ -74,24 +85,34 @@ inc_decimal_word
 
 		ret
 
-rotations_render
-		ld a,(rotations_data_count+1)
-		ld hl,rotations_data_rendered+1
-		ld de,&c021
+connections_render
+		ld a,(maze_terms_connected)
+		ld hl,terms_conn_rendered
+		ld de,connections_screen_addr
 		call moves_render_digit_pair
-		ld a,(rotations_data_count)
-		ld hl,rotations_data_rendered
-		ld de,&c025
+		ld a,(maze_terms_total)
+		ld hl,terms_total_rendered
+		ld de,connections_screen_addr + 6
 		jp moves_render_digit_pair
 
 moves_render
 		ld a,(moves_data_count+1)
 		ld hl,moves_data_rendered+1
-		ld de,&c008
+		ld de,moves_screen_addr + 4
 		call moves_render_digit_pair
 		ld a,(moves_data_count)
 		ld hl,moves_data_rendered
-		ld de,&c00c
+		ld de,moves_screen_addr + 8
+		jp moves_render_digit_pair
+
+rotations_render
+		ld a,(rotations_data_count+1)
+		ld hl,rotations_data_rendered+1
+		ld de,rotations_screen_addr + 4
+		call moves_render_digit_pair
+		ld a,(rotations_data_count)
+		ld hl,rotations_data_rendered
+		ld de,rotations_screen_addr + 8
 		;; fall through...
 
 ;; render a (bcd or hex) byte value as two digits
@@ -111,7 +132,7 @@ moves_render_digit_pair
 		ld b,a			;; keep xored difference
 _mrdp_high_digit
 		and %11110000		;; has high digit changed?
-		jr z,_mrdp_low_digit		;; no, check low digit
+		jr z,_mrdp_low_digit	;; no, check low digit
 
 		ld a,c			;; yes, render high digit
 		and %11110000
@@ -135,7 +156,21 @@ _mrdp_low_digit
 		inc de
 		jp char_render_digit
 
-moves_data_count		defw 0
-rotations_data_count		defw 0
+;; convert hex number to bcd
+hex_to_bcd
+		ld	c, a
+		ld	b, 8
+		xor	a
+_h2b_loop
+		sla	c
+		adc	a, a
+		daa
+		djnz	_h2b_loop
+		ret
+
+moves_data_count	defw 0
+rotations_data_count	defw 0
 moves_data_rendered	defw 0
 rotations_data_rendered	defw 0
+terms_total_rendered	defb 0
+terms_conn_rendered	defb 0

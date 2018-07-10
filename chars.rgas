@@ -631,6 +631,22 @@
         "_name": "char_data_period",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAwAAAAAAAAIDAAAAAAAAAwIAAAAAAAIDAAAAAAAAAwIAAAAAAAIDAAAAAAAAAwIAAAAAAAIDAAAAAAAAAwIAAAAAAAIDAAAAAAAAAwIAAAAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_slash",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
       }
     ]
   },

@@ -529,3 +529,17 @@ defb &00,&00; line 7
 defb &00,&00; line 8
 defb &33,&00; line 9
 defb &33,&00; line 10
+
+
+.char_data_slash
+defb &00,&22; line 0
+defb &00,&26; line 1
+defb &00,&46; line 2
+defb &00,&4C; line 3
+defb &00,&8C; line 4
+defb &01,&88; line 5
+defb &11,&08; line 6
+defb &13,&00; line 7
+defb &23,&00; line 8
+defb &26,&00; line 9
+defb &46,&00; line 10

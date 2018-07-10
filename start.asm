@@ -22,6 +22,7 @@ generate_maze
 		unassign_interrupt 8
 		call clear_grid
 		call time_init
+		call connections_init
 		call moves_init
 		call rotations_init
 		xor a
@@ -53,6 +54,7 @@ wait_for_key_release
 		assign_interrupt 6,render_important_tiles
 		assign_interrupt 7,render_clock
 		assign_interrupt 8,rotations_render
+		assign_interrupt 9,connections_render
 
 game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
