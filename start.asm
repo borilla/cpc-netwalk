@@ -35,6 +35,7 @@ generate_maze
 		ld a,(grid_size)
 		call tile_calculate_origin
 		call maze_generate
+		call maze_count_terminals
 		call maze_shuffle
 		ld a,(grid_size)
 		call maze_random_cell		;; choose random cell for power supply

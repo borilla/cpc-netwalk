@@ -314,6 +314,7 @@ mod_3		ld a,c			;; add nibbles
 
 ;; mark all cells connected to initial cell
 ;; after this call, all connected cells will have "connected" bit set
+;; also counts number of connected terminals
 ;; entry:
 ;;	A: index of initial cell
 ;; exit:
@@ -327,7 +328,10 @@ maze_mark_connected
 		ld l,a
 		set is_connected_bit,(hl)	;; mark initial cell as connected
 		ld b,h			;; BC is used to point at neighbours in maze-data
-_cc_loop
+
+		xor a			;; reset count of connected terminals
+		ld (maze_terms_connected),a
+_mc_loop
 		ld c,e			;; temporarily store E
 		ld e,iyl		;; DE points at current stack item
 		ld a,(de)		;; A is index of current cell
@@ -336,20 +340,30 @@ _cc_loop
 		ld l,a			;; HL points at current item
 		ld a,(hl)		;; A contains current cell data
 		and %00110000		;; if cell is currently rotating then can't be connected to neighbours
-		jr nz,_cc_end
+		jr nz,_mc_end
 
-_cc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_cc_right
+		ld a,(hl)		;; is cell a "terminal" cell, ie has only one exit
+		and %00001111
+		ld c,a			;; use method from http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+		dec c
+		and c			;; Z will be set if only one [or zero] exit
+		jr nz,_mc_top
+		ld a,(maze_terms_connected)	;; inc count of connected terminals
+		inc a
+		ld (maze_terms_connected),a
+
+_mc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_mc_right
 		ld a,l
 		and %11110000
-		jr z,_cc_right
+		jr z,_mc_right
 		ld a,l			;; point BC at neighbour
 		sub 16
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_bottom
 		cp exits_bottom
-		jr nz,_cc_right
+		jr nz,_mc_right
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
@@ -357,19 +371,19 @@ _cc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
 		ld a,c
 		ld (de),a
 
-_cc_right	bit exits_right_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_cc_bottom
+_mc_right	bit exits_right_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_mc_bottom
 		ld a,l
 		and %00001111
 		cp %00001111		;; maze-width - 1
-		jr z,_cc_bottom
+		jr z,_mc_bottom
 		ld a,l			;; point BC at neighbour
 		inc a
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_left
 		cp exits_left
-		jr nz,_cc_bottom
+		jr nz,_mc_bottom
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
@@ -377,19 +391,19 @@ _cc_right	bit exits_right_bit,(hl)	;; is cell connected to neighbour?
 		ld a,c
 		ld (de),a
 
-_cc_bottom	bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_cc_left
+_mc_bottom	bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_mc_left
 		ld a,l
 		and %11110000
 		cp %11110000
-		jr z,_cc_left
+		jr z,_mc_left
 		ld a,l			;; point BC at neighbour
 		add 16
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_top
 		cp exits_top
-		jr nz,_cc_left
+		jr nz,_mc_left
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
@@ -397,18 +411,18 @@ _cc_bottom	bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
 		ld a,c
 		ld (de),a
 
-_cc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_cc_end
+_mc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
+		jr z,_mc_end
 		ld a,l
 		and %00001111
-		jr z,_cc_end
+		jr z,_mc_end
 		ld a,l			;; point BC at neighbour
 		dec a
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_right
 		cp exits_right
-		jr nz,_cc_end
+		jr nz,_mc_end
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
@@ -416,12 +430,38 @@ _cc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
 		ld a,c
 		ld (de),a
 
-_cc_end		ld a,iyl		;; is current item same as top item on stack?
+_mc_end		ld a,iyl		;; is current item same as top item on stack?
 		cp e
 		ret z
 
 		inc iyl			;; go to next stack item
-		jp _cc_loop
+		jp _mc_loop
+
+;; count "terminal" cells, ie those that have only one exit
+;; uses kernighan's method http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+;; exit:
+;;	A: count of terminal cells
+;; modifies:
+;;	AF,BC,HL
+maze_count_terminals
+	ld hl,maze_data
+	ld b,l			;; B = count of terminals
+_mct_loop
+	ld a,(hl)
+	and %00001111
+	jr z,_mct_end
+	ld c,a
+	dec c
+	and c
+	jr nz,_mct_end
+	inc b
+_mct_end
+	inc l
+	jr nz,_mct_loop
+
+	ld a,b
+	ld (maze_terms_total),a
+	ret
 
 ;; ----------------------------------------------------------------
 ;; data
@@ -452,5 +492,7 @@ rot_nibble_data		defb &00,&02,&04,&06,&08,&0a,&0c,&0e,&01,&03,&05,&07,&09,&0b,&0
 
 maze_neighbours_list	defs 4*2,&00
 
-maze_dimensions		defb 0
-maze_index_limits	defb 0
+maze_dimensions		defb 0	;; %hhhhwwww
+maze_index_limits	defb 0	;; %yyyyxxxx
+maze_terms_total	defb 0	;; total count of terminals
+maze_terms_connected	defb 0	;; current count of connected terminals
