@@ -4,6 +4,10 @@ rotations_screen_addr	equ &c020
 
 ;; initialise connected terminals info
 connections_init
+		ld hl,0
+		ld (terms_total_rendered),hl
+		ld (terms_conn_rendered),hl
+
 		ld de,connections_screen_addr
 		ld hl,char_data_0
 		call char_render
