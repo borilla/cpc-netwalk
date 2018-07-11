@@ -350,6 +350,7 @@ _mc_loop
 		jr nz,_mc_top
 		ld a,(maze_terms_connected)	;; inc count of connected terminals
 		inc a
+		daa
 		ld (maze_terms_connected),a
 
 _mc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
@@ -454,7 +455,10 @@ _mct_loop
 	dec c
 	and c
 	jr nz,_mct_end
-	inc b
+	ld a,b
+	inc a
+	daa
+	ld b,a
 _mct_end
 	inc l
 	jr nz,_mct_loop
