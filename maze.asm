@@ -330,7 +330,7 @@ maze_mark_connected
 		ld b,h			;; BC is used to point at neighbours in maze-data
 
 		xor a			;; reset count of connected terminals
-		ld (maze_terms_connected),a
+		ld (_maze_terms_connected),a
 _mc_loop
 		ld c,e			;; temporarily store E
 		ld e,iyl		;; DE points at current stack item
@@ -348,10 +348,10 @@ _mc_loop
 		dec c
 		and c			;; Z will be set if only one [or zero] exit
 		jr nz,_mc_top
-		ld a,(maze_terms_connected)	;; inc count of connected terminals
+		ld a,(_maze_terms_connected)	;; inc count of connected terminals
 		inc a
 		daa
-		ld (maze_terms_connected),a
+		ld (_maze_terms_connected),a
 
 _mc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
 		jr z,_mc_right
@@ -432,11 +432,13 @@ _mc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
 		ld (de),a
 
 _mc_end		ld a,iyl		;; is current item same as top item on stack?
-		cp e
-		ret z
-
 		inc iyl			;; go to next stack item
-		jp _mc_loop
+		cp e
+		jp nz,_mc_loop
+
+		ld a,(_maze_terms_connected)
+		ld (maze_terms_connected),a
+		ret
 
 ;; count "terminal" cells, ie those that have only one exit
 ;; uses kernighan's method http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
@@ -500,3 +502,4 @@ maze_dimensions		defb 0	;; %hhhhwwww
 maze_index_limits	defb 0	;; %yyyyxxxx
 maze_terms_total	defb 0	;; total count of terminals
 maze_terms_connected	defb 0	;; current count of connected terminals
+_maze_terms_connected	defb 0	;; *temporary* count of connected terminals
