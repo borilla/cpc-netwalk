@@ -102,7 +102,7 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Calculate which cells are connected to power supply
 - [x] Display connected tiles
 - [x] Shuffle rotations before game
-- [?] Recognise when game is complete (ie all terminals connected)
+- [ ] Recognise when game is complete (ie all terminals connected)
 - [x] Allow different grid-sizes
 - [x] Add timer/countdown
 - [ ] Game menus
