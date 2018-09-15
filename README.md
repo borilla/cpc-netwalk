@@ -1,11 +1,12 @@
 # cpc-netwalk
 
-This repo is a record of my attempt to make a "[netwalk](https://netwalk.github.io/)" game for the
+## Overview
+
+This repo is a record of my _attempt_ to make a "[netwalk](https://netwalk.github.io/)" game for the
 [Amstrad CPC](https://en.wikipedia.org/wiki/Amstrad_CPC), using [Z80](https://en.wikipedia.org/wiki/Zilog_Z80)
 assembly language
 
-_Note: Are you kidding me; there's a [russian wikipedia page for netwalk](https://ru.wikipedia.org/wiki/NetWalk)
-but no english?_
+_Note: There's a [russian wikipedia page for netwalk](https://ru.wikipedia.org/wiki/NetWalk) but no english_
 
 ## Maze algorithm
 
@@ -22,14 +23,14 @@ and in Z80 code, and make a Z80 netwalk game
 
 ## Game size
 
-I decided to use a maximum game-grid size of `16 x 16` cells/rooms. Each grid-cell doesn't need to store too
-much data, so we can probably get away with using a single byte per cell, which means our entire grid can
-be stored in `16 x 16 x 1 = 256 bytes`. This is a neat number for an 8-bit processor as we can index all
-cells by manipulating a single 8-bit register
+The maximum game-grid size is `16 x 16` cells. Each grid-cell doesn't need to store too much data,
+so we can get away with using a single byte per cell, which means the entire grid can be stored in
+`16 x 16 x 1 = 256 bytes`. This is a neat number for an 8-bit processor as we can index all cells very
+quickly by manipulating a single 8-bit register
 
 In addition to the grid itself, we also set aside another 256-byte section of memory to use as a
-[stack](https://en.wikipedia.org/wiki/Stack) of cell indexes, which we need for generating the grid,
-calculating connected cells, etc
+[stack](https://en.wikipedia.org/wiki/Stack) of cell indexes. This is needed for generating the grid.
+It will also be reused later when calculating connected cells while playing the game
 
 ## Cell structure
 
@@ -81,7 +82,7 @@ for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connect
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
 combinations (ie include tiles representing cells that have no exits, even though they won't appear
 in the game) which turns out as `5120 bytes / 5Kb`. In actual fact, rather than wasting this space,
-we could use these extra tiles to hold other sprites, used elsewhere in the game
+we can use these extra tiles to hold other sprites, used elsewhere in the game
 
 ![Tile sprites](./doc/sprites.gif)
 
@@ -101,7 +102,7 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Calculate which cells are connected to power supply
 - [x] Display connected tiles
 - [x] Shuffle rotations before game
-- [ ] Recognise when game is complete (ie all terminals connected)
+- [?] Recognise when game is complete (ie all terminals connected)
 - [x] Allow different grid-sizes
 - [x] Add timer/countdown
 - [ ] Game menus
