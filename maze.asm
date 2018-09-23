@@ -314,10 +314,11 @@ mod_3		ld a,c			;; add nibbles
 
 ;; mark all cells connected to initial cell
 ;; after this call, all connected cells will have "connected" bit set
-;; also counts number of connected terminals
+;; also counts number of connected terminals (excluding initial cell)
 ;; entry:
 ;;	A: index of initial cell
 ;; exit:
+;;	A: count of connected terminals (excluding initial cell)
 ;;	DE: top of stack of (indexes of) connected cells
 maze_mark_connected
 		ld de,maze_stack	;; DE points at top of stack
@@ -326,11 +327,19 @@ maze_mark_connected
 
 		ld h,maze_data / 256	;; HL points at current cell in maze-data
 		ld l,a
+		ld a,(hl)
 		set is_connected_bit,(hl)	;; mark initial cell as connected
 		ld b,h			;; BC is used to point at neighbours in maze-data
 
-		xor a			;; reset count of connected terminals
+		ld c,a			;; check if start cell is a terminal
+		dec c
+		and c			;; A = 0 if start cell is a terminal
+		sub 1			;; set carry if start cell is terminal
+		ld a,e			;; LD A,0 (because E is 0)
+		sbc e			;; SBC 0; A = 0 if not a terminal, &FF otherwise
+		daa
 		ld (_maze_terms_connected),a
+
 _mc_loop
 		ld c,e			;; temporarily store E
 		ld e,iyl		;; DE points at current stack item
@@ -468,6 +477,7 @@ _mct_end
 	ld a,b
 	ld (maze_terms_total),a
 	ret
+
 
 ;; ----------------------------------------------------------------
 ;; data

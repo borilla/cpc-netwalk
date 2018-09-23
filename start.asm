@@ -25,9 +25,6 @@ generate_maze
 		call connections_init
 		call moves_init
 		call rotations_init
-		xor a
-		ld (tile_index_selected),a
-
 		ld hl,rand16+2			;; update (high byte of) random number generator
 		ld a,r
 		add (hl)
@@ -36,11 +33,14 @@ generate_maze
 		ld a,(grid_size)
 		call tile_calculate_origin
 		call maze_generate
-		call maze_count_terminals
-		call maze_shuffle
 		ld a,(grid_size)
 		call maze_random_cell		;; choose random cell for power supply
 		ld (tile_index_supply),a
+		ld (tile_index_selected),a
+		call recalc_connected_tiles
+		ld (maze_terms_total),a
+		call maze_shuffle
+		ld a,(tile_index_supply)
 		call recalc_connected_tiles
 
 wait_for_key_release
@@ -50,11 +50,11 @@ wait_for_key_release
 
 		assign_interrupt 0,get_actions
 		assign_interrupt 1,render_clock
-		assign_interrupt 2,moves_render
+		assign_interrupt 2,moves_render		;; count of moves in info bar
 		assign_interrupt 6,render_important_tiles
 		assign_interrupt 7,render_clock
-		assign_interrupt 8,rotations_render
-		assign_interrupt 9,connections_render
+		assign_interrupt 8,rotations_render	;; count of rotations in info bar
+		assign_interrupt 9,connections_render	;; connected tiles in info bar
 
 game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
@@ -105,6 +105,8 @@ set_palette_text
 		ret
 
 set_palette_grid
+		;; ld hl,fade_data_pens
+		;; call fade_set_colours
 		ga_set_pen 3,ink_lime	;; tile edges
 		ret
 
@@ -125,11 +127,14 @@ setup_screen	;; set screen mode
 		crtc_write_register 6,32	;; vertical displayed: 32 characters, 256 pixels
 		crtc_write_register 7,34	;; vertical sync position
 		;; set pen colors
-		ga_set_pen 0,ink_black		;; outlines
+		ga_set_pen 16,ink_black		;; border
+		ga_set_pen 0,ink_black		;; background (and outlines)
+		;; ld hl,fade_data_pens
+		;; call fade_set_colours
+		ga_set_pen 0,ink_black		;; background and outlines
 		ga_set_pen 1,ink_pastel_blue	;; tile background
 		ga_set_pen 2,ink_sky_blue	;; tile outline
 		ga_set_pen 3,ink_lime		;; power flow
-		ga_set_pen 16,ink_black		;; border
 		ret
 
 ;; ----------------------------------------------------------------
@@ -202,7 +207,7 @@ render_important_tiles
 
 ;; ----------------------------------------------------------------
 
-;; if prev tile not equal to currently selected tile then render both
+;; if prev selected tile not equal to currently selected tile then render both
 render_selected_tile
 		ld a,(tile_index_selected)
 		ld hl,tile_index_prev
@@ -214,6 +219,8 @@ render_selected_tile
 		call render_grid_tile
 		ld a,(tile_index_selected)
 		jp render_grid_tile
+
+;; ----------------------------------------------------------------
 
 ;; render rotating tile if it is different from rendered state
 render_rotating_tile
@@ -250,7 +257,7 @@ _rnt_loop
 		xor a			;; no tile to render this time; set Z flag
 		ld a,c
 _rnt_end
-		ld (next_tile_index),a	;; store index for next call
+		ld (next_tile_index),a	;; store starting index for next call
 		ret
 
 ;; ----------------------------------------------------------------
@@ -316,7 +323,7 @@ render_grid_tile
 
 ;; render power supply overlay
 ;; entry:
-;;	A: index of grid tile to render
+;;	A: index tile
 ;; modifies:
 ;;	AF,BC,DE,HL,IXL
 render_power_supply
@@ -371,7 +378,7 @@ read_actions
 		ld hl,actions
 		ld a,(hl)
 		ld (actions_prev),a	;; store previous actions
-		ld (hl),b		;; store current actions
+ 		ld (hl),b		;; store current actions
 		xor b
 		and b
 		ld (actions_new),a	;; store new actions
@@ -558,6 +565,7 @@ _uct_loop_1	ld a,(hl)
 read "inc/interrupts_12.asm"
 read "inc/scan_keyboard.asm"
 read "maze/rand16.asm"
+;; read "maze/fade.asm"
 read "maze/tile.asm"
 read "maze/char.asm"
 read "maze/time.asm"
