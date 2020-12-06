@@ -122,7 +122,7 @@ maze_reset_a	ld hl,maze_data
 
 ;; apply random rotation to all maze cells
 ;; modifies:
-;;	A,DE,HL
+;;	A,B,DE,HL
 maze_shuffle	call rand16
 		ld hl,maze_data
 		ld d,rot_nibble_data / 256
@@ -132,7 +132,7 @@ _ms_loop_1
 		add a,a
 		add a,b
 		inc a
-		ld b,a
+		ld b,a	;; do we need this?
 		and %00000011
 		jr z,_ms_loop_end
 

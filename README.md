@@ -81,12 +81,25 @@ In mode 1 each byte represents four pixels so each tile sprite takes `64 bytes`.
 for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connected) = 4800 bytes`. In
 actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
 combinations (ie include tiles representing cells that have no exits, even though they won't appear
-in the game) which turns out as `5120 bytes / 5Kb`. In actual fact, rather than wasting this space,
-we can use these extra tiles to hold other sprites, used elsewhere in the game
+in the game) which turns out as `5120 bytes / 5KB`. Rather than wasting this space, we can use these
+extra tiles to hold other sprites used elsewhere in the game, such as the power supply tile and
+reticule position indicator
 
 ![Tile sprites](./doc/sprites.gif)
 
+In addition to the tiles themselves, I had a stab at creating a chunky retro font. Surprisingly this
+took me less than one day for design and pixel wrangling. Each character is `7 x 11 pixels`. There
+are 39 characters so this easily fits into less than `1KB` (`2 x 11 x 39 = 858 bytes`)
+
+![Character set](./doc/characters.gif)
+
 ## Progress
+
+This is how the game looks at the moment, running in the [WinAPE](http://www.winape.net/) emulator.
+The info bar at the top of the screen shows how many terminals are currently connected, the count
+of moves and rotations made so far and the time
+
+![Game screenshot](./doc/game.png)
 
 Here's a quick list of tasks in the approximate order I intend to do them. Not complete and probably
 going to change quite significantly as I gradually get stuff done...
