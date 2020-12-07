@@ -75,24 +75,16 @@ _ignore_special_actions
 		jr game_loop
 
 enlarge_grid	ld a,(grid_size)
-		cp %11111111			;; check if already max size
+		cp #ff			;; check if already max size (15x15)
 		jp z,generate_maze
-		cp #ff				;; if A=#ff (15x15) then next size is #00 (16x16)
-		jr nz,_eg_skip
-		xor a
-		jr _eg_end
-_eg_skip	add #11				;; for all other values, add 16+1
+		add #11			;; add 16+1
 _eg_end		ld (grid_size),a
 		jp generate_maze
 
 shrink_grid	ld a,(grid_size)
-		cp #33				;; min size is 3x3
+		cp #33			;; check if already min size (3x3)
 		jp z,generate_maze
-		or a				;; if A=#00 (16x16) then next size is #ff (15x15)
-		jr nz,_sg_skip
-		dec a				;; #00 -> #ff
-		jr _sg_end
-_sg_skip	sub #11				;; subtract 16+1
+		sub #11			;; subtract 16+1
 _sg_end		ld (grid_size),a
 		jp generate_maze
 
@@ -107,7 +99,7 @@ set_palette_text
 set_palette_grid
 		;; ld hl,fade_data_pens
 		;; call fade_set_colours
-		ga_set_pen 3,ink_lime	;; tile edges
+		ga_set_pen 3,ink_lime
 		ret
 
 render_clock
@@ -500,7 +492,7 @@ do_rotate_action
 ;; ----------------------------------------------------------------
 
 update_rotating_tile
-		ld bc,rotation_queue_cur 
+		ld bc,rotation_queue_cur
 		ld hl,rotation_queue_next
 		ld a,(bc)			;; index of current item in queue
 		cp (hl)
@@ -533,11 +525,9 @@ update_rotating_tile
 		and %00001111
 		ld (bc),a
 
-		push de
-		push hl
+		push hl				;; TODO: could probably save this push/pop by switching HL and DE
 		call rotations_inc		;; update rotations-count
 		pop hl
-		pop de
 
 _write_rotated_value
 		ld (hl),e			;; store new (rotated) tile value
@@ -576,11 +566,11 @@ read "maze/maze.asm"
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb %11101110
+grid_size		defb #aa	;; initial size (10x10)
 
-tile_index_prev		defb 0
-tile_index_selected	defb 0
-tile_index_supply	defb 0
+tile_index_prev		defb 0	;; previous position of cursor
+tile_index_selected	defb 0	;; current position of cursor
+tile_index_supply	defb 0	;; position of power supply
 
 actions			defb 0
 actions_prev		defb 0
@@ -588,7 +578,7 @@ actions_new		defb 0
 movement_countdown	defb 0
 
 rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
-rotation_queue_cur	defb 0	;; index of current position in queue
+rotation_queue_cur	defb 0	;; index of currently rotating tile
 rotation_queue_next	defb 0	;; index to insert next item in queue
 
 recalc_required		defb 0	;; flag that we need to recalculate connected tiles

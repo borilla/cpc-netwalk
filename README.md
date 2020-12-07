@@ -97,7 +97,7 @@ are 39 characters so this easily fits into less than `1KB` (`2 x 11 x 39 = 858 b
 
 This is how the game looks at the moment, running in the [WinAPE](http://www.winape.net/) emulator.
 The info bar at the top of the screen shows how many terminals are currently connected, the count
-of moves and rotations made so far and the time
+of moves and rotations made so far, and the time
 
 ![Game screenshot](./doc/game.png)
 

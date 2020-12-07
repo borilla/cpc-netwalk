@@ -9,7 +9,7 @@ char_render_digit
 		ld l,a
 		ld b,h
 		ld c,l
-		add hl,hl
+		add hl,hl	;; HL = 22 x A
 		add hl,hl
 		add hl,hl
 		add hl,bc
@@ -49,5 +49,5 @@ rend
 
 		ret				;; [3]
 
-align &100
+align &100	;; TODO: do we need to align this data?
 read "maze/char-data.asm"
