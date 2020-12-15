@@ -37,7 +37,7 @@ generate_maze
 		call maze_random_cell		;; choose random cell for power supply
 		ld (tile_index_supply),a
 		ld (tile_index_selected),a
-		call recalc_connected_tiles
+		call recalc_connected_tiles	;; all tiles are initially connected
 		ld (maze_terms_total),a
 		call maze_shuffle
 		ld a,(tile_index_supply)
@@ -56,23 +56,36 @@ wait_for_key_release
 		assign_interrupt 8,rotations_render	;; count of rotations in info bar
 		assign_interrupt 9,connections_render	;; connected tiles in info bar
 
-game_loop	ld hl,actions_new		;; special actions (regenerate/resize grid)
+game_loop
+		ld hl,actions_new		;; special actions (regenerate/resize grid)
 		bit 5,(hl)
 		jr nz,enlarge_grid
 		bit 6,(hl)
 		jr nz,shrink_grid
 		bit 7,(hl)
 		jp nz,generate_maze
-
 _ignore_special_actions
 		call render_next_tile
 		ld a,(recalc_required)
 		or a
-		jr z,game_loop
+		jr z,_check_for_completion
 		xor a
 		ld (recalc_required),a
 		call recalc_connected_tiles
 		jr game_loop
+_check_for_completion
+		ld a,(maze_terms_total)		;; check if all terminals are connected
+		ld hl,maze_terms_connected
+		cp (hl)
+		jr nz,game_loop
+		ld a,(rotation_queue_cur)	;; check if any pending rotations
+		ld hl,rotation_queue_next
+		cp (hl)
+		jr nz,game_loop
+game_complete
+		assign_interrupt 1,set_palette_text;
+		assign_interrupt 7,set_palette_text;
+		jr game_loop;
 
 enlarge_grid	ld a,(grid_size)
 		cp #ff			;; check if already max size (15x15)

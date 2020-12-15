@@ -132,7 +132,6 @@ _ms_loop_1
 		add a,a
 		add a,b
 		inc a
-		ld b,a	;; do we need this?
 		and %00000011
 		jr z,_ms_loop_end
 
@@ -455,7 +454,7 @@ _mc_end		ld a,iyl		;; is current item same as top item on stack?
 ;;	A: count of terminal cells
 ;; modifies:
 ;;	AF,BC,HL
-maze_count_terminals
+maze_count_terminals		;; TODO: this is unused at the moment
 	ld hl,maze_data
 	ld b,l			;; B = count of terminals
 _mct_loop
@@ -477,7 +476,6 @@ _mct_end
 	ld a,b
 	ld (maze_terms_total),a
 	ret
-
 
 ;; ----------------------------------------------------------------
 ;; data
