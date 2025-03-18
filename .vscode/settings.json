@@ -1,0 +1,9 @@
+{
+    "[z80-asm-meter]": {},
+    "z80-asm-meter.platform": "cpc",
+    "z80-asm-meter.syntaxFeature.labelColonOptional": true,
+    "z80-asm-meter.syntaxFeature.lineSeparator": "colon",
+    "[z80-asm]": {
+        "editor.tabSize": 8
+    }
+}
