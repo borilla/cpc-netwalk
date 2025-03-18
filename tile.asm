@@ -293,10 +293,10 @@ tile_data_addr	rrca
 ;;	A: unmodified
 ;;	HL: new tile origin
 ;; modifies:
-;;	C,HL
+;;	C,DE
 tile_calculate_origin
 		ld hl,&c800
-		ld c,a			;; B = copy of grid size
+		ld c,a			;; C = copy of grid size
 
 		and %00001111		;; isolate width
 		jr z,_tco_calc_y

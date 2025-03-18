@@ -37,7 +37,7 @@ generate_maze
 		call maze_random_cell		;; choose random cell for power supply
 		ld (tile_index_supply),a
 		ld (tile_index_selected),a
-		call recalc_connected_tiles	;; all tiles are initially connected
+		call recalc_connected_tiles	;; all tiles are initially connected so this will return number of terminals (in A)
 		ld (maze_terms_total),a
 		call maze_shuffle
 		ld a,(tile_index_supply)
