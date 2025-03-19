@@ -5,5 +5,9 @@
     "z80-asm-meter.syntaxFeature.lineSeparator": "colon",
     "[z80-asm]": {
         "editor.tabSize": 8
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.quickSuggestions": {
+        "other": "off"
     }
 }
