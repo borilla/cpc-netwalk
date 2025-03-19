@@ -16,10 +16,10 @@ main
 generate_maze
 		assign_interrupt 0,set_palette_text
 		assign_interrupt 1,set_palette_grid
-		unassign_interrupt 2
+		assign_interrupt 2,noop
 		assign_interrupt 6,set_palette_text
 		assign_interrupt 7,set_palette_grid
-		unassign_interrupt 8
+		assign_interrupt 8,noop
 		call clear_grid
 		call time_init
 		call connections_init
@@ -83,9 +83,13 @@ _check_for_completion
 		cp (hl)
 		jr nz,game_loop
 game_complete
-		assign_interrupt 1,set_palette_text;
-		assign_interrupt 7,set_palette_text;
-		jr game_loop;
+		assign_interrupt 0,get_actions
+		assign_interrupt 1,set_palette_grid
+		assign_interrupt 2,noop
+		assign_interrupt 6,set_palette_text
+		assign_interrupt 7,set_palette_grid
+		assign_interrupt 8,noop
+		jr game_loop
 
 enlarge_grid	ld a,(grid_size)
 		cp #ff			;; check if already max size (15x15)
@@ -318,7 +322,7 @@ render_grid_tile
 		ld c,a
 		ld a,(tile_index_selected)
 		cp c
-		call z,render_selected_overlay
+		call z,render_reticle
 
 		or 1				;; reset Z flag
 		ld a,ixh			;; restore A
@@ -338,12 +342,12 @@ render_power_supply
 
 ;; ----------------------------------------------------------------
 
-;; overlay "selected" border overlay
+;; render reticle overlay indicating selected tile
 ;; entry
 ;;	A: index of tile
 ;; modifies:
 ;;	AF,BC,DE,HL,LX
-render_selected_overlay
+render_reticle
 		call tile_screen_addr		;; DE points at screen
 		ld hl,tile_selected_trans	;; HL points at tile data
 		jp tile_render_trans
@@ -565,7 +569,7 @@ _uct_loop_1	ld a,(hl)
 ;; include subroutines
 ;; ----------------------------------------------------------------
 
-read "inc/interrupts_12.asm"
+read "maze/interrupts.asm"
 read "inc/scan_keyboard.asm"
 read "maze/rand16.asm"
 ;; read "maze/fade.asm"

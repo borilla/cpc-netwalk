@@ -42,9 +42,10 @@ shapes
 
 ![Amstrad CPC maze characters](./doc/maze-chars.gif)
 
-This made writing a quick BASIC program to help debugging the maze generator very simple
+This made writing a quick [BASIC](https://www.cpcwiki.eu/index.php/Locomotive_BASIC) program to help
+debugging the maze generator very simple
 
-![BASIC test prorgam](./doc/basic-test.gif)
+![BASIC test program](./doc/basic-test.gif)
 
 ### Cell bit pattern
 
@@ -79,11 +80,10 @@ connected to the power supply)
 
 In mode 1 each byte represents four pixels so each tile sprite takes `64 bytes`. Total memory required
 for our tile sprites is `64 x 15 (exit combinations) x 5 (rotations plus connected) = 4800 bytes`. In
-actual fact, it turns out to be much easier in terms of calculations if we allocate space for 16 exit
-combinations (ie include tiles representing cells that have no exits, even though they won't appear
-in the game) which turns out as `5120 bytes / 5KB`. Rather than wasting this space, we can use these
-extra tiles to hold other sprites used elsewhere in the game, such as the power supply tile and
-reticule position indicator
+actual fact, it makes calculations much simpler if we allocate space for 16 exit combinations (ie include
+spaces for tiles representing cells that would have zero exits, even though they won't appear in the game)
+which brings the size to `5120 bytes / 5KB`. Rather than wasting this space, we can use these extra tiles
+to hold other sprites used in the game, such as the power supply tile and reticle position indicator
 
 ![Tile sprites](./doc/sprites.gif)
 
@@ -96,8 +96,9 @@ are 39 characters so this easily fits into less than `1KB` (`2 x 11 x 39 = 858 b
 ## Progress
 
 This is how the game looks at the moment, running in the [WinAPE](http://www.winape.net/) emulator.
-The info bar at the top of the screen shows how many terminals are currently connected, the count
-of moves and rotations, and the time taken so far
+The info bar at the top of the screen shows how many terminals are currently connected [1 terminal
+connected out of 14 total], the count of moves [77] and rotations [60], and the time taken
+so far
 
 ![Game screenshot](./doc/game.png)
 
@@ -120,6 +121,9 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Add timer/countdown
 - [ ] Game menus
 - [ ] Logo graphics
+- [ ] Ability to pause game
+- [ ] Add music player
 - [ ] Sound effects
-- [ ] Music
+- [ ] Compose original music
 - [ ] Loading screen
+- [ ] Deploy playable version online
