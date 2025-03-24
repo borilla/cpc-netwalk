@@ -53,7 +53,7 @@ _handle_next_interrupt
 			ld l,a				;; [1]
 
 			;; jump to subroutine at address in hl
-			jp (hl)				;; [1]
+jump_to_hl		jp (hl)				;; [1]
 							;; [total 29 nops]
 
 interrupt_index		defb 0

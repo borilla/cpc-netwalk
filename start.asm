@@ -2,11 +2,13 @@
 ;; include macros
 ;; ----------------------------------------------------------------
 
-read "inc/macros.asm"
+include "inc/macros.asm"
 
 ;; ----------------------------------------------------------------
 ;; main
 ;; ----------------------------------------------------------------
+
+org #4000
 
 main
 		call clear_screen
@@ -114,8 +116,6 @@ set_palette_text
 		ret
 
 set_palette_grid
-		;; ld hl,fade_data_pens
-		;; call fade_set_colours
 		ga_set_pen 3,ink_lime
 		ret
 
@@ -129,17 +129,15 @@ render_clock
 setup_screen	;; set screen mode
 		ga_select_mode 1		;; mode 1
 		;; set screen origin
-		crtc_set_screen_address &c000,0	;; page &c000, offset 0
+		crtc_set_screen_address #c000,0	;; page &c000, offset 0
 		;; set screen size
-		crtc_write_register 1,32	;; horizontal displayed: 32 characters, 64 bytes, 256 mode 1 pixels
-		crtc_write_register 2,42	;; horizontal sync position
-		crtc_write_register 6,32	;; vertical displayed: 32 characters, 256 pixels
-		crtc_write_register 7,34	;; vertical sync position
+		crtc_write_register crtc_horizontal_displayed,32	;; 32 characters, 64 bytes, 256 mode 1 pixels
+		crtc_write_register crtc_horizontal_sync_position,42
+		crtc_write_register crtc_vertical_displayed,32		;; 32 characters, 256 pixels
+		crtc_write_register crtc_vertical_sync_position,34
 		;; set pen colors
 		ga_set_pen 16,ink_black		;; border
 		ga_set_pen 0,ink_black		;; background (and outlines)
-		;; ld hl,fade_data_pens
-		;; call fade_set_colours
 		ga_set_pen 0,ink_black		;; background and outlines
 		ga_set_pen 1,ink_pastel_blue	;; tile background
 		ga_set_pen 2,ink_sky_blue	;; tile outline
@@ -148,9 +146,9 @@ setup_screen	;; set screen mode
 
 ;; ----------------------------------------------------------------
 
-clear_screen	ld hl,&c000
-		ld de,&c001
-		ld bc,&3fff
+clear_screen	ld hl,#c000
+		ld de,#c001
+		ld bc,#3fff
 		ld (hl),l
 		ldir
 		ret
@@ -569,15 +567,16 @@ _uct_loop_1	ld a,(hl)
 ;; include subroutines
 ;; ----------------------------------------------------------------
 
-read "maze/interrupts.asm"
-read "inc/scan_keyboard.asm"
-read "maze/rand16.asm"
-;; read "maze/fade.asm"
-read "maze/tile.asm"
-read "maze/char.asm"
-read "maze/time.asm"
-read "maze/moves.asm"
-read "maze/maze.asm"
+include "interrupts.asm"
+include "inc/scan_keyboard.asm"
+include "rand16.asm"
+include "tile.asm"
+include "char.asm"
+include "time.asm"
+include "moves.asm"
+include "maze.asm"
+include "music/music_playerconfig.asm"
+include "music/music.asm"
 
 ;; ----------------------------------------------------------------
 ;; data
@@ -600,6 +599,6 @@ rotation_queue_next	defb 0	;; index to insert next item in queue
 
 recalc_required		defb 0	;; flag that we need to recalculate connected tiles
 
-			align &100
+			align #100
 
-rendered_tiles		defs &100,0
+rendered_tiles		defs #100,0

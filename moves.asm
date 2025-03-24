@@ -1,6 +1,6 @@
-connections_screen_addr	equ &c000
-moves_screen_addr	equ &c010
-rotations_screen_addr	equ &c020
+connections_screen_addr	equ #c000
+moves_screen_addr	equ #c010
+rotations_screen_addr	equ #c020
 
 ;; initialise connected terminals info
 connections_init
@@ -36,7 +36,7 @@ moves_init
 
 		ld hl,0
 		ld (moves_data_count),hl
-		ld hl,&ffff
+		ld hl,#ffff
 		ld (moves_data_rendered),hl
 		jp moves_render
 
@@ -51,7 +51,7 @@ rotations_init
 
 		ld hl,0
 		ld (rotations_data_count),hl
-		ld hl,&ffff
+		ld hl,#ffff
 		ld (rotations_data_rendered),hl
 		jp rotations_render
 

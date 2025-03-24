@@ -7,10 +7,10 @@
 ;;	AF,BC,DE,HL
 ;; flags:
 ;;	Z: reset
-tile_render	ld bc,&800 + &3d + 24		;; we want C to equal &3d after 24 LDI instructions
+tile_render	ld bc,#800 + #3d + 24		;; we want C to equal #3d after 24 LDI instructions
 		call _tile_render_half
 		inc l
-		ld b,&c8			;; add de,&c83d (-2048 * 7 + 64 - 3)
+		ld b,#c8			;; add de,#c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
@@ -20,7 +20,7 @@ repeat 7
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
 		dec e:dec e:dec e		;; [3] reset to left of tile
-		ld a,d:add a,b:ld d,a		;; [3] add de,&800
+		ld a,d:add a,b:ld d,a		;; [3] add de,#800
 rend
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a		;; [4] copy byte
@@ -38,7 +38,7 @@ rend
 ;;	Z: set
 tile_render_trans
 		call _trt_1
-		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3)
+		ld bc,#c83d			;; add de,#c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
@@ -104,7 +104,7 @@ tile_render_mask
 		ex de,hl			;; swap, so that DE points at sprite, HL points at screen
 		call _trm_1
 		ld a,b				;; temporarily store high byte of mask table
-		ld bc,&c83d			;; move to next character row (-2048 * 7 + 64 - 3)
+		ld bc,#c83d			;; move to next character row (-2048 * 7 + 64 - 3)
 		add hl,bc
 		ld b,a				;; restore BC to point at mask table
 _trm_1
@@ -166,10 +166,10 @@ _trm_2
 tile_render_blank
 		ex de,hl			;; use HL as screen address
 		call _tile_render_blank_half
-		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3) (&c040 - 3)
+		ld bc,#c83d			;; add de,#c83d (-2048 * 7 + 64 - 3) (#c040 - 3)
 		add hl,bc
 _tile_render_blank_half
-		ld bc,&800			;; B = 8, C = 0
+		ld bc,#800			;; B = 8, C = 0
 		ld a,h
 repeat 7
 		ld (hl),c			;; [2]
@@ -204,7 +204,7 @@ tile_render_blankish
 		ex de,hl			;; use HL as screen address
 		ld de,%1010101001010101		;; D = %10101010, E = %01010101
 		call _tile_render_blankish_half
-		ld bc,&c83d			;; add de,&c83d (-2048 * 7 + 64 - 3) (&c040 - 3)
+		ld bc,#c83d			;; add de,#c83d (-2048 * 7 + 64 - 3) (#c040 - 3)
 		add hl,bc
 _tile_render_blankish_half
 		ld b,8				;; B = 8
@@ -279,7 +279,7 @@ tile_data_addr	rrca
 		ld h,a
 		ld a,l
 		and %11000000
-		add tile_data and &ff	;; note: if tile data is aligned to 256 byte page boundary then could skip this
+		add tile_data and #ff	;; note: if tile data is aligned to 256 byte page boundary then could skip this
 		ld l,a
 		ld a,tile_data / 256
 		adc h
@@ -295,29 +295,29 @@ tile_data_addr	rrca
 ;; modifies:
 ;;	C,DE
 tile_calculate_origin
-		ld hl,&c800
+		ld hl,#c800
 		ld c,a			;; C = copy of grid size
 
 		and %00001111		;; isolate width
 		jr z,_tco_calc_y
 		rlca			;; A = 2 * width
 		neg			;; A = -2 * width
-		add &20			;; A = 32 - 2 * width
+		add #20			;; A = 32 - 2 * width
 		ld l,a
 _tco_calc_y
 		ld a,c
 		and %11110000		;; A = height * 16
 		jr z,_tco_end
-		ld d,0			;; LD DE,height * &40
+		ld d,0			;; LD DE,height * #40
 		sla a
 		rl d
 		sla a
 		rl d
 		ld e,a
 		or a			;; clear carry
-		ld h,&c4
+		ld h,#c4
 		sbc hl,de
-		ld de,&0040		;; shift down one row (for game-data at top of screen)
+		ld de,#0040		;; shift down one row (for game-data at top of screen)
 		adc hl,de
 _tco_end
 		ld (tile_origin),hl
@@ -334,13 +334,14 @@ tile_origin	defw #c000
 
 ;; lookup table for masking out ink 0 pixels. AND with screen data, then OR with pixel data.
 tile_mask_lookup
-		defb &ff,&ee,&dd,&cc,&bb,&aa,&99,&88,&77,&66,&55,&44,&33,&22,&11,&00,&ee,&ee,&cc,&cc,&aa,&aa,&88,&88,&66,&66,&44,&44,&22,&22,&00,&00
-		defb &dd,&cc,&dd,&cc,&99,&88,&99,&88,&55,&44,&55,&44,&11,&00,&11,&00,&cc,&cc,&cc,&cc,&88,&88,&88,&88,&44,&44,&44,&44,&00,&00,&00,&00
-		defb &bb,&aa,&99,&88,&bb,&aa,&99,&88,&33,&22,&11,&00,&33,&22,&11,&00,&aa,&aa,&88,&88,&aa,&aa,&88,&88,&22,&22,&00,&00,&22,&22,&00,&00
-		defb &99,&88,&99,&88,&99,&88,&99,&88,&11,&00,&11,&00,&11,&00,&11,&00,&88,&88,&88,&88,&88,&88,&88,&88,&00,&00,&00,&00,&00,&00,&00,&00
-		defb &77,&66,&55,&44,&33,&22,&11,&00,&77,&66,&55,&44,&33,&22,&11,&00,&66,&66,&44,&44,&22,&22,&00,&00,&66,&66,&44,&44,&22,&22,&00,&00
-		defb &55,&44,&55,&44,&11,&00,&11,&00,&55,&44,&55,&44,&11,&00,&11,&00,&44,&44,&44,&44,&00,&00,&00,&00,&44,&44,&44,&44,&00,&00,&00,&00
-		defb &33,&22,&11,&00,&33,&22,&11,&00,&33,&22,&11,&00,&33,&22,&11,&00,&22,&22,&00,&00,&22,&22,&00,&00,&22,&22,&00,&00,&22,&22,&00,&00
-		defb &11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&11,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00,&00
+		defb #ff,#ee,#dd,#cc,#bb,#aa,#99,#88,#77,#66,#55,#44,#33,#22,#11,#00,#ee,#ee,#cc,#cc,#aa,#aa,#88,#88,#66,#66,#44,#44,#22,#22,#00,#00
+		defb #dd,#cc,#dd,#cc,#99,#88,#99,#88,#55,#44,#55,#44,#11,#00,#11,#00,#cc,#cc,#cc,#cc,#88,#88,#88,#88,#44,#44,#44,#44,#00,#00,#00,#00
+		defb #bb,#aa,#99,#88,#bb,#aa,#99,#88,#33,#22,#11,#00,#33,#22,#11,#00,#aa,#aa,#88,#88,#aa,#aa,#88,#88,#22,#22,#00,#00,#22,#22,#00,#00
+		defb #99,#88,#99,#88,#99,#88,#99,#88,#11,#00,#11,#00,#11,#00,#11,#00,#88,#88,#88,#88,#88,#88,#88,#88,#00,#00,#00,#00,#00,#00,#00,#00
+		defb #77,#66,#55,#44,#33,#22,#11,#00,#77,#66,#55,#44,#33,#22,#11,#00,#66,#66,#44,#44,#22,#22,#00,#00,#66,#66,#44,#44,#22,#22,#00,#00
+		defb #55,#44,#55,#44,#11,#00,#11,#00,#55,#44,#55,#44,#11,#00,#11,#00,#44,#44,#44,#44,#00,#00,#00,#00,#44,#44,#44,#44,#00,#00,#00,#00
+		defb #33,#22,#11,#00,#33,#22,#11,#00,#33,#22,#11,#00,#33,#22,#11,#00,#22,#22,#00,#00,#22,#22,#00,#00,#22,#22,#00,#00,#22,#22,#00,#00
+		defb #11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00
 
-tile_data	read "maze/tile-data.asm"
+tile_data
+		include "tile-data.asm"

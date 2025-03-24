@@ -1,4 +1,4 @@
-time_screen_addr	equ &c030
+time_screen_addr	equ #c030
 
 time_init
 		xor a
@@ -46,7 +46,7 @@ time_inc_ms_lo
 		cp 8
 		jr nz,_tims_lo
 		call time_inc_ms_hi
-		ld a,&fe
+		ld a,#fe
 _tims_lo	add a,2
 		ld (time_data_ms_lo),a
 		ld de,time_screen_addr + 14
@@ -60,7 +60,7 @@ time_inc_ms_hi
 		cp 9
 		jr nz,_tims_hi
 		call time_inc_sec_lo
-		ld a,&ff
+		ld a,#ff
 _tims_hi	inc a
 		ld (time_data_ms_hi),a
 		ld de,time_screen_addr + 12
@@ -74,7 +74,7 @@ time_inc_sec_lo
 		cp 9
 		jr nz,_tis_lo
 		call time_inc_sec_hi
-		ld a,&ff
+		ld a,#ff
 _tis_lo		inc a
 		ld (time_data_sec_lo),a
 		ld de,time_screen_addr + 8
@@ -88,7 +88,7 @@ time_inc_sec_hi
 		cp 5
 		jr nz,_tis_hi
 		call time_inc_min_lo
-		ld a,&ff
+		ld a,#ff
 _tis_hi		inc a
 		ld (time_data_sec_hi),a
 		ld de,time_screen_addr + 6
@@ -102,7 +102,7 @@ time_inc_min_lo
 		cp 9
 		jr nz,_tim_lo
 		call time_inc_min_hi
-		ld a,&ff
+		ld a,#ff
 _tim_lo		inc a
 		ld (time_data_min_lo),a
 		ld de,time_screen_addr + 2
@@ -116,7 +116,7 @@ time_inc_min_hi
 		cp 5
 		jr nz,_tim_hi
 ;;		call time_inc_hour
-		ld a,&ff
+		ld a,#ff
 _tim_hi		inc a
 		ld (time_data_min_hi),a
 		ld de,time_screen_addr

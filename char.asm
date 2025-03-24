@@ -27,27 +27,27 @@ char_render_digit
 ;; modifies:
 ;;	AF,BC,DE,HL
 char_render
-		ld bc,&800 + &3e + 16		;; [3] we want C to equal &3e after 16 LDI instructions
+		ld bc,#800 + #3e + 16		;; [3] we want C to equal #3e after 16 LDI instructions
 repeat 7
 		ldi:ldi				;; [10] copy two bytes
 		dec de:dec de			;; [4] reset to left of char
-		ld a,d:add a,b:ld d,a		;; [3] move to next row (add de,&800)
+		ld a,d:add a,b:ld d,a		;; [3] move to next row (add de,#800)
 rend
 		ldi:ldi				;; [10] copy two bytes
 
-		ld b,&c8			;; [2] move to next character line
-		ex hl,de			;; [1] add de,&c83e (-2048 * 7 + 64 - 2)
+		ld b,#c8			;; [2] move to next character line
+		ex hl,de			;; [1] add de,#c83e (-2048 * 7 + 64 - 2)
 		add hl,bc			;; [3]
 		ex hl,de			;; [1]
 		ld b,8				;; [2]
 repeat 2
 		ldi:ldi				;; [10] copy two bytes
 		dec de:dec de			;; [4] reset to left of char
-		ld a,d:add a,b:ld d,a		;; [3] move to next row (add de,&800)
+		ld a,d:add a,b:ld d,a		;; [3] move to next row (add de,#800)
 rend
 		ldi:ldi				;; [10] copy two bytes
 
 		ret				;; [3]
 
-align &100	;; TODO: do we need to align this data?
-read "maze/char-data.asm"
+align #100	;; TODO: do we need to align this data?
+include "char-data.asm"

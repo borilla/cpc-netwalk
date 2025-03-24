@@ -2,7 +2,7 @@
 ;; macros
 ;; ----------------------------------------------------------------
 
-;; read "inc/macros.asm"
+;; include "inc/macros.asm"
 
 ;; ----------------------------------------------------------------
 ;; constants
@@ -109,14 +109,14 @@ calc_index_limits
 maze_reset	ld hl,maze_data
 		ld (hl),l
 		ld de,maze_data+1
-		ld bc,&00ff
+		ld bc,#00ff
 		ldir
 		ret
 
 maze_reset_a	ld hl,maze_data
 		ld (hl),a
 		ld de,maze_data+1
-		ld bc,&00ff
+		ld bc,#00ff
 		ldir
 		ret
 
@@ -160,27 +160,27 @@ maze_random_cell
 		ld c,a
 
 		ld a,b			;; get low nibble (x-coord)
-		and &0f
+		and #0f
 		ld h,a
 		ld a,c
 		jr z,_rc_skip1		;; if width is zero then skip subtraction, return random nibble
-		and &0f
+		and #0f
 		sub h
 		jr nc,$-1
 		add h
-_rc_skip1	and &0f			;; extra AND here is just for skipped case
+_rc_skip1	and #0f			;; extra AND here is just for skipped case
 		ld l,a			;; store x-coord in low nibble of L
 
 		ld a,b			;; get high nibble (y-coord)
-		and &f0
+		and #f0
 		ld h,a
 		ld a,c
 		jr z,_rc_skip2		;; if height is zero then skip subtraction, return random nibble
-		and &f0
+		and #f0
 		sub h
 		jr nc,$-1
 		add h
-_rc_skip2	and &f0			;; extra AND here is just for skipped case
+_rc_skip2	and #f0			;; extra AND here is just for skipped case
 		or l			;; merge y-coord with x-coord
 
 		ret
@@ -198,7 +198,7 @@ _rc_skip2	and &f0			;; extra AND here is just for skipped case
 find_unvisited_neighbours
 		ld de,maze_neighbours_list
 _fun_top	ld a,l			;; A is index of current cell
-		and &f0			;; extract row part of index
+		and #f0			;; extract row part of index
 		ld a,l
 		jr z,_fun_right		;; if there is no top neighbour then check right neighbour
 		sub a,16		;; point HL at top neighbour
@@ -213,8 +213,8 @@ _fun_top	ld a,l			;; A is index of current cell
 		ex de,hl
 _fun_top_end	add a,16		;; reset to current cell
 		ld l,a
-_fun_right	and &0f			;; extract column part of index
-		cp &0f			;; (maze-width - 1)
+_fun_right	and #0f			;; extract column part of index
+		cp #0f			;; (maze-width - 1)
 		ld a,l
 		jr z,_fun_bottom	;; if there is no right neighbour then check bottom neighbour
 		inc a			;; point HL at right neighbour
@@ -229,8 +229,8 @@ _fun_right	and &0f			;; extract column part of index
 		ex de,hl
 _fun_right_end	dec a			;; reset to current cell
 		ld l,a
-_fun_bottom	and &f0			;; extract row part of index
-		cp &f0			;; (maze-height - 1)
+_fun_bottom	and #f0			;; extract row part of index
+		cp #f0			;; (maze-height - 1)
 		ld a,l
 		jr z,_fun_left		;; if there is no bottom neighbour then check left neighbour
 		add a,16		;; point HL at bottom neighbour
@@ -245,7 +245,7 @@ _fun_bottom	and &f0			;; extract row part of index
 		ex de,hl
 _fun_bottom_end	sub a,16		;; reset to current cell
 		ld l,a
-_fun_left	and &0f			;; extract column part of index
+_fun_left	and #0f			;; extract column part of index
 		ld a,l
 		ret z			;; if there is no left neighbour then return
 		dec a			;; point HL at left neighbour
@@ -335,7 +335,7 @@ maze_mark_connected
 		and c			;; A = 0 if start cell is a terminal
 		sub 1			;; set carry if start cell is terminal
 		ld a,e			;; LD A,0 (because E is 0)
-		sbc e			;; SBC 0; A = 0 if not a terminal, &FF otherwise
+		sbc e			;; SBC 0; A = 0 if not a terminal, #FF otherwise
 		daa
 		ld (_maze_terms_connected),a
 
@@ -481,30 +481,30 @@ _mct_end
 ;; data
 ;; ----------------------------------------------------------------
 
-			align &100
+			align #100
 
-maze_data		defs &100,&00
+maze_data		defs #100,#00
 
-maze_stack		defs &100,&00
+maze_stack		defs #100,#00
 
-rot_nibble_data		defb &00,&02,&04,&06,&08,&0a,&0c,&0e,&01,&03,&05,&07,&09,&0b,&0d,&0f
-			defb &10,&12,&14,&16,&18,&1a,&1c,&1e,&11,&13,&15,&17,&19,&1b,&1d,&1f
-			defb &20,&22,&24,&26,&28,&2a,&2c,&2e,&21,&23,&25,&27,&29,&2b,&2d,&2f
-			defb &30,&32,&34,&36,&38,&3a,&3c,&3e,&31,&33,&35,&37,&39,&3b,&3d,&3f
-			defb &40,&42,&44,&46,&48,&4a,&4c,&4e,&41,&43,&45,&47,&49,&4b,&4d,&4f
-			defb &50,&52,&54,&56,&58,&5a,&5c,&5e,&51,&53,&55,&57,&59,&5b,&5d,&5f
-			defb &60,&62,&64,&66,&68,&6a,&6c,&6e,&61,&63,&65,&67,&69,&6b,&6d,&6f
-			defb &70,&72,&74,&76,&78,&7a,&7c,&7e,&71,&73,&75,&77,&79,&7b,&7d,&7f
-			defb &80,&82,&84,&86,&88,&8a,&8c,&8e,&81,&83,&85,&87,&89,&8b,&8d,&8f
-			defb &90,&92,&94,&96,&98,&9a,&9c,&9e,&91,&93,&95,&97,&99,&9b,&9d,&9f
-			defb &a0,&a2,&a4,&a6,&a8,&aa,&ac,&ae,&a1,&a3,&a5,&a7,&a9,&ab,&ad,&af
-			defb &b0,&b2,&b4,&b6,&b8,&ba,&bc,&be,&b1,&b3,&b5,&b7,&b9,&bb,&bd,&bf
-			defb &c0,&c2,&c4,&c6,&c8,&ca,&cc,&ce,&c1,&c3,&c5,&c7,&c9,&cb,&cd,&cf
-			defb &d0,&d2,&d4,&d6,&d8,&da,&dc,&de,&d1,&d3,&d5,&d7,&d9,&db,&dd,&df
-			defb &e0,&e2,&e4,&e6,&e8,&ea,&ec,&ee,&e1,&e3,&e5,&e7,&e9,&eb,&ed,&ef
-			defb &f0,&f2,&f4,&f6,&f8,&fa,&fc,&fe,&f1,&f3,&f5,&f7,&f9,&fb,&fd,&ff
+rot_nibble_data		defb #00,#02,#04,#06,#08,#0a,#0c,#0e,#01,#03,#05,#07,#09,#0b,#0d,#0f
+			defb #10,#12,#14,#16,#18,#1a,#1c,#1e,#11,#13,#15,#17,#19,#1b,#1d,#1f
+			defb #20,#22,#24,#26,#28,#2a,#2c,#2e,#21,#23,#25,#27,#29,#2b,#2d,#2f
+			defb #30,#32,#34,#36,#38,#3a,#3c,#3e,#31,#33,#35,#37,#39,#3b,#3d,#3f
+			defb #40,#42,#44,#46,#48,#4a,#4c,#4e,#41,#43,#45,#47,#49,#4b,#4d,#4f
+			defb #50,#52,#54,#56,#58,#5a,#5c,#5e,#51,#53,#55,#57,#59,#5b,#5d,#5f
+			defb #60,#62,#64,#66,#68,#6a,#6c,#6e,#61,#63,#65,#67,#69,#6b,#6d,#6f
+			defb #70,#72,#74,#76,#78,#7a,#7c,#7e,#71,#73,#75,#77,#79,#7b,#7d,#7f
+			defb #80,#82,#84,#86,#88,#8a,#8c,#8e,#81,#83,#85,#87,#89,#8b,#8d,#8f
+			defb #90,#92,#94,#96,#98,#9a,#9c,#9e,#91,#93,#95,#97,#99,#9b,#9d,#9f
+			defb #a0,#a2,#a4,#a6,#a8,#aa,#ac,#ae,#a1,#a3,#a5,#a7,#a9,#ab,#ad,#af
+			defb #b0,#b2,#b4,#b6,#b8,#ba,#bc,#be,#b1,#b3,#b5,#b7,#b9,#bb,#bd,#bf
+			defb #c0,#c2,#c4,#c6,#c8,#ca,#cc,#ce,#c1,#c3,#c5,#c7,#c9,#cb,#cd,#cf
+			defb #d0,#d2,#d4,#d6,#d8,#da,#dc,#de,#d1,#d3,#d5,#d7,#d9,#db,#dd,#df
+			defb #e0,#e2,#e4,#e6,#e8,#ea,#ec,#ee,#e1,#e3,#e5,#e7,#e9,#eb,#ed,#ef
+			defb #f0,#f2,#f4,#f6,#f8,#fa,#fc,#fe,#f1,#f3,#f5,#f7,#f9,#fb,#fd,#ff
 
-maze_neighbours_list	defs 4*2,&00
+maze_neighbours_list	defs 4*2,#00
 
 maze_dimensions		defb 0	;; %hhhhwwww
 maze_index_limits	defb 0	;; %yyyyxxxx
