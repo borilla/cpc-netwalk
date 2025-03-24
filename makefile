@@ -1,5 +1,5 @@
 maze.dsk: maze.bin
-	rasm build/compile.asm -I. -eo
+	rasm build/compile.asm -eo
 
 maze.bin:
-	rasm src/start.asm -I. -ob build/maze.bin
+	rasm start.asm -Isrc -ob build/maze.bin

@@ -2,7 +2,7 @@
 ;; include macros
 ;; ----------------------------------------------------------------
 
-include "inc/macros.asm"
+include "lib/macros.asm"
 
 ;; ----------------------------------------------------------------
 ;; main
@@ -567,16 +567,14 @@ _uct_loop_1	ld a,(hl)
 ;; include subroutines
 ;; ----------------------------------------------------------------
 
-include "interrupts.asm"
-include "inc/scan_keyboard.asm"
-include "rand16.asm"
+include "lib/interrupts.asm"
+include "lib/scan_keyboard.asm"
+include "lib/rand16.asm"
 include "tile.asm"
 include "char.asm"
 include "time.asm"
 include "moves.asm"
 include "maze.asm"
-include "music/music_playerconfig.asm"
-include "music/music.asm"
 
 ;; ----------------------------------------------------------------
 ;; data

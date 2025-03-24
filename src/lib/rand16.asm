@@ -3,7 +3,8 @@
 ;;	A: a pseudo random number, period 65536
 ;; modifies
 ;;	A,DE,HL
-rand16	ld	de,0		;; [3] ld de,seed
+rand16
+	ld	de,0		;; [3] ld de,seed
 	ld	a,d		;; [1]
 	ld	h,e		;; [1]
 	ld	l,253		;; [2]

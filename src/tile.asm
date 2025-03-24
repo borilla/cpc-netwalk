@@ -344,4 +344,4 @@ tile_mask_lookup
 		defb #11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00
 
 tile_data
-		include "src/sprites/tile-data.asm"
+		include "sprites/tile-data.asm"

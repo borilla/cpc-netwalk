@@ -50,4 +50,4 @@ rend
 		ret				;; [3]
 
 align #100	;; TODO: do we need to align this data?
-include "src/sprites/char-data.asm"
+include "sprites/char-data.asm"
