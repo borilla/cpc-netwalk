@@ -8,7 +8,7 @@ include "inc/macros.asm"
 ;; main
 ;; ----------------------------------------------------------------
 
-org #4000
+org #100
 
 main
 		call clear_screen

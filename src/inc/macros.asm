@@ -1,7 +1,7 @@
-include "./inks.asm"
-include "./keys.asm"
-include "./gate_array.asm"
-include "./crtc.asm"
+include "src/inc/inks.asm"
+include "src/inc/keys.asm"
+include "src/inc/gate_array.asm"
+include "src/inc/crtc.asm"
 
 ;; could use "IN F,(C)" [#ED70] undocumented opcode, which reads direct from port to F register
 ;; unfortunately, this works in ACE emulator but not in WinAPE!
