@@ -11,15 +11,18 @@ include "lib/macros.asm"
 main
 		call clear_screen
 		call setup_screen
+		call init_music
 		call setup_interrupts
 
 generate_maze
 		assign_interrupt 0,set_palette_text
 		assign_interrupt 1,set_palette_grid
 		assign_interrupt 2,noop
+		assign_interrupt 4,play_music
 		assign_interrupt 6,set_palette_text
 		assign_interrupt 7,set_palette_grid
 		assign_interrupt 8,noop
+		assign_interrupt 10,play_music
 		call clear_grid
 		call time_init
 		call connections_init
@@ -49,11 +52,11 @@ wait_for_key_release
 		jr nz,wait_for_key_release
 
 		assign_interrupt 0,get_actions
-		assign_interrupt 1,render_clock
-		assign_interrupt 2,moves_render		;; count of moves in info bar
+		assign_interrupt 1,render_clock		;; update time
+		assign_interrupt 2,moves_render		;; update count of moves in info bar
 		assign_interrupt 6,render_important_tiles
-		assign_interrupt 7,render_clock
-		assign_interrupt 8,rotations_render	;; count of rotations in info bar
+		assign_interrupt 7,render_clock		;; update time
+		assign_interrupt 8,rotations_render	;; update count of rotations in info bar
 		assign_interrupt 9,connections_render	;; connected tiles in info bar
 
 game_loop
@@ -142,6 +145,8 @@ setup_screen	;; set screen mode
 		ga_set_pen 3,ink_lime		;; power flow
 		ret
 
+
+
 ;; ----------------------------------------------------------------
 
 clear_screen	ld hl,#c000
@@ -149,6 +154,27 @@ clear_screen	ld hl,#c000
 		ld bc,#3fff
 		ld (hl),l
 		ldir
+		ret
+
+;; ----------------------------------------------------------------
+
+init_music
+		ld hl,music		; address of the music
+		xor a			; song to play (0)
+		jp PLY_AKG_Init		; call init method of the player
+
+play_music
+		ex af,af'		; player uses alt registers so push non-alt ones to stack
+		exx
+		push af,hl,de,bc
+		exx
+		ex af,af'
+		call PLY_AKG_Play	; call the player
+		ex af,af'
+		exx
+		pop bc,de,hl,af
+		exx
+		ex af,af'
 		ret
 
 ;; ----------------------------------------------------------------
@@ -573,6 +599,11 @@ include "char.asm"
 include "time.asm"
 include "moves.asm"
 include "maze.asm"
+
+music
+include "music/music.asm"
+include "music/music_playerconfig.asm"
+include "music/PlayerAkg.asm"
 
 ;; ----------------------------------------------------------------
 ;; data
