@@ -10,8 +10,8 @@ _Note: There's a [russian wikipedia page for netwalk](https://ru.wikipedia.org/w
 
 ## Maze algorithm
 
-The game is really based around maze generation. I've written many maze generators, in various languages,
-over the years but almost all based on [Prim's algorithm](https://en.wikipedia.org/wiki/Prim's_algorithm)
+The game is really based around maze generation and traversal. I've written many maze generators, in various
+languages, over the years; almost all based on [Prim's algorithm](https://en.wikipedia.org/wiki/Prim's_algorithm)
 
 But, after reading [Jamis Buck's page on maze algorithms](http://www.jamisbuck.org/mazes/), I found a
 beautiful (and simple) alternative to Prim's algorithm, which he calls the
