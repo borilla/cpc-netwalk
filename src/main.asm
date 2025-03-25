@@ -8,8 +8,6 @@ include "lib/macros.asm"
 ;; main
 ;; ----------------------------------------------------------------
 
-org #100
-
 main
 		call clear_screen
 		call setup_screen
