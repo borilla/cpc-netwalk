@@ -332,8 +332,7 @@ maze_mark_connected
 		sbc e			;; SBC 0; A = 0 if not a terminal, #FF otherwise
 		daa
 		ld (_maze_terms_connected),a
-
-_mc_loop
+.loop
 		ld c,e			;; temporarily store E
 		ld e,iyl		;; DE points at current stack item
 		ld a,(de)		;; A is index of current cell
@@ -342,101 +341,101 @@ _mc_loop
 		ld l,a			;; HL points at current item
 		ld a,(hl)		;; A contains current cell data
 		and %00110000		;; if cell is currently rotating then can't be connected to neighbours
-		jr nz,_mc_end
+		jr nz,.end
 
 		ld a,(hl)		;; is cell a "terminal" cell, ie has only one exit
 		and %00001111
 		ld c,a			;; use method from http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
 		dec c
 		and c			;; Z will be set if only one [or zero] exit
-		jr nz,_mc_top
+		jr nz,.top
 		ld a,(_maze_terms_connected)	;; inc count of connected terminals
 		inc a
 		daa
 		ld (_maze_terms_connected),a
-
-_mc_top		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_mc_right
+.top
+		bit exits_top_bit,(hl)	;; is cell connected to neighbour?
+		jr z,.right
 		ld a,l
 		and %11110000
-		jr z,_mc_right
+		jr z,.right
 		ld a,l			;; point BC at neighbour
 		sub 16
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_bottom
 		cp exits_bottom
-		jr nz,_mc_right
+		jr nz,.right
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
 		ld (de),a
-
-_mc_right	bit exits_right_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_mc_bottom
+.right
+		bit exits_right_bit,(hl)	;; is cell connected to neighbour?
+		jr z,.bottom
 		ld a,l
 		and %00001111
 		cp %00001111		;; maze-width - 1
-		jr z,_mc_bottom
+		jr z,.bottom
 		ld a,l			;; point BC at neighbour
 		inc a
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_left
 		cp exits_left
-		jr nz,_mc_bottom
+		jr nz,.bottom
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
 		ld (de),a
-
-_mc_bottom	bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_mc_left
+.bottom
+		bit exits_bottom_bit,(hl)	;; is cell connected to neighbour?
+		jr z,.left
 		ld a,l
 		and %11110000
 		cp %11110000
-		jr z,_mc_left
+		jr z,.left
 		ld a,l			;; point BC at neighbour
 		add 16
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_top
 		cp exits_top
-		jr nz,_mc_left
+		jr nz,.left
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
 		ld (de),a
-
-_mc_left	bit exits_left_bit,(hl)	;; is cell connected to neighbour?
-		jr z,_mc_end
+.left
+		bit exits_left_bit,(hl)	;; is cell connected to neighbour?
+		jr z,.end
 		ld a,l
 		and %00001111
-		jr z,_mc_end
+		jr z,.end
 		ld a,l			;; point BC at neighbour
 		dec a
 		ld c,a
 		ld a,(bc)		;; is neighbour unvisted, not rotating, and connected to this cell?
 		and is_connected + %00110000 + exits_right
 		cp exits_right
-		jr nz,_mc_end
+		jr nz,.end
 		ld a,(bc)		;; mark neighbour as "connected"
 		or is_connected
 		ld (bc),a
 		inc e			;; push (index of) neighbour onto stack
 		ld a,c
 		ld (de),a
-
-_mc_end		ld a,iyl		;; is current item same as top item on stack?
+.end
+		ld a,iyl		;; is current item same as top item on stack?
 		inc iyl			;; go to next stack item
 		cp e
-		jp nz,_mc_loop
+		jp nz,.loop
 
 		ld a,(_maze_terms_connected)
 		ld (maze_terms_connected),a
@@ -448,28 +447,28 @@ _mc_end		ld a,iyl		;; is current item same as top item on stack?
 ;;	A: count of terminal cells
 ;; modifies:
 ;;	AF,BC,HL
-maze_count_terminals		;; TODO: this is unused at the moment
-	ld hl,maze_data
-	ld b,l			;; B = count of terminals
-_mct_loop
-	ld a,(hl)
-	and %00001111
-	jr z,_mct_end
-	ld c,a
-	dec c
-	and c
-	jr nz,_mct_end
-	ld a,b
-	inc a
-	daa
-	ld b,a
-_mct_end
-	inc l
-	jr nz,_mct_loop
+maze_count_terminals			;; TODO: this is unused at the moment
+		ld hl,maze_data
+		ld b,l			;; B = count of terminals
+.loop
+		ld a,(hl)
+		and %00001111
+		jr z,.skip		;; no bits set, so move to next cell
+		ld c,a			;; unset the next set bit (v &= v-1)
+		dec c
+		and c
+		jr nz,.skip		;; if not zero then there are still some set bits (ie more then one bit was originally set)
+		ld a,b
+		inc a
+		daa
+		ld b,a
+.skip
+		inc l
+		jr nz,.loop
 
-	ld a,b
-	ld (maze_terms_total),a
-	ret
+		ld a,b
+		ld (maze_terms_total),a
+		ret
 
 ;; ----------------------------------------------------------------
 ;; data

@@ -40,11 +40,11 @@ generate_maze
 		call maze_random_cell		;; choose random cell for power supply
 		ld (tile_index_supply),a
 		ld (tile_index_selected),a
-		call recalc_connected_tiles	;; all tiles are initially connected so this will return number of terminals (in A)
+		call recalc_connected_tiles	;; all tiles are initially connected so this will return total number of terminals (in A)
 		ld (maze_terms_total),a
 		call maze_shuffle
 		ld a,(tile_index_supply)
-		call recalc_connected_tiles
+		call recalc_connected_tiles	;; maze has been shuffled so this will correctly calculate initial connected terminals (in A)
 
 wait_for_key_release
 		call read_actions
@@ -72,8 +72,6 @@ _ignore_special_actions
 		ld a,(recalc_required)
 		or a
 		jr z,_check_for_completion
-		xor a
-		ld (recalc_required),a
 		call recalc_connected_tiles
 		jr game_loop
 _check_for_completion
@@ -166,13 +164,13 @@ init_music
 play_music
 		ex af,af'		; player uses alt registers so push non-alt ones to stack
 		exx
-		push af,hl,de,bc
+		push af,bc,de,hl,ix,iy
 		exx
 		ex af,af'
 		call PLY_AKG_Play	; call the player
 		ex af,af'
 		exx
-		pop bc,de,hl,af
+		pop iy,ix,hl,de,bc,af
 		exx
 		ex af,af'
 		ret
@@ -576,13 +574,13 @@ _write_rotated_value
 ;; ----------------------------------------------------------------
 
 recalc_connected_tiles
+		xor a
+		ld (recalc_required),a
 		;; reset connected bits for all maze cells
 		ld hl,maze_data
-_uct_loop_1	ld a,(hl)
-		and %00111111
-		ld (hl),a
+.loop		res is_connected_bit,(hl)
 		inc l
-		jr nz,_uct_loop_1
+		jr nz,.loop
 
 		ld a,(tile_index_supply)
 		jp maze_mark_connected
