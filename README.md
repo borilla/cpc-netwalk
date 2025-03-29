@@ -122,7 +122,7 @@ going to change quite significantly as I gradually get stuff done...
 - [ ] Game menus
 - [ ] Logo graphics
 - [ ] Ability to pause game
-- [ ] Add music player
+- [x] Add music player
 - [ ] Sound effects
 - [ ] Compose original music
 - [ ] Loading screen
