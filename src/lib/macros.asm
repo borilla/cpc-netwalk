@@ -1,5 +1,4 @@
 include "lib/inks.asm"
-include "lib/keys.asm"
 include "lib/gate_array.asm"
 include "lib/crtc.asm"
 
@@ -31,7 +30,7 @@ macro wait_for_interrupt,index
 		jr nz,@loop
 mend
 
-;; call address in hl, ie "call (hl)" (3 bytes, 6 nops [total including jump])
+;; call address in hl, ie "call hl" (3 bytes, 6 nops [total including jump])
 macro call_hl
 		call jump_to_hl	;; (defined in interrupts.asm)
 mend
@@ -57,14 +56,6 @@ macro add_de_a
 		adc d		;; [1] 8c
 		sub e		;; [1] 95
 		ld d,a		;; [1] 67
-mend
-
-;; z will be set if key was pressed at last call to scan_keyboard
-macro check_key key
-@line		equ {key} >> 3
-@bit		equ {key} & 7
-		ld a,(scan_keyboard_lines + @line)
-		bit @bit,a
 mend
 
 ;; colour table contains 17 colours (16 pens plus border)

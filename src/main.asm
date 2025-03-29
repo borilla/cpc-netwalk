@@ -11,18 +11,18 @@ include "lib/macros.asm"
 main
 		call clear_screen
 		call setup_screen
-		call init_music
+		call music_toggle
 		call setup_interrupts
 
 generate_maze
 		assign_interrupt 0,set_palette_text
 		assign_interrupt 1,set_palette_grid
 		assign_interrupt 2,noop
-		assign_interrupt 4,play_music
+		assign_interrupt 4,music_play
 		assign_interrupt 6,set_palette_text
 		assign_interrupt 7,set_palette_grid
 		assign_interrupt 8,noop
-		assign_interrupt 10,play_music
+		assign_interrupt 10,music_play
 		call clear_grid
 		call time_init
 		call connections_init
@@ -60,14 +60,13 @@ wait_for_key_release
 		assign_interrupt 9,connections_render	;; connected tiles in info bar
 
 game_loop
-		ld hl,actions_new		;; special actions (regenerate/resize grid)
-		bit 5,(hl)
+		ld hl,(actions_new)		; special actions (regenerate/resize grid)
+		bit action_q_bit,l		; if 'q' key is pressed then enlarge grid
 		jr nz,enlarge_grid
-		bit 6,(hl)
+		bit action_a_bit,l		; if 'a' key is pressed then shrink grid
 		jr nz,shrink_grid
-		bit 7,(hl)
+		bit action_r_bit,l		; if 'r' key is pressed then regenerate grid
 		jp nz,generate_maze
-_ignore_special_actions
 		call render_next_tile
 		ld a,(recalc_required)
 		or a
@@ -143,8 +142,6 @@ setup_screen	;; set screen mode
 		ga_set_pen 3,ink_lime		;; power flow
 		ret
 
-
-
 ;; ----------------------------------------------------------------
 
 clear_screen	ld hl,#c000
@@ -152,27 +149,6 @@ clear_screen	ld hl,#c000
 		ld bc,#3fff
 		ld (hl),l
 		ldir
-		ret
-
-;; ----------------------------------------------------------------
-
-init_music
-		ld hl,music		; address of the music
-		xor a			; song to play (0)
-		jp PLY_AKG_Init		; call init method of the player
-
-play_music
-		ex af,af'		; player uses alt registers so push non-alt ones to stack
-		exx
-		push af,bc,de,hl,ix,iy
-		exx
-		ex af,af'
-		call PLY_AKG_Play	; call the player
-		ex af,af'
-		exx
-		pop iy,ix,hl,de,bc,af
-		exx
-		ex af,af'
 		ret
 
 ;; ----------------------------------------------------------------
@@ -224,6 +200,7 @@ get_actions	call set_palette_text
 		call read_actions
 		call do_movement_action
 		call do_rotate_action
+		call process_other_actions
 		jp update_rotating_tile
 
 ;; ----------------------------------------------------------------
@@ -374,43 +351,75 @@ render_reticle
 
 ;; ----------------------------------------------------------------
 
+; low byte of actions (movements, ie actions that auto-repeat if key is held down)
+action_up_bit		equ 0
+action_right_bit	equ 1
+action_down_bit		equ 2
+action_left_bit		equ 3
+action_space_bit	equ 4
+action_q_bit		equ 5
+action_a_bit		equ 6
+action_r_bit		equ 7
+
+; high byte of actions
+action_m_bit		equ 0
+
 ;; update `actions` based on pressed keys
 ;; modifies:
-;;	A,B,HL
+;;	A,DE,HL
+;; exit:
+;;	DE - new actions
+;;	HL - current actions
 read_actions
-		ld b,0			;; store actions in B
-		check_key key_up	;; TODO: just read each keyboard row into A once (instead of using macro)
-		jr nz,$+4
-		set 0,b			;; bit 0 = move up
-		check_key key_right
-		jr nz,$+4
-		set 1,b			;; bit 1 = move right
-		check_key key_down
-		jr nz,$+4
-		set 2,b			;; bit 2 = move down
-		check_key key_left
-		jr nz,$+4
-		set 3,b			;; bit 3 = move left
-		check_key key_space
-		jr nz,$+4
-		set 4,b			;; bit 4 = rotate tile
-		check_key key_q
-		jr nz,$+4
-		set 5,b			;; bit 5 = enlarge grid
-		check_key key_a
-		jr nz,$+4
-		set 6,b			;; bit 6 = shrink grid
-		check_key key_r
-		jr nz,$+4
-		set 7,b			;; bit 7 = regenerate maze
+		ld de,0				; store actions in de
+		ld a,(keyboard_lines + 0)	; keyboard line 0
+		cpl				; remember that keyboard bits are inverted
+		and %00000111			; bits for up/right/down cursor keys happen to map directly onto actions
+		ld e,a
 
-		ld hl,actions
-		ld a,(hl)
-		ld (actions_prev),a	;; store previous actions
- 		ld (hl),b		;; store current actions
-		xor b
-		and b
-		ld (actions_new),a	;; store new actions
+		ld a,(keyboard_lines + 1)	; keyboard line 1
+		bit 0,a				; left cursor key
+		jr nz,$+4
+		set action_left_bit,e
+
+		ld a,(keyboard_lines + 4)	; keyboard line 4
+		bit 6,a				; m key
+		jr nz,$+4
+		set action_m_bit,d
+
+		ld a,(keyboard_lines + 5)	; keyboard line 5
+		bit 7,a				; space bar
+		jr nz,$+4
+		set action_space_bit,e
+
+		ld a,(keyboard_lines + 6)	; keyboard line 6
+		bit 2,a				; r key
+		jr nz,$+4
+		set action_r_bit,e
+
+		ld a,(keyboard_lines + 8)	; keyboard line 8
+		bit 3,a				; q key
+		jr nz,$+4
+		set action_q_bit,e
+		bit 5,a				; a key
+		jr nz,$+4
+		set action_a_bit,e
+
+		ld hl,(actions)			; DE = curr actions, HL = prev actions
+		ld (actions_prev),hl
+
+		ld a,l				; get low byte of new actions
+		xor e
+		and e
+		ld l,a
+		ld a,h				; get high byte of new actions
+		xor d
+		and d
+		ld h,a
+
+		ld (actions_new),hl		; store curr actions and new actions
+		ex de,hl
+		ld (actions),hl
 
 		ret
 
@@ -452,7 +461,7 @@ _do_move	ld (hl),a			;; reset countdown (to long or short timer)
 		ld hl,tile_index_selected	;; HL points at tile index
 		ld a,(hl)			;; A is tile index
 
-_do_move_up	bit 0,b
+_do_move_up	bit action_up_bit,b
 		jr z,_do_move_down		;; not moving up
 		ld c,a				;; check that can move up
 		and %11110000
@@ -461,7 +470,7 @@ _do_move_up	bit 0,b
 		sub 16				;; move up
 ;;		jr _do_move_right		;; we've moved up, so can't also move down
 
-_do_move_down	bit 2,b
+_do_move_down	bit action_down_bit,b
 		jr z,_do_move_right		;; not moving down
 		ld c,a				;; check that can move down
 		and %11110000
@@ -470,7 +479,7 @@ _do_move_down	bit 2,b
 		jr z,_do_move_right		;; can't move down
 		add 16				;; move down
 
-_do_move_right	bit 1,b
+_do_move_right	bit action_right_bit,b
 		jr z,_do_move_left		;; not moving right
 		ld c,a				;; check that can move right
 		and %00001111
@@ -480,7 +489,7 @@ _do_move_right	bit 1,b
 		inc a				;; move right
 ;;		jr _do_move_end			;; we've moved right, so can't also move left
 
-_do_move_left	bit 3,b
+_do_move_left	bit action_left_bit,b
 		jr z,_do_move_end		;; not moving left
 		ld c,a				;; check that can move left
 		and %00001111
@@ -493,11 +502,11 @@ _do_move_end	cp (hl)				;; is index changed?
 
 		push af
 		push hl
-		call moves_inc
+		call moves_inc			;; increment count of moves
 		pop hl
 		pop af
 
-		ld c,a
+		ld c,a				;; store new and previous position (so we can re-render them)
 		ld a,(hl)
 		ld (tile_index_prev),a
 		ld (hl),c
@@ -505,11 +514,11 @@ _do_move_end	cp (hl)				;; is index changed?
 
 ;; ----------------------------------------------------------------
 
-;; if `rotate` key is pressed then add current cell to rotate queue
+;; if space bar (ie 'rotate') is pressed then add current cell to rotate queue
 do_rotate_action
 		ld a,(actions_new)		;; get "new" actions in A
 
-		bit 4,a				;; check for rotate action
+		bit action_space_bit,a		;; check for rotate action
 		ret z
 
 		ld hl,rotation_queue		;; insert currently selected index into queue
@@ -527,6 +536,12 @@ do_rotate_action
 		ret
 
 ;; ----------------------------------------------------------------
+
+process_other_actions
+		ld a,(actions_new + 1)		; get (high byte of) new actions
+		bit action_m_bit,a		; is 'm' key pressed
+		ret z
+		jp music_toggle
 
 update_rotating_tile
 		ld bc,rotation_queue_cur
@@ -597,11 +612,7 @@ include "char.asm"
 include "time.asm"
 include "moves.asm"
 include "maze.asm"
-
-music
 include "music/music.asm"
-include "music/music_playerconfig.asm"
-include "music/PlayerAkg.asm"
 
 ;; ----------------------------------------------------------------
 ;; data
@@ -613,9 +624,9 @@ tile_index_prev		defb 0	;; previous position of cursor
 tile_index_selected	defb 0	;; current position of cursor
 tile_index_supply	defb 0	;; position of power supply
 
-actions			defb 0
-actions_prev		defb 0
-actions_new		defb 0
+actions			defw 0
+actions_prev		defw 0
+actions_new		defw 0
 movement_countdown	defb 0
 
 rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
