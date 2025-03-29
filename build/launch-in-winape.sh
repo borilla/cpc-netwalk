@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # attempt to run makefile in the dev container [Does nothing if container isn't running]
-docker ps | grep vsc-netwalk | awk '{print $1}' | head -1 | xargs -i docker exec {} make --directory /workspaces/netwalk
+docker ps | grep vsc-netwalk | awk '{print $1}' | head -1 | xargs -i docker exec {} make --directory /workspaces/netwalk winape
 
 # cd to build directory
 cd "$(dirname "$0")"
