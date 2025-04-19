@@ -72,7 +72,7 @@ rotations_inc
 ;; modifies:
 ;;		A,HL
 inc_decimal_word
-		or a			;; clear flags (before DAA)
+		or a			;; clear carry flag (before DAA)
 		ld a,(hl)		;; inc low byte
 		inc a
 		daa
@@ -93,27 +93,27 @@ connections_render
 		ld a,(maze_terms_connected)
 		ld hl,terms_conn_rendered
 		ld de,connections_screen_addr
-		call moves_render_digit_pair
+		call render_digit_pair
 		ld a,(maze_terms_total)
 		ld hl,terms_total_rendered
 		ld de,connections_screen_addr + 6
-		jp moves_render_digit_pair
+		jp render_digit_pair
 
 moves_render
 		ld a,(moves_data_count+1)
 		ld hl,moves_data_rendered+1
 		ld de,moves_screen_addr + 4
-		call moves_render_digit_pair
+		call render_digit_pair
 		ld a,(moves_data_count)
 		ld hl,moves_data_rendered
 		ld de,moves_screen_addr + 8
-		jp moves_render_digit_pair
+		jp render_digit_pair
 
 rotations_render
 		ld a,(rotations_data_count+1)
 		ld hl,rotations_data_rendered+1
 		ld de,rotations_screen_addr + 4
-		call moves_render_digit_pair
+		call render_digit_pair
 		ld a,(rotations_data_count)
 		ld hl,rotations_data_rendered
 		ld de,rotations_screen_addr + 8
@@ -127,16 +127,16 @@ rotations_render
 ;;		DE: screen location (of high/left digit)
 ;; modifies:
 ;;		A,BC,DE,HL
-moves_render_digit_pair
-		ld c,a			;; keep current value
+render_digit_pair
+		ld c,a			;; C = current value
 		xor (hl)		;; get difference between rendered and current
 		ret z			;; rendered = current, no need to render
 
 		ld (hl),c		;; update rendered value
-		ld b,a			;; keep xored difference
-_mrdp_high_digit
+		ld b,a			;; B = xored difference
+.high_digit
 		and %11110000		;; has high digit changed?
-		jr z,_mrdp_low_digit	;; no, check low digit
+		jr z,.low_digit		;; no, check low digit
 
 		ld a,c			;; yes, render high digit
 		and %11110000
@@ -149,7 +149,7 @@ _mrdp_high_digit
 		call char_render_digit
 		pop de
 		pop bc
-_mrdp_low_digit
+.low_digit
 		ld a,b			;; has low digit changed?
 		and %00001111
 		ret z			;; no, return
@@ -161,15 +161,16 @@ _mrdp_low_digit
 		jp char_render_digit
 
 ;; convert hex number to bcd
+; TODO: Currently unused!
 hex_to_bcd
 		ld	c, a
 		ld	b, 8
 		xor	a
-_h2b_loop
+.loop
 		sla	c
 		adc	a, a
 		daa
-		djnz	_h2b_loop
+		djnz	.loop
 		ret
 
 moves_data_count	defw 0

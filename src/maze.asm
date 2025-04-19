@@ -328,8 +328,7 @@ maze_mark_connected
 		dec c
 		and c			;; A = 0 if start cell is a terminal
 		sub 1			;; set carry if start cell is terminal
-		ld a,e			;; LD A,0 (because E is 0)
-		sbc e			;; SBC 0; A = 0 if not a terminal, #FF otherwise
+		ld_a_carry		;; A = 0 if not a terminal, #FF otherwise
 		daa
 		ld (_maze_terms_connected),a
 .loop
