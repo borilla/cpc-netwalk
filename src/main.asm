@@ -158,7 +158,7 @@ clear_grid	ld a,%11111111		;; largest grid possible (15x15 tiles)
 		xor a
 		call tile_data_addr	;; HL = tile data address
 		xor a
-_cs_loop
+.loop
 		ld c,a			;; go to next (pseudo-random) index
 		add a,a
 		add a,a
@@ -170,13 +170,13 @@ _cs_loop
 		and b
 		cp b
 		ld a,c
-		jr z,_cs_end
+		jr z,.skip
 
 		ld b,%11110000		;; don't render row 15
 		and b
 		cp b
 		ld a,c
-		jr z,_cs_end
+		jr z,.skip
 
 		push hl
 		push af
@@ -187,9 +187,9 @@ _cs_loop
 		ld l,a
 		ld (hl),0
 		pop hl
-
-_cs_end		or a
-		jr nz,_cs_loop
+.skip
+		or a
+		jr nz,.loop
 		ret
 
 ;; ----------------------------------------------------------------
@@ -302,7 +302,9 @@ render_grid_tile
 		ld ixh,a			;; keep original index
 		ld h,maze_data / 256
 		ld l,a
+		push hl
 		call tile_screen_addr		;; DE = screen address for tile
+		pop hl
 		ld a,(hl)
 		ld h,rendered_tiles / 256	;; update rendered tile
 		ld (hl),a
@@ -363,6 +365,7 @@ action_r_bit		equ 7
 
 ; high byte of actions
 action_m_bit		equ 0
+action_p_bit		equ 1
 
 ;; update `actions` based on pressed keys
 ;; modifies:
@@ -381,6 +384,11 @@ read_actions
 		bit 0,a				; left cursor key
 		jr nz,$+4
 		set action_left_bit,e
+
+		ld a,(keyboard_lines + 3)	; keyboard line 3
+		bit 3,a				; p key
+		jr nz,$+4
+		set action_p_bit,d
 
 		ld a,(keyboard_lines + 4)	; keyboard line 4
 		bit 6,a				; m key
@@ -404,6 +412,15 @@ read_actions
 		bit 5,a				; a key
 		jr nz,$+4
 		set action_a_bit,e
+
+		ld hl,actions_mask		; filter for currently allowed actions
+		ld a,d
+		and (hl)
+		ld d,a
+		inc hl
+		ld a,e
+		and (hl)
+		ld e,a
 
 		ld hl,(actions)			; DE = curr actions, HL = prev actions
 		ld (actions_prev),hl
@@ -540,8 +557,10 @@ do_rotate_action
 process_other_actions
 		ld a,(actions_new + 1)		; get (high byte of) new actions
 		bit action_m_bit,a		; is 'm' key pressed
-		ret z
-		jp music_toggle
+		jp nz,music_toggle
+		bit action_p_bit,a		; is 'p' key pressed
+		jp nz,pause_toggle
+		ret
 
 update_rotating_tile
 		ld bc,rotation_queue_cur
@@ -613,6 +632,7 @@ include "time.asm"
 include "moves.asm"
 include "maze.asm"
 include "music/music.asm"
+include "pause.asm"
 
 ;; ----------------------------------------------------------------
 ;; data
@@ -627,7 +647,8 @@ tile_index_supply	defb 0	;; position of power supply
 actions			defw 0
 actions_prev		defw 0
 actions_new		defw 0
-movement_countdown	defb 0
+actions_mask		defw #ffff	; mask to filter currently allowed actions
+movement_countdown	defb 0		; countdown used for repeated movement when key is held down
 
 rotation_queue		defs 16	;; circular FIFO queue of pending tiles to rotate
 rotation_queue_cur	defb 0	;; index of currently rotating tile

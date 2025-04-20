@@ -69,3 +69,14 @@ interrupt_8		defw noop
 interrupt_9		defw noop
 interrupt_10		defw noop
 interrupt_11		defw noop
+
+;; assign all 12 interrupts from table
+;; entry:
+;;	HL: pointer to table of 12 addresses for interrupts 0-11
+;; modifies:
+;;	BC,DE,HL
+assign_interrupts
+			ld de,interrupt_0
+			ld bc,24		; 2 * 12 bytes
+			ldir
+			ret

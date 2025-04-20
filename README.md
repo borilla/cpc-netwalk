@@ -121,7 +121,7 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Add timer/countdown
 - [ ] Game menus
 - [ ] Logo graphics
-- [ ] Ability to pause game
+- [x] Ability to pause game
 - [x] Add music player
 - [ ] Sound effects
 - [ ] Compose original music

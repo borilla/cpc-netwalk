@@ -242,10 +242,10 @@ rend
 ;; entry:
 ;;	A: tile index [yyyyxxxx] (x + y * 16)
 ;; exit:
-;;	A: same as D
 ;;	DE: screen address corresponding to tile index
+;; modifies:
+;;	HL
 tile_screen_addr
-		push hl
 		rlca
 		rlca
 		ld d,a			;; use D for temporary storage
@@ -263,7 +263,6 @@ tile_screen_addr
 		ld hl,(tile_origin)
 		add hl,de
 		ex de,hl
-		pop hl
 		ret
 
 ;; get tile data address from its index (i * 64 + base)
