@@ -11,7 +11,7 @@ pause_toggle
 		ld (actions_mask),hl
 		ld hl,interrupt_table_pause
 		call assign_interrupts
-		ld hl,main_loop_pause
+		ld hl,pause_loop
 		ld (main_loop),hl
 		ret
 .unpause
@@ -24,25 +24,40 @@ pause_toggle
 		ret
 
 interrupt_table_pause
-		defw set_palette_text		; 0
-		defw set_palette_grid		; 1
+		defw set_palette_paused		; 0
+		defw noop			; 1
 		defw scan_keyboard		; 2
 		defw read_actions		; 3
 		defw process_other_actions	; 4
 		defw noop			; 5
 
-		defw set_palette_text		; 6
-		defw set_palette_grid		; 7
+		defw set_palette_paused		; 6
+		defw noop			; 7
 		defw noop			; 8
 		defw noop			; 9
 		defw noop			; 10
 		defw noop			; 11
 
-main_loop_pause
+pause_loop
 		call hide_next_tile
-		ld b,0
-.wait		djnz .wait
+		jr z,.show_message		; if all tiles are hidden then show paused message
+		ld b,#88
+.wait
+		djnz .wait
 		ret
+.show_message
+		ld hl,string_paused		; show "paused" message
+		ld de,#C41A
+		call render_string
+		ld hl,set_palette_text		; set palette for message
+		ld (interrupt_1),hl
+		ld (interrupt_7),hl
+		ld hl,empty_loop		; do nothing except wait for 'p' key
+		ld (main_loop),hl
+empty_loop
+		ret
+
+string_paused	str 'PAUSED'
 
 interrupt_table_play
 		defw get_actions		; 0

@@ -1,3 +1,6 @@
+; set indexes for out charset
+charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:./ ',0
+
 ;; render a digit to screen
 ;; entry:
 ;;	A: digit to render (0-9)
@@ -5,11 +8,14 @@
 ;; modifies:
 ;;	AF,BC,DE,HL
 char_render_digit
-		ld h,0
+		cp ' '		; if space character then render nothing
+		ret z
+
+		ld h,0		; HL = 22 x A
 		ld l,a
 		ld b,h
 		ld c,l
-		add hl,hl	;; HL = 22 x A
+		add hl,hl
 		add hl,hl
 		add hl,hl
 		add hl,bc
@@ -48,6 +54,28 @@ rend
 		ldi:ldi				;; [10] copy two bytes
 
 		ret				;; [3]
+
+; render a string of characters to screen
+; entry:
+;	DE: screen address (of top-left of first char)
+;	HL: points to string (terminated by last char having MSB set - http://rasm.wikidot.com/syntax:data-structures#toc4)
+; modifies:
+;	pretty much everything!
+render_string
+		ld a,(hl)
+		bit 7,a
+		jp nz,.render_last_char
+
+		push de,hl
+		call char_render_digit
+		pop hl,de
+		inc hl
+		inc e
+		inc e
+		jr render_string
+.render_last_char
+		res 7,a
+		jp char_render_digit
 
 align #100	;; TODO: do we need to align this data?
 include "sprites/char-data.asm"

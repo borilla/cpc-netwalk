@@ -114,11 +114,17 @@ _sg_end		ld (grid_size),a
 ;; ----------------------------------------------------------------
 
 set_palette_text
+		ga_set_pen 2,ink_sky_blue
 		ga_set_pen 3,ink_bright_white
 		ret
 
 set_palette_grid
 		ga_set_pen 3,ink_lime
+		ret
+
+set_palette_paused
+		ga_set_pen 2,ink_blue
+		ga_set_pen 3,ink_white
 		ret
 
 render_clock
@@ -139,7 +145,6 @@ setup_screen	;; set screen mode
 		crtc_write_register crtc_vertical_sync_position,34
 		;; set pen colors
 		ga_set_pen 16,ink_black		;; border
-		ga_set_pen 0,ink_black		;; background (and outlines)
 		ga_set_pen 0,ink_black		;; background and outlines
 		ga_set_pen 1,ink_pastel_blue	;; tile background
 		ga_set_pen 2,ink_sky_blue	;; tile outline
