@@ -1,4 +1,8 @@
 pause_toggle
+		ld hl,hide_next_tile.tile_index	; randomise showing/hiding tiles
+		ld a,r
+		add (hl)
+		ld (hl),a
 .is_paused	equ $+1
 		ld a,0				; LD A,(.is_paused)
 		xor 1
@@ -41,23 +45,21 @@ interrupt_table_pause
 pause_loop
 		call hide_next_tile
 		jr z,.show_message		; if all tiles are hidden then show paused message
-		ld b,#88
+		ld b,#88			; delay before hiding next tile
 .wait
 		djnz .wait
 		ret
 .show_message
-		ld hl,string_paused		; show "paused" message
+		ld hl,.message			; show "paused" message
 		ld de,#C41A
 		call render_string
 		ld hl,set_palette_text		; set palette for message
 		ld (interrupt_1),hl
 		ld (interrupt_7),hl
-		ld hl,empty_loop		; do nothing except wait for 'p' key
+		ld hl,.empty_loop		; do nothing except wait for 'p' key
 		ld (main_loop),hl
-empty_loop
-		ret
-
-string_paused	str 'PAUSED'
+.empty_loop	ret
+.message	str 'PAUSED'
 
 interrupt_table_play
 		defw get_actions		; 0

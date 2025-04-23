@@ -1,4 +1,4 @@
-; set indexes for out charset
+; set indexes for our charset
 charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:./ ',0
 
 ;; render a digit to screen
@@ -77,5 +77,4 @@ render_string
 		res 7,a
 		jp char_render_digit
 
-align #100	;; TODO: do we need to align this data?
 include "sprites/char-data.asm"
