@@ -46,10 +46,10 @@ generate_maze
 		ld a,(tile_index_supply)
 		call recalc_connected_tiles	;; maze has been shuffled so this will correctly calculate initial connected terminals (in A)
 
-wait_for_key_release
+.wait_for_key_release
 		call read_actions
 		ld a,(actions)
-		jr nz,wait_for_key_release
+		jr nz,.wait_for_key_release
 
 		assign_interrupt 0,get_actions
 		assign_interrupt 1,render_clock		;; update time
@@ -58,11 +58,15 @@ wait_for_key_release
 		assign_interrupt 7,render_clock		;; update time
 		assign_interrupt 8,rotations_render	;; update count of rotations in info bar
 		assign_interrupt 9,connections_render	;; connected tiles in info bar
+.loop
+main_loop	equ $+1
+		call main_loop_game			; call (main_loop)
+		jr .loop
 
-game_loop
+main_loop_game
 		ld hl,(actions_new)		; special actions (regenerate/resize grid)
 		bit action_q_bit,l		; if 'q' key is pressed then enlarge grid
-		jr nz,enlarge_grid
+		jr nz,enlarge_grid									; TODO: These jumps will mess up the stack now that this is a subroutine!
 		bit action_a_bit,l		; if 'a' key is pressed then shrink grid
 		jr nz,shrink_grid
 		bit action_r_bit,l		; if 'r' key is pressed then regenerate grid
@@ -70,26 +74,26 @@ game_loop
 		call render_next_tile
 		ld a,(recalc_required)
 		or a
-		jr z,_check_for_completion
+		jr z,.check_for_completion
 		call recalc_connected_tiles
-		jr game_loop
-_check_for_completion
-		ld a,(maze_terms_total)		;; check if all terminals are connected
+		ret
+.check_for_completion
+		ld a,(maze_terms_total)		; check if all terminals are connected
 		ld hl,maze_terms_connected
 		cp (hl)
-		jr nz,game_loop
-		ld a,(rotation_queue_cur)	;; check if any pending rotations
+		ret nz
+		ld a,(rotation_queue_cur)	; check if any pending rotations
 		ld hl,rotation_queue_next
 		cp (hl)
-		jr nz,game_loop
-game_complete
+		ret nz
+.game_complete
 		assign_interrupt 0,get_actions
 		assign_interrupt 1,set_palette_grid
 		assign_interrupt 2,noop
 		assign_interrupt 6,set_palette_text
 		assign_interrupt 7,set_palette_grid
 		assign_interrupt 8,noop
-		jr game_loop
+		ret
 
 enlarge_grid	ld a,(grid_size)
 		cp #ff			;; check if already max size (15x15)
@@ -289,7 +293,7 @@ render_if_modified
 
 ;; ----------------------------------------------------------------
 
-;; render a grid tile (and power supply and selected overlay if appropriate)
+;; render a grid tile (and power supply and reticle overlays if appropriate)
 ;; entry:
 ;;	A: index of grid tile to render
 ;; exit:
@@ -311,16 +315,12 @@ render_grid_tile
 		call tile_data_addr		;; HL = sprite data for tile
 		call tile_render		;; render the tile
 
-		ld a,ixh
-		ld c,a
 		ld a,(tile_index_supply)
-		cp c
+		cp ixh
 		call z,render_power_supply
 
-		ld a,ixh
-		ld c,a
 		ld a,(tile_index_selected)
-		cp c
+		cp ixh
 		call z,render_reticle
 
 		or 1				;; reset Z flag

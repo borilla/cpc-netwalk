@@ -8,14 +8,14 @@
 ;; flags:
 ;;	Z: reset
 tile_render	ld bc,#800 + #3d + 24		;; we want C to equal #3d after 24 LDI instructions
-		call _tile_render_half
-		inc l
+		call .render_char_row		;; render first character row (8 pixel rows)
+		inc l				;; render second character row
 		ld b,#c8			;; add de,#c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
 		ld b,8
-_tile_render_half
+.render_char_row
 repeat 7
 		ldi:ldi:ldi			;; [15] copy three bytes
 		ld a,(hl):ld (de),a: inc l	;; [5] copy byte
@@ -37,15 +37,15 @@ rend
 ;; flags:
 ;;	Z: set
 tile_render_trans
-		call _trt_1
+		call .render_char_row		;; render first character row (8 pixel rows)
 		ld bc,#c83d			;; add de,#c83d (-2048 * 7 + 64 - 3)
 		ex hl,de
 		add hl,bc
 		ex hl,de
-_trt_1
+.render_char_row
 		ld b,8				;; LD B,8 (row count)
 		ld c,b				;; LD C,8 (constant 8)
-_trt_2
+.render_pixel_row
 		ld a,(de)			;; [2] read screen data
 		and (hl)			;; [2] AND with pixel mask
 		inc l				;; [1]
@@ -88,7 +88,7 @@ _trt_2
 		add c
 		ld d,a
 
-		jr _trt_2
+		jr .render_pixel_row
 
 ;; render a transparent tile, using a table to lookup mask
 ;; note: assumes tile data all sits in same 256 byte page
@@ -100,16 +100,17 @@ _trt_2
 ;;	AF,BC,DE,HL,LX
 ;; flags:
 ;;	Z: set
+; todo: currently unused
 tile_render_mask
 		ex de,hl			;; swap, so that DE points at sprite, HL points at screen
-		call _trm_1
+		call .render_char_row		;; render first eight rows
 		ld a,b				;; temporarily store high byte of mask table
 		ld bc,#c83d			;; move to next character row (-2048 * 7 + 64 - 3)
 		add hl,bc
 		ld b,a				;; restore BC to point at mask table
-_trm_1
+.render_char_row
 		ld ixl,8			;; use IXL as row count
-_trm_2
+.render_pixel_row
 		ld a,(de)			;; [2] read sprite byte
 		ld c,a				;; [1] point BC at mask byte
 		ld a,(bc)			;; [2] read pixel mask
@@ -156,7 +157,7 @@ _trm_2
 		add a,8
 		ld h,a
 
-		jr _trm_2
+		jr .render_pixel_row
 
 ;; render a blank tile (ie all ink 0)
 ;; entry:
@@ -165,10 +166,10 @@ _trm_2
 ;;	AF,BC,DE,HL
 tile_render_blank
 		ex de,hl			;; use HL as screen address
-		call _tile_render_blank_half
+		call .render_char_row
 		ld bc,#c83d			;; add de,#c83d (-2048 * 7 + 64 - 3) (#c040 - 3)
 		add hl,bc
-_tile_render_blank_half
+.render_char_row
 		ld bc,#800			;; B = 8, C = 0
 		ld a,h
 repeat 7
@@ -200,13 +201,13 @@ rend
 ;;	DE: screen address (of top-left of sprite)
 ;; modifies:
 ;;	AF,BC,DE,HL
-tile_render_blankish
+tile_render_shaded
 		ex de,hl			;; use HL as screen address
 		ld de,%1010101001010101		;; D = %10101010, E = %01010101
-		call _tile_render_blankish_half
+		call .render_char_row
 		ld bc,#c83d			;; add de,#c83d (-2048 * 7 + 64 - 3) (#c040 - 3)
 		add hl,bc
-_tile_render_blankish_half
+.render_char_row
 		ld b,8				;; B = 8
 		ld a,h
 repeat 3
@@ -238,13 +239,13 @@ rend
 
 		ret
 
-;; get screen address of tile (origin + 4x + 128y)
+;; get screen address of tile based on current tile_origin (origin + 4x + 128y)
 ;; entry:
 ;;	A: tile index [yyyyxxxx] (x + y * 16)
 ;; exit:
 ;;	DE: screen address corresponding to tile index
 ;; modifies:
-;;	HL
+;;	A,HL
 tile_screen_addr
 		rlca
 		rlca
@@ -298,15 +299,15 @@ tile_calculate_origin
 		ld c,a			;; C = copy of grid size
 
 		and %00001111		;; isolate width
-		jr z,_tco_calc_y
+		jr z,.calc_y
 		rlca			;; A = 2 * width
 		neg			;; A = -2 * width
 		add #20			;; A = 32 - 2 * width
 		ld l,a
-_tco_calc_y
+.calc_y
 		ld a,c
 		and %11110000		;; A = height * 16
-		jr z,_tco_end
+		jr z,.end
 		ld d,0			;; LD DE,height * #40
 		sla a
 		rl d
@@ -318,7 +319,7 @@ _tco_calc_y
 		sbc hl,de
 		ld de,#0040		;; shift down one row (for game-data at top of screen)
 		adc hl,de
-_tco_end
+.end
 		ld (tile_origin),hl
 		ld a,c
 		ret
@@ -332,6 +333,7 @@ tile_origin	defw #c000
 		align #100
 
 ;; lookup table for masking out ink 0 pixels. AND with screen data, then OR with pixel data.
+; todo: currently unused
 tile_mask_lookup
 		defb #ff,#ee,#dd,#cc,#bb,#aa,#99,#88,#77,#66,#55,#44,#33,#22,#11,#00,#ee,#ee,#cc,#cc,#aa,#aa,#88,#88,#66,#66,#44,#44,#22,#22,#00,#00
 		defb #dd,#cc,#dd,#cc,#99,#88,#99,#88,#55,#44,#55,#44,#11,#00,#11,#00,#cc,#cc,#cc,#cc,#88,#88,#88,#88,#44,#44,#44,#44,#00,#00,#00,#00
