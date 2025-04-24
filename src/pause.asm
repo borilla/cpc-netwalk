@@ -23,7 +23,7 @@ pause_toggle
 		ld (actions_mask),hl
 		ld hl,interrupt_table_play
 		call assign_interrupts
-		ld hl,main_loop_game
+		ld hl,main_loop_play
 		ld (main_loop),hl
 		ret
 
@@ -61,20 +61,11 @@ pause_loop
 .empty_loop	ret
 .message	str 'PAUSED'
 
-interrupt_table_play
-		defw get_actions		; 0
-		defw render_clock		; 1
-		defw moves_render		; 2
-		defw noop			; 3
-		defw music_play			; 4
-		defw noop			; 5
-
-		defw render_important_tiles	; 6
-		defw render_clock		; 7
-		defw rotations_render		; 8
-		defw connections_render		; 9
-		defw music_play			; 10
-		defw noop			; 11
+; set colours of top info bar when paused
+set_palette_paused
+		ga_set_pen 2,ink_blue
+		ga_set_pen 3,ink_white
+		ret
 
 ;; render next tile that needs hiding (if any)
 ;; modifies:
