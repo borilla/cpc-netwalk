@@ -16,12 +16,12 @@ interrupt_table_play
 		defw noop			; 11
 
 main_loop_play
-		ld hl,(actions_new)		; special actions (regenerate/resize grid)
-		bit action_q_bit,l		; if 'q' key is pressed then enlarge grid
+		ld a,(actions_new + 1)		; special actions (regenerate/resize grid)
+		bit action_q_bit,a		; if 'q' key is pressed then enlarge grid
 		jp nz,enlarge_grid									; TODO: These jumps will mess up the stack now that this is a subroutine!
-		bit action_a_bit,l		; if 'a' key is pressed then shrink grid
+		bit action_a_bit,a		; if 'a' key is pressed then shrink grid
 		jp nz,shrink_grid
-		bit action_r_bit,l		; if 'r' key is pressed then regenerate grid
+		bit action_r_bit,a		; if 'r' key is pressed then regenerate grid
 		jp nz,generate_maze
 		call render_next_tile
 		ld a,(recalc_required)
@@ -57,6 +57,14 @@ set_palette_text
 set_palette_grid
 		ga_set_pen 3,ink_lime
 		ret
+
+;; scan keyboard, process movement and rotation
+get_actions	call set_palette_text
+		call read_actions
+		call do_movement_action
+		call do_rotate_action
+		call process_other_actions
+		jp update_rotating_tile
 
 ; render prev, current and rotating tiles (as necessary)
 render_important_tiles
@@ -192,30 +200,8 @@ render_reticle
 		ld hl,tile_selected_trans	; HL points at tile data
 		jp tile_render_trans
 
-;; update currently selected tile based on current `actions`
+;; update currently selected tile based on new movement actions
 do_movement_action
-		ld a,(actions)
-		and %00001111			;; isolate "movement" actions
-		ret z
-
-		ld b,a				;; store current actions in B
-		ld a,(actions_prev)		;; check if we've just started moving
-		and %00001111
-
-		ld hl,.countdown
-		ld a,6				;; load A with long countdown timer
-		jr z,.do_move			;; if weren't previously moving, act immediately (setting long timer)
-
-		ld a,(actions_new)		;; if a new direction key has been pressed then move immediately
-		and %00001111
-		ld a,3				; load A with short countdown timer
-		jr nz,.do_move
-
-		dec (hl)			;; otherwise, decrement movement countdown
-		ret nz				;; if not counted down yet then return
-
-.do_move	ld (hl),a			;; reset countdown (to long or short timer)
-
 		ld a,(maze_index_limits)
 		ld e,a
 		and %00001111
@@ -223,6 +209,9 @@ do_movement_action
 		ld a,e
 		and %11110000
 		ld e,a				;; E is maximum y-value
+
+		ld a,(actions_new)		; B = new movement actions
+		ld b,a
 
 		ld hl,tile_index_selected	;; HL points at tile index
 		ld a,(hl)			;; A is tile index
@@ -277,11 +266,10 @@ do_movement_action
 		ld (tile_index_prev),a
 		ld (hl),c
 		ret
-.countdown	defb 0		; countdown used for repeated movement when direction key is held down
 
 ;; if space bar (ie 'rotate') is pressed then add current cell to rotate queue
 do_rotate_action
-		ld a,(actions_new)		;; get "new" actions in A
+		ld a,(actions_new + 1)		;; get "new" actions in A
 
 		bit action_space_bit,a		;; check for rotate action
 		ret z

@@ -149,41 +149,31 @@ clear_grid	ld a,%11111111		;; largest grid possible (15x15 tiles)
 
 ;; ----------------------------------------------------------------
 
-;; scan keyboard, process movement and rotation
-get_actions	call set_palette_text
-		call scan_keyboard
-		call read_actions
-		call do_movement_action
-		call do_rotate_action
-		call process_other_actions
-		jp update_rotating_tile
-
 ; low byte of actions (movements, ie actions that auto-repeat if key is held down)
 action_up_bit		equ 0
 action_right_bit	equ 1
 action_down_bit		equ 2
 action_left_bit		equ 3
-action_space_bit	equ 4
-action_q_bit		equ 5
-action_a_bit		equ 6
-action_r_bit		equ 7
 
 ; high byte of actions
-action_m_bit		equ 0
+action_space_bit	equ 0
 action_p_bit		equ 1
+action_m_bit		equ 2
+action_q_bit		equ 3
+action_a_bit		equ 4
+action_r_bit		equ 5
 
-;; update `actions` based on pressed keys
+;; update `actions` and `new actions` based on pressed keys
 ;; modifies:
 ;;	A,DE,HL
-;; exit:
-;;	DE - new actions
-;;	HL - current actions
 read_actions
+		call scan_keyboard		; scan keyboard and store results in keyboard_lines
 		ld de,0				; store actions in de
+
 		ld a,(keyboard_lines + 0)	; keyboard line 0
 		cpl				; remember that keyboard bits are inverted
 		and %00000111			; bits for up/right/down cursor keys happen to map directly onto actions
-		ld e,a
+		ld e,a				; store movement actions in e
 
 		ld a,(keyboard_lines + 1)	; keyboard line 1
 		bit 0,a				; left cursor key
@@ -203,20 +193,20 @@ read_actions
 		ld a,(keyboard_lines + 5)	; keyboard line 5
 		bit 7,a				; space bar
 		jr nz,$+4
-		set action_space_bit,e
+		set action_space_bit,d
 
 		ld a,(keyboard_lines + 6)	; keyboard line 6
 		bit 2,a				; r key
 		jr nz,$+4
-		set action_r_bit,e
+		set action_r_bit,d
 
 		ld a,(keyboard_lines + 8)	; keyboard line 8
 		bit 3,a				; q key
 		jr nz,$+4
-		set action_q_bit,e
+		set action_q_bit,d
 		bit 5,a				; a key
 		jr nz,$+4
-		set action_a_bit,e
+		set action_a_bit,d
 
 		ld hl,actions_mask		; filter for currently allowed actions
 		ld a,d
@@ -230,20 +220,40 @@ read_actions
 		ld hl,(actions)			; DE = curr actions, HL = prev actions
 		ld (actions_prev),hl
 
-		ld a,l				; get low byte of new actions
-		xor e
-		and e
-		ld l,a
 		ld a,h				; get high byte of new actions
 		xor d
 		and d
-		ld h,a
 
-		ld (actions_new),hl		; store curr actions and new actions
+		ld (actions_new + 1),a		; store high byte of new actions
 		ex de,hl
-		ld (actions),hl
+		ld (actions),hl			; store current actions
 
+		; calculate new movement actions (low byte of new actions)
+		xor a
+		ld (actions_new),a		; initially set to zero
+
+		ld a,l				; get "movement" actions
+		or a
+		ret z				; no movement actions so just return
+
+		ld d,a				; store current movement actions in D
+		ld a,(actions_prev)		; check if we've just started moving
+		or a
+
+		ld hl,.countdown
+		ld a,6				; load A with long countdown timer
+		jr z,.set_countdown		; if weren't previously moving then set new actions (setting long timer)
+
+		dec (hl)			; otherwise, decrement movement countdown
+		ret nz				; if not counted down yet then return
+
+		ld a,3				; next countdown will use short timer
+.set_countdown
+		ld (hl),a			; reset countdown (to long or short timer)
+		ld a,d				; load A with current movement actions
+		ld (actions_new),a		; copy current movement actions to new actions
 		ret
+.countdown	defb 0
 
 process_other_actions
 		ld a,(actions_new + 1)		; get (high byte of) new actions

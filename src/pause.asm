@@ -29,14 +29,14 @@ pause_toggle
 
 interrupt_table_pause
 		defw set_palette_paused		; 0
-		defw noop			; 1
-		defw scan_keyboard		; 2
-		defw read_actions		; 3
-		defw process_other_actions	; 4
+		defw noop			; 1 (will be set to set_palette_text later)
+		defw read_actions		; 2
+		defw process_other_actions	; 3
+		defw noop			; 4
 		defw noop			; 5
 
 		defw set_palette_paused		; 6
-		defw noop			; 7
+		defw noop			; 7 (will be set to set_palette_text later)
 		defw noop			; 8
 		defw noop			; 9
 		defw noop			; 10
