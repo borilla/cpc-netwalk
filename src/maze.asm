@@ -305,7 +305,7 @@ mod_3		ld a,c			;; add nibbles
 		dec a
 		ret
 
-;; mark all cells connected to initial cell
+;; mark all cells that are connected to initial cell
 ;; after this call, all connected cells will have "connected" bit set
 ;; also counts number of connected terminals (excluding initial cell)
 ;; entry:

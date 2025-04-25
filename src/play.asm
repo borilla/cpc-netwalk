@@ -1,9 +1,8 @@
-
 game_state_playing
 		; movement_actions_mask
 		defb %00001111
 		; other_actions_mask
-		defb %00000111			; space + pause + toggle-music
+		defb %00111111			; space + pause + toggle-music + q + a + r
 		; interrupt_table 1
 		defw get_actions		; 0
 		defw render_clock		; 1
@@ -19,22 +18,12 @@ game_state_playing
 		defw music_play			; 10
 		defw noop			; 11
 		; main_loop
-		defw $+2
-
+		defw .main_loop
 .main_loop
-		ld a,(other_actions_new)
-		bit action_q_bit,a		; if 'q' key is pressed then enlarge grid
-		jp nz,enlarge_grid									; TODO: These jumps will mess up the stack now that this is a subroutine!
-		bit action_a_bit,a		; if 'a' key is pressed then shrink grid
-		jp nz,shrink_grid
-		bit action_r_bit,a		; if 'r' key is pressed then regenerate grid
-		jp nz,generate_maze
 		call render_next_tile
 		ld a,(recalc_required)
 		or a
-		jr z,.check_for_completion
-		call recalc_connected_tiles
-		ret
+		jp nz,recalc_connected_tiles
 .check_for_completion
 		ld a,(maze_terms_total)		; check if all terminals are connected
 		ld hl,maze_terms_connected
@@ -61,6 +50,7 @@ set_palette_text
 
 ; set palette for main game grid
 set_palette_grid
+		ga_set_pen 1,ink_pastel_blue	; tile background
 		ga_set_pen 3,ink_lime
 		ret
 
@@ -346,6 +336,17 @@ recalc_connected_tiles
 
 		ld a,(tile_index_supply)
 		jp maze_mark_connected
+
+render_all_tiles
+		ld hl,rendered_tiles
+		ld de,rendered_tiles+1
+		ld bc,#ff
+		ld (hl),l
+		ldir
+.loop
+		call render_next_tile
+		jr nz,.loop
+		ret
 
 recalc_required		defb 0		; flag that we need to recalculate connected tiles
 

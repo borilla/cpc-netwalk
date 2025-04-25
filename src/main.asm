@@ -5,55 +5,13 @@
 include "lib/macros.asm"
 
 ;; ----------------------------------------------------------------
-;; main
-;; ----------------------------------------------------------------
 
 main
 		call clear_screen
 		call setup_screen
 		call music_toggle
 		call setup_interrupts
-
-generate_maze
-		assign_interrupt 0,set_palette_text
-		assign_interrupt 1,set_palette_grid
-		assign_interrupt 2,noop
-		assign_interrupt 4,music_play
-		assign_interrupt 6,set_palette_text
-		assign_interrupt 7,set_palette_grid
-		assign_interrupt 8,noop
-		assign_interrupt 10,music_play
-		call clear_grid
-		call time_init
-		call connections_init
-		call moves_init
-		call rotations_init
-		ld hl,rand16+2			;; update (high byte of) random number generator
-		ld a,r
-		add (hl)
-		ld (hl),a
-
-		ld a,(grid_size)
-		call tile_calculate_origin
-		call maze_generate
-		ld a,(grid_size)
-		call maze_random_cell		;; choose random cell for power supply
-		ld (tile_index_supply),a
-		ld (tile_index_selected),a
-		call recalc_connected_tiles	;; all tiles are initially connected so this will return total number of terminals (in A)
-		ld (maze_terms_total),a
-		call maze_shuffle
-		ld a,(tile_index_supply)
-		call recalc_connected_tiles	;; maze has been shuffled so this will correctly calculate initial connected terminals (in A)
-
-.wait_for_key_release
-		call read_actions
-		ld hl,(movement_actions_cur)
-		ld a,h
-		or l
-		jr nz,.wait_for_key_release
-
-		ld hl,game_state_playing
+		ld hl,game_state_new_game
 		call set_game_state
 .loop
 main_loop	equ $+1
@@ -77,19 +35,72 @@ set_game_state
 
 ;; ----------------------------------------------------------------
 
-enlarge_grid	ld a,(grid_size)
-		cp #ff			;; check if already max size (15x15)
-		jp z,generate_maze
-		add #11			;; add 16+1
-_eg_end		ld (grid_size),a
-		jp generate_maze
+game_state_new_game
+		; movement_actions_mask
+		defb %11111111
+		; other_actions_mask
+		defb %11111111
+		; interrupt_table 1
+		defw noop			; 0
+		defw noop			; 1
+		defw read_actions		; 2
+		defw noop			; 3
+		defw music_play			; 4
+		defw noop			; 5
+		; interrupt_table 2
+		defw noop			; 6
+		defw noop			; 7
+		defw noop			; 8
+		defw noop			; 9
+		defw music_play			; 10
+		defw noop			; 11
+		; main loop
+		defw .main_loop
+.main_loop
+		call set_palette_black
 
-shrink_grid	ld a,(grid_size)
-		cp #33			;; check if already min size (3x3)
-		jp z,generate_maze
-		sub #11			;; subtract 16+1
-_sg_end		ld (grid_size),a
-		jp generate_maze
+		call clear_screen
+		call time_init
+		call connections_init
+		call moves_init
+		call rotations_init
+
+		ld hl,rand16+2			;; update (high byte of) random number generator
+		ld a,r
+		add (hl)
+		ld (hl),a
+
+		ld a,(grid_size)
+		call tile_calculate_origin
+		call maze_generate
+		ld a,(grid_size)
+		call maze_random_cell		;; choose random cell for power supply
+		ld (tile_index_supply),a
+		ld (tile_index_selected),a
+		call recalc_connected_tiles	;; all tiles are initially connected so this will return total number of terminals (in A)
+		ld (maze_terms_total),a
+		call maze_shuffle
+		ld a,(tile_index_supply)
+		call recalc_connected_tiles	;; maze has been shuffled so this will correctly calculate initial connected terminals (in A)
+		call connections_render
+		call render_all_tiles
+
+.wait_for_key_release
+		ld hl,(movement_actions_cur)
+		ld a,h
+		or l
+		jr nz,.wait_for_key_release
+
+		ld hl,game_state_playing
+		call set_game_state
+
+;; ----------------------------------------------------------------
+
+set_palette_black
+		ga_set_pen 1,ink_black
+		ga_set_pen 2,ink_black
+		ga_set_pen 3,ink_black
+		ret
 
 ;; ----------------------------------------------------------------
 
@@ -108,8 +119,8 @@ setup_screen	;; set screen mode
 		ga_set_pen 16,ink_black		;; border
 		ga_set_pen 0,ink_black		;; background and outlines
 		ga_set_pen 1,ink_pastel_blue	;; tile background
-		ga_set_pen 2,ink_sky_blue	;; tile outline
-		ga_set_pen 3,ink_lime		;; power flow
+		ga_set_pen 2,ink_sky_blue	;; tile outline/text shadows
+		ga_set_pen 3,ink_lime		;; power flow/text colour
 		ret
 
 ;; ----------------------------------------------------------------
@@ -123,57 +134,49 @@ clear_screen	ld hl,#c000
 
 ;; ----------------------------------------------------------------
 
-clear_grid	ld a,%11111111		;; largest grid possible (15x15 tiles)
-		call tile_calculate_origin
-		xor a
-		call tile_data_addr	;; HL = tile data address
-		xor a
-.loop
-		ld c,a			;; go to next (pseudo-random) index
-		add a,a
-		add a,a
-		add a,c
-		inc a
-
-		ld c,a
-		ld b,%00001111		;; don't render column 15
-		and b
-		cp b
-		ld a,c
-		jr z,.skip
-
-		ld b,%11110000		;; don't render row 15
-		and b
-		cp b
-		ld a,c
-		jr z,.skip
-
-		push hl
-		push af
-		call tile_screen_addr	;; DE = tile screen address
-		call tile_render_blank
-		pop af
-		ld h,rendered_tiles / 256
-		ld l,a
-		ld (hl),0
-		pop hl
-.skip
-		or a
-		jr nz,.loop
-		ret
-
-;; ----------------------------------------------------------------
-
 process_other_actions
 		ld a,(other_actions_new)	; get (high byte of) new actions
 		bit action_m_bit,a		; is 'm' key pressed
 		jp nz,music_toggle
 		bit action_p_bit,a		; is 'p' key pressed
 		jp nz,pause_toggle
+		bit action_q_bit,a		; is 'q' key pressed
+		jp nz,enlarge_grid
+		bit action_a_bit,a		; is 'a' key pressed
+		jp nz,shrink_grid
+		bit action_r_bit,a		; is 'r' key pressed
+		jp nz,new_game
 		ret
 
 ;; ----------------------------------------------------------------
-;; include subroutines
+
+new_game
+		ld hl,game_state_new_game
+		jp set_game_state
+
+;; ----------------------------------------------------------------
+
+enlarge_grid
+		ld a,(grid_size)
+		cp #ff			;; check if already max size (15x15)
+		jr z,new_game
+		add #11			;; add 16+1
+		ld (grid_size),a
+		jr new_game
+
+;; ----------------------------------------------------------------
+
+shrink_grid
+		ld hl,grid_size
+		ld a,(hl)
+		cp #33			;; check if already min size (3x3)
+		jp z,new_game
+		sub #11			;; subtract 16+1
+		ld (grid_size),a
+		jr new_game
+
+;; ----------------------------------------------------------------
+;; includes
 ;; ----------------------------------------------------------------
 
 include "lib/interrupts.asm"

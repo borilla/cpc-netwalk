@@ -2,24 +2,23 @@ game_state_paused
 		; movement_actions_mask
 		defb %00000000
 		; other_actions_mask
-		defb %00000010			; can only unpause from this state
+		defb %00000110			; pause + music
 		; interrupt_table 1
 		defw set_palette_paused		; 0
 		defw noop			; 1 (will be set to set_palette_text later)
 		defw read_actions		; 2
 		defw process_other_actions	; 3
-		defw noop			; 4
+		defw music_play			; 4
 		defw noop			; 5
 		; interrupt_table 2
 		defw set_palette_paused		; 6
 		defw noop			; 7 (will be set to set_palette_text later)
 		defw noop			; 8
 		defw noop			; 9
-		defw noop			; 10
+		defw music_play			; 10
 		defw noop			; 11
 		; main loop
-		defw $+2
-
+		defw .main_loop
 .main_loop
 		call hide_next_tile
 		jr z,.show_message		; if all tiles are hidden then show paused message
