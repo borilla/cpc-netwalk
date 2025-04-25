@@ -1,22 +1,28 @@
 
-
-interrupt_table_play
+game_state_playing
+		; movement_actions_mask
+		defb %00001111
+		; other_actions_mask
+		defb %00000111			; space + pause + toggle-music
+		; interrupt_table 1
 		defw get_actions		; 0
 		defw render_clock		; 1
 		defw moves_render		; 2
 		defw noop			; 3
 		defw music_play			; 4
 		defw noop			; 5
-
+		; interrupt_table 2
 		defw render_important_tiles	; 6
 		defw render_clock		; 7
 		defw rotations_render		; 8
 		defw connections_render		; 9
 		defw music_play			; 10
 		defw noop			; 11
+		; main_loop
+		defw $+2
 
-main_loop_play
-		ld a,(actions_new + 1)		; special actions (regenerate/resize grid)
+.main_loop
+		ld a,(other_actions_new)
 		bit action_q_bit,a		; if 'q' key is pressed then enlarge grid
 		jp nz,enlarge_grid									; TODO: These jumps will mess up the stack now that this is a subroutine!
 		bit action_a_bit,a		; if 'a' key is pressed then shrink grid
@@ -210,7 +216,7 @@ do_movement_action
 		and %11110000
 		ld e,a				;; E is maximum y-value
 
-		ld a,(actions_new)		; B = new movement actions
+		ld a,(movement_actions_new)	; B = new movement actions
 		ld b,a
 
 		ld hl,tile_index_selected	;; HL points at tile index
@@ -269,8 +275,7 @@ do_movement_action
 
 ;; if space bar (ie 'rotate') is pressed then add current cell to rotate queue
 do_rotate_action
-		ld a,(actions_new + 1)		;; get "new" actions in A
-
+		ld a,(other_actions_new)
 		bit action_space_bit,a		;; check for rotate action
 		ret z
 
@@ -285,9 +290,7 @@ do_rotate_action
 		inc a
 		and %00001111			;; A = A mod 16
 		ld (rotation_queue_next),a
-
 		ret
-
 
 update_rotating_tile
 		ld bc,rotation_queue_cur

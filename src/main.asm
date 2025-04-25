@@ -48,17 +48,34 @@ generate_maze
 
 .wait_for_key_release
 		call read_actions
-		ld a,(actions)
+		ld hl,(movement_actions_cur)
+		ld a,h
+		or l
 		jr nz,.wait_for_key_release
 
-		ld hl,interrupt_table_play
-		call assign_interrupts
-		ld hl,main_loop_play
-		ld (main_loop),hl
+		ld hl,game_state_playing
+		call set_game_state
 .loop
 main_loop	equ $+1
-		call #0000		; call (main_loop)
+		call #0000			; call (main_loop)
 		jr .loop
+
+;; ----------------------------------------------------------------
+
+; set currently allowed actions, interrupts and main-loop
+; entry:
+;	HL: points to game-state
+set_game_state
+		ld de,movement_actions_mask
+		ldi
+		ldi
+		call assign_interrupts		; will advance hl by 24 bytes
+		ld de,main_loop
+		ldi
+		ldi
+		ret
+
+;; ----------------------------------------------------------------
 
 enlarge_grid	ld a,(grid_size)
 		cp #ff			;; check if already max size (15x15)
@@ -168,12 +185,12 @@ action_r_bit		equ 5
 ;;	A,DE,HL
 read_actions
 		call scan_keyboard		; scan keyboard and store results in keyboard_lines
-		ld de,0				; store actions in de
+		ld de,0				; E = current movement actions, D = current other actions
 
 		ld a,(keyboard_lines + 0)	; keyboard line 0
 		cpl				; remember that keyboard bits are inverted
 		and %00000111			; bits for up/right/down cursor keys happen to map directly onto actions
-		ld e,a				; store movement actions in e
+		ld e,a
 
 		ld a,(keyboard_lines + 1)	; keyboard line 1
 		bit 0,a				; left cursor key
@@ -208,36 +225,34 @@ read_actions
 		jr nz,$+4
 		set action_a_bit,d
 
-		ld hl,actions_mask		; filter for currently allowed actions
-		ld a,d
-		and (hl)
-		ld d,a
-		inc hl
+		ld hl,movement_actions_mask	; filter movement actions
 		ld a,e
 		and (hl)
 		ld e,a
+		inc hl				; filter other actions
+		ld a,d
+		and (hl)
+		ld d,a
 
-		ld hl,(actions)			; DE = curr actions, HL = prev actions
-		ld (actions_prev),hl
+		ld hl,(movement_actions_cur)	; L = prev movement actions, H = prev other actions
+		ld (movement_actions_prev),hl	; store previous actions
+		ld (movement_actions_cur),de	; store current actions
 
-		ld a,h				; get high byte of new actions
+		; calculate new other actions
+		ld a,h
 		xor d
 		and d
+		ld (other_actions_new),a
 
-		ld (actions_new + 1),a		; store high byte of new actions
-		ex de,hl
-		ld (actions),hl			; store current actions
-
-		; calculate new movement actions (low byte of new actions)
+		; calculate new movement actions
 		xor a
-		ld (actions_new),a		; initially set to zero
+		ld (movement_actions_new),a	; initially set to zero
 
-		ld a,l				; get "movement" actions
+		ld a,e				; if there are no movement actions then just return
 		or a
-		ret z				; no movement actions so just return
+		ret z
 
-		ld d,a				; store current movement actions in D
-		ld a,(actions_prev)		; check if we've just started moving
+		ld a,l				; A = prev movement actions
 		or a
 
 		ld hl,.countdown
@@ -247,16 +262,16 @@ read_actions
 		dec (hl)			; otherwise, decrement movement countdown
 		ret nz				; if not counted down yet then return
 
-		ld a,3				; next countdown will use short timer
+		ld a,3				; otherwise, next countdown will use short timer
 .set_countdown
 		ld (hl),a			; reset countdown (to long or short timer)
-		ld a,d				; load A with current movement actions
-		ld (actions_new),a		; copy current movement actions to new actions
+		ld a,e				; load A with current movement actions
+		ld (movement_actions_new),a	; copy current movement actions to new actions
 		ret
 .countdown	defb 0
 
 process_other_actions
-		ld a,(actions_new + 1)		; get (high byte of) new actions
+		ld a,(other_actions_new)	; get (high byte of) new actions
 		bit action_m_bit,a		; is 'm' key pressed
 		jp nz,music_toggle
 		bit action_p_bit,a		; is 'p' key pressed
@@ -285,7 +300,14 @@ include "music/music.asm"
 
 grid_size		defb #aa	; initial size (10x10)
 
-actions			defw 0
-actions_prev		defw 0
-actions_new		defw 0
-actions_mask		defw #ffff	; mask to filter currently allowed actions
+movement_actions_cur	defb 0
+other_actions_cur	defb 0
+
+movement_actions_prev	defb 0
+other_actions_prev	defb 0
+
+movement_actions_new	defb 0
+other_actions_new	defb 0
+
+movement_actions_mask	defb 0	; masks to filter currently allowed actions
+other_actions_mask	defb 0

@@ -1,48 +1,26 @@
-pause_toggle
-		ld hl,hide_next_tile.tile_index	; randomise showing/hiding tiles
-		ld a,r
-		add (hl)
-		ld (hl),a
-.is_paused	equ $+1
-		ld a,0				; LD A,(.is_paused)
-		xor 1
-		ld (.is_paused),a
-		jr z,.unpause
-.pause
-		ld hl,PLY_AKG_Stop		; stop any playing music tones
-		call music_play.call_subroutine
-		ld hl,%0000000000000010		; only allow 'p' action
-		ld (actions_mask),hl
-		ld hl,interrupt_table_pause
-		call assign_interrupts
-		ld hl,pause_loop
-		ld (main_loop),hl
-		ret
-.unpause
-		ld hl,%1111111111111111		; allow all actions
-		ld (actions_mask),hl
-		ld hl,interrupt_table_play
-		call assign_interrupts
-		ld hl,main_loop_play
-		ld (main_loop),hl
-		ret
-
-interrupt_table_pause
+game_state_paused
+		; movement_actions_mask
+		defb %00000000
+		; other_actions_mask
+		defb %00000010			; can only unpause from this state
+		; interrupt_table 1
 		defw set_palette_paused		; 0
 		defw noop			; 1 (will be set to set_palette_text later)
 		defw read_actions		; 2
 		defw process_other_actions	; 3
 		defw noop			; 4
 		defw noop			; 5
-
+		; interrupt_table 2
 		defw set_palette_paused		; 6
 		defw noop			; 7 (will be set to set_palette_text later)
 		defw noop			; 8
 		defw noop			; 9
 		defw noop			; 10
 		defw noop			; 11
+		; main loop
+		defw $+2
 
-pause_loop
+.main_loop
 		call hide_next_tile
 		jr z,.show_message		; if all tiles are hidden then show paused message
 		ld b,#88			; delay before hiding next tile
@@ -56,10 +34,31 @@ pause_loop
 		ld hl,set_palette_text		; set palette for message
 		ld (interrupt_1),hl
 		ld (interrupt_7),hl
-		ld hl,.empty_loop		; do nothing except wait for 'p' key
+		ld hl,noop			; do nothing except wait for 'p' key
 		ld (main_loop),hl
-.empty_loop	ret
+		ret
 .message	str 'PAUSED'
+
+pause_toggle
+		ld hl,hide_next_tile.tile_index	; randomise showing/hiding tiles
+		ld a,r
+		add (hl)
+		ld (hl),a
+.is_paused	equ $+1
+		ld a,0				; LD A,(.is_paused)
+		xor 1
+		ld (.is_paused),a
+		jr z,.unpause
+.pause
+		ld hl,PLY_AKG_Stop		; stop any playing music tones
+		call music_play.call_subroutine
+		ld hl,game_state_paused
+		call set_game_state
+		ret
+.unpause
+		ld hl,game_state_playing
+		call set_game_state
+		ret
 
 ; set colours of top info bar when paused
 set_palette_paused
