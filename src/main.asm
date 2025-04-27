@@ -190,6 +190,7 @@ include "moves.asm"
 include "maze.asm"
 include "pause.asm"
 include "play.asm"
+include "options.asm"
 include "music/music.asm"
 
 ;; ----------------------------------------------------------------

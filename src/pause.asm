@@ -1,13 +1,13 @@
 game_state_paused
 		; movement_actions_mask
-		defb %00000000
+		defb %00000101			; up + down
 		; other_actions_mask
-		defb %00000110			; pause + music
+		defb %00000001			; space
 		; interrupt_table 1
 		defw set_palette_paused		; 0
 		defw noop			; 1 (will be set to set_palette_text later)
 		defw read_actions		; 2
-		defw process_other_actions	; 3
+		defw process_option_actions	; 3
 		defw music_play			; 4
 		defw noop			; 5
 		; interrupt_table 2
@@ -28,15 +28,22 @@ game_state_paused
 		ret
 .show_message
 		ld hl,.message			; show "paused" message
-		ld de,#C41A
+		ld de,#C218
 		call render_string
 		ld hl,set_palette_text		; set palette for message
 		ld (interrupt_1),hl
 		ld (interrupt_7),hl
+
+		ld hl,options_paused
+		xor a
+		call options_show
+
 		ld hl,noop			; do nothing except wait for 'p' key
 		ld (main_loop),hl
 		ret
 .message	str 'PAUSED'
+
+; ----------------------------------------------------------
 
 pause_toggle
 		ld hl,hide_next_tile.tile_index	; randomise showing/hiding tiles
@@ -59,11 +66,15 @@ pause_toggle
 		call set_game_state
 		ret
 
+; ----------------------------------------------------------
+
 ; set colours of top info bar when paused
 set_palette_paused
 		ga_set_pen 2,ink_blue
 		ga_set_pen 3,ink_white
 		ret
+
+; ----------------------------------------------------------
 
 ;; render next tile that needs hiding (if any)
 ;; modifies:
@@ -108,3 +119,21 @@ hide_next_tile
 		call tile_render_blank
 		or 1				; reset Z flag and return
 		ret
+
+; ----------------------------------------------------------
+
+options_paused
+		defb 3
+		defw .continue,.restart,.quit
+.continue
+		defw pause_toggle		; subroutine
+		defw #C316			; screen position
+		str 'CONTINUE'			; option text
+.restart
+		defw noop			; subroutine
+		defw #C396			; screen position
+		str 'RESTART'			; option text
+.quit
+		defw noop			; subroutine
+		defw #C416			; screen position
+		str 'QUIT'			; option text

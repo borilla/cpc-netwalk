@@ -1,5 +1,5 @@
 ; set indexes for our charset
-charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:./ ',0
+charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ :./<>',0
 
 ;; render a digit to screen
 ;; entry:
@@ -8,9 +8,6 @@ charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ:./ ',0
 ;; modifies:
 ;;	AF,BC,DE,HL
 char_render_digit
-		cp ' '		; if space character then render nothing
-		ret z
-
 		ld h,0		; HL = 22 x A
 		ld l,a
 		ld b,h

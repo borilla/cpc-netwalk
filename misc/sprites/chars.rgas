@@ -196,7 +196,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_A",
+        "_name": "char_data_a",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -212,7 +212,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_B",
+        "_name": "char_data_b",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -228,7 +228,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_C",
+        "_name": "char_data_c",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -244,7 +244,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_D",
+        "_name": "char_data_d",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -260,7 +260,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_E",
+        "_name": "char_data_e",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -276,7 +276,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_F",
+        "_name": "char_data_f",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -292,7 +292,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_G",
+        "_name": "char_data_g",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -308,7 +308,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_H",
+        "_name": "char_data_h",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -324,7 +324,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_I",
+        "_name": "char_data_i",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -340,7 +340,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_J",
+        "_name": "char_data_j",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -356,7 +356,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_K",
+        "_name": "char_data_k",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -372,7 +372,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_L",
+        "_name": "char_data_l",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -388,7 +388,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_M",
+        "_name": "char_data_m",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -404,7 +404,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_N",
+        "_name": "char_data_n",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -420,7 +420,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_O",
+        "_name": "char_data_o",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -436,7 +436,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_P",
+        "_name": "char_data_p",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -452,7 +452,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_Q",
+        "_name": "char_data_q",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -468,7 +468,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_R",
+        "_name": "char_data_r",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -484,7 +484,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_S",
+        "_name": "char_data_s",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -500,7 +500,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_T",
+        "_name": "char_data_t",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -516,7 +516,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_U",
+        "_name": "char_data_u",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -532,7 +532,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_V",
+        "_name": "char_data_v",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -548,7 +548,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_W",
+        "_name": "char_data_w",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -564,7 +564,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_X",
+        "_name": "char_data_x",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -580,7 +580,7 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_Y",
+        "_name": "char_data_y",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -596,7 +596,23 @@
         "Width": 8,
         "Height": 11,
         "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
-        "_name": "char_data_Z",
+        "_name": "char_data_z",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_space",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
       },
@@ -647,6 +663,38 @@
         "_name": "char_data_slash",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAIAAAAAAAIDAwAAAAACAwMCAAAAAgMDAgAAAAADAwIAAAAAAAIDAwIAAAAAAAIDAwIAAAAAAAIDAwAAAAAAAAACAAAAAAAAAAAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_lt",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAgIAAAAAAAADAwIAAAAAAAIDAwIAAAAAAAIDAwIAAAAAAAIDAwAAAAACAwMCAAAAAgMDAgAAAAADAwIAAAAAAAICAAAAAAAAAAAAAAAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_gt",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
       }
     ]
   },
@@ -665,17 +713,17 @@
           "$values": [
             2,
             3,
-            37,
+            38,
             4,
             5,
             6,
             7,
-            37,
+            38,
             8,
             9,
             1,
             10,
-            37,
+            38,
             6,
             8,
             0,
@@ -685,7 +733,7 @@
             0,
             8,
             8,
-            37,
+            38,
             7,
             8,
             0,
@@ -808,9 +856,9 @@
             34,
             35,
             36,
-            37,
             38,
             39,
+            40,
             0,
             0,
             0,
@@ -845,7 +893,7 @@
     "$value": "AAELGgMNBxARBgIOFAkSFw=="
   },
   "_formatterType": "RGAS.PlatformProviders.AmstradSpriteSet+AmstradMaxamFormatter, RGAS, Version=1.2.5.0, Culture=neutral, PublicKeyToken=null",
-  "OSPlatform": "Microsoft Windows NT 6.2.9200.0 C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\",
+  "OSPlatform": "Microsoft Windows NT 6.2.9200.0 C:\\windows\\mono\\mono-2.0\\lib\\mono\\4.5",
   "RGASVersion": "1.2.5.0",
   "EncodeLevelsRLE": false,
   "OutputSpriteDimensions": false

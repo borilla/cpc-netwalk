@@ -139,7 +139,7 @@ defb #8C,#6E; line 9
 defb #7F,#CE; line 10
 
 
-char_data_A
+char_data_a
 defb #7F,#CE; line 0
 defb #8D,#EE; line 1
 defb #88,#6E; line 2
@@ -153,7 +153,7 @@ defb #88,#EE; line 9
 defb #88,#EE; line 10
 
 
-char_data_B
+char_data_b
 defb #FF,#CE; line 0
 defb #8C,#6E; line 1
 defb #88,#26; line 2
@@ -167,7 +167,7 @@ defb #FF,#EE; line 9
 defb #FF,#CE; line 10
 
 
-char_data_C
+char_data_c
 defb #7F,#CE; line 0
 defb #EF,#26; line 1
 defb #EE,#22; line 2
@@ -181,7 +181,7 @@ defb #8C,#26; line 9
 defb #7F,#CE; line 10
 
 
-char_data_D
+char_data_d
 defb #FF,#CE; line 0
 defb #EF,#6E; line 1
 defb #EE,#26; line 2
@@ -195,7 +195,7 @@ defb #8C,#6E; line 9
 defb #FF,#CE; line 10
 
 
-char_data_E
+char_data_e
 defb #FF,#EE; line 0
 defb #9F,#EE; line 1
 defb #89,#EE; line 2
@@ -209,7 +209,7 @@ defb #8C,#00; line 9
 defb #FF,#EE; line 10
 
 
-char_data_F
+char_data_f
 defb #FF,#EE; line 0
 defb #9F,#EE; line 1
 defb #89,#EE; line 2
@@ -223,7 +223,7 @@ defb #CC,#00; line 9
 defb #CC,#00; line 10
 
 
-char_data_G
+char_data_g
 defb #7F,#CE; line 0
 defb #FF,#2E; line 1
 defb #EF,#22; line 2
@@ -237,7 +237,7 @@ defb #CE,#6E; line 9
 defb #7F,#CE; line 10
 
 
-char_data_H
+char_data_h
 defb #88,#22; line 0
 defb #88,#22; line 1
 defb #88,#22; line 2
@@ -251,7 +251,7 @@ defb #88,#EE; line 9
 defb #88,#EE; line 10
 
 
-char_data_I
+char_data_i
 defb #FF,#EE; line 0
 defb #11,#08; line 1
 defb #11,#08; line 2
@@ -265,7 +265,7 @@ defb #11,#CC; line 9
 defb #FF,#EE; line 10
 
 
-char_data_J
+char_data_j
 defb #00,#22; line 0
 defb #00,#22; line 1
 defb #00,#22; line 2
@@ -279,7 +279,7 @@ defb #8D,#EE; line 9
 defb #7F,#CE; line 10
 
 
-char_data_K
+char_data_k
 defb #88,#EE; line 0
 defb #88,#EE; line 1
 defb #88,#6E; line 2
@@ -293,7 +293,7 @@ defb #88,#EE; line 9
 defb #88,#EE; line 10
 
 
-char_data_L
+char_data_l
 defb #88,#00; line 0
 defb #88,#00; line 1
 defb #88,#00; line 2
@@ -307,7 +307,7 @@ defb #EF,#26; line 9
 defb #FF,#EE; line 10
 
 
-char_data_M
+char_data_m
 defb #8C,#26; line 0
 defb #CE,#6E; line 1
 defb #EF,#AE; line 2
@@ -321,7 +321,7 @@ defb #88,#EE; line 9
 defb #88,#EE; line 10
 
 
-char_data_N
+char_data_n
 defb #8C,#EE; line 0
 defb #CC,#EE; line 1
 defb #CE,#EE; line 2
@@ -335,7 +335,7 @@ defb #88,#66; line 9
 defb #88,#26; line 10
 
 
-char_data_O
+char_data_o
 defb #7F,#CE; line 0
 defb #FF,#EE; line 1
 defb #8D,#EE; line 2
@@ -349,7 +349,7 @@ defb #EF,#26; line 9
 defb #7F,#CE; line 10
 
 
-char_data_P
+char_data_p
 defb #FF,#CE; line 0
 defb #89,#EE; line 1
 defb #88,#EE; line 2
@@ -363,7 +363,7 @@ defb #EE,#00; line 9
 defb #EE,#00; line 10
 
 
-char_data_Q
+char_data_q
 defb #7F,#CE; line 0
 defb #EF,#6E; line 1
 defb #EE,#26; line 2
@@ -377,7 +377,7 @@ defb #FF,#EE; line 9
 defb #7F,#6E; line 10
 
 
-char_data_R
+char_data_r
 defb #FF,#CE; line 0
 defb #89,#EE; line 1
 defb #88,#EE; line 2
@@ -391,7 +391,7 @@ defb #88,#EE; line 9
 defb #88,#EE; line 10
 
 
-char_data_S
+char_data_s
 defb #7F,#CE; line 0
 defb #EF,#26; line 1
 defb #EE,#02; line 2
@@ -405,7 +405,7 @@ defb #EF,#26; line 9
 defb #7F,#CE; line 10
 
 
-char_data_T
+char_data_t
 defb #FF,#EE; line 0
 defb #9F,#EE; line 1
 defb #19,#2E; line 2
@@ -419,7 +419,7 @@ defb #33,#88; line 9
 defb #33,#88; line 10
 
 
-char_data_U
+char_data_u
 defb #88,#EE; line 0
 defb #88,#EE; line 1
 defb #88,#EE; line 2
@@ -433,7 +433,7 @@ defb #8C,#26; line 9
 defb #7F,#CE; line 10
 
 
-char_data_V
+char_data_v
 defb #EE,#22; line 0
 defb #EE,#22; line 1
 defb #EE,#22; line 2
@@ -447,7 +447,7 @@ defb #23,#88; line 9
 defb #13,#08; line 10
 
 
-char_data_W
+char_data_w
 defb #EE,#22; line 0
 defb #EE,#22; line 1
 defb #EE,#22; line 2
@@ -461,7 +461,7 @@ defb #CE,#6E; line 9
 defb #8C,#26; line 10
 
 
-char_data_X
+char_data_x
 defb #88,#EE; line 0
 defb #88,#EE; line 1
 defb #88,#EE; line 2
@@ -475,7 +475,7 @@ defb #88,#22; line 9
 defb #88,#22; line 10
 
 
-char_data_Y
+char_data_y
 defb #CC,#66; line 0
 defb #CC,#66; line 1
 defb #CC,#66; line 2
@@ -489,7 +489,7 @@ defb #33,#88; line 9
 defb #33,#88; line 10
 
 
-char_data_Z
+char_data_z
 defb #FF,#EE; line 0
 defb #8C,#66; line 1
 defb #08,#4E; line 2
@@ -501,6 +501,20 @@ defb #66,#00; line 7
 defb #4F,#EE; line 8
 defb #DF,#EE; line 9
 defb #FF,#EE; line 10
+
+
+char_data_space
+defb #00,#00; line 0
+defb #00,#00; line 1
+defb #00,#00; line 2
+defb #00,#00; line 3
+defb #00,#00; line 4
+defb #00,#00; line 5
+defb #00,#00; line 6
+defb #00,#00; line 7
+defb #00,#00; line 8
+defb #00,#00; line 9
+defb #00,#00; line 10
 
 
 char_data_colon
@@ -543,3 +557,31 @@ defb #13,#00; line 7
 defb #23,#00; line 8
 defb #26,#00; line 9
 defb #46,#00; line 10
+
+
+char_data_lt
+defb #00,#00; line 0
+defb #00,#04; line 1
+defb #01,#CC; line 2
+defb #13,#8C; line 3
+defb #37,#08; line 4
+defb #67,#00; line 5
+defb #37,#08; line 6
+defb #13,#8C; line 7
+defb #01,#CC; line 8
+defb #00,#04; line 9
+defb #00,#00; line 10
+
+
+char_data_gt
+defb #00,#00; line 0
+defb #06,#00; line 1
+defb #67,#00; line 2
+defb #37,#08; line 3
+defb #13,#8C; line 4
+defb #01,#CC; line 5
+defb #13,#8C; line 6
+defb #37,#08; line 7
+defb #67,#00; line 8
+defb #06,#00; line 9
+defb #00,#00; line 10
