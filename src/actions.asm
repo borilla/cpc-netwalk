@@ -5,8 +5,8 @@ action_down_bit		equ 2
 action_left_bit		equ 3
 
 ; other actions
-action_space_bit	equ 0
-action_p_bit		equ 1
+action_select_bit	equ 0
+action_escape_bit	equ 1
 action_m_bit		equ 2
 action_q_bit		equ 3
 action_a_bit		equ 4
@@ -29,10 +29,15 @@ read_actions
 		jr nz,$+4
 		set action_left_bit,e
 
+		ld a,(keyboard_lines + 2)	; keyboard line 2
+		bit 2,a				; return key
+		jr nz,$+4
+		set action_select_bit,d
+
 		ld a,(keyboard_lines + 3)	; keyboard line 3
 		bit 3,a				; p key
 		jr nz,$+4
-		set action_p_bit,d
+		set action_escape_bit,d
 
 		ld a,(keyboard_lines + 4)	; keyboard line 4
 		bit 6,a				; m key
@@ -42,7 +47,7 @@ read_actions
 		ld a,(keyboard_lines + 5)	; keyboard line 5
 		bit 7,a				; space bar
 		jr nz,$+4
-		set action_space_bit,d
+		set action_select_bit,d
 
 		ld a,(keyboard_lines + 6)	; keyboard line 6
 		bit 2,a				; r key
@@ -50,12 +55,32 @@ read_actions
 		set action_r_bit,d
 
 		ld a,(keyboard_lines + 8)	; keyboard line 8
+		bit 2,a				; esc key
+		jr nz,$+4
+		set action_escape_bit,d
 		bit 3,a				; q key
 		jr nz,$+4
 		set action_q_bit,d
 		bit 5,a				; a key
 		jr nz,$+4
 		set action_a_bit,d
+
+		ld a,(keyboard_lines + 9)	; keyboard line 9
+		bit 0,a				; joystick up
+		jr nz,$+4
+		set action_up_bit,d
+		bit 1,a				; joystick down
+		jr nz,$+4
+		set action_down_bit,d
+		bit 2,a				; joystick left
+		jr nz,$+4
+		set action_left_bit,d
+		bit 3,a				; joystick right
+		jr nz,$+4
+		set action_right_bit,d
+		bit 4,a				; joystick fire
+		jr nz,$+4
+		set action_select_bit,d
 
 		ld hl,movement_actions_mask	; filter movement actions
 		ld a,e

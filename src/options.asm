@@ -136,7 +136,7 @@ process_option_actions
 		bit action_down_bit,a
 		jp nz,options_inc_selected
 		ld a,(other_actions_new)
-		bit action_space_bit,a
+		bit action_select_bit,a
 		jp nz,options_select
 		ret
 

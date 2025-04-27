@@ -266,7 +266,7 @@ do_movement_action
 ;; if space bar (ie 'rotate') is pressed then add current cell to rotate queue
 do_rotate_action
 		ld a,(other_actions_new)
-		bit action_space_bit,a		;; check for rotate action
+		bit action_select_bit,a		;; check for rotate action
 		ret z
 
 		ld hl,rotation_queue		;; insert currently selected index into queue

@@ -135,10 +135,10 @@ clear_screen	ld hl,#c000
 ;; ----------------------------------------------------------------
 
 process_other_actions
-		ld a,(other_actions_new)	; get (high byte of) new actions
+		ld a,(other_actions_new)
 		bit action_m_bit,a		; is 'm' key pressed
 		jp nz,music_toggle
-		bit action_p_bit,a		; is 'p' key pressed
+		bit action_escape_bit,a		; is 'p' key pressed
 		jp nz,pause_toggle
 		bit action_q_bit,a		; is 'q' key pressed
 		jp nz,enlarge_grid
