@@ -107,17 +107,11 @@ maze_reset	ld hl,maze_data
 		ldir
 		ret
 
-maze_reset_a	ld hl,maze_data
-		ld (hl),a
-		ld de,maze_data+1
-		ld bc,#00ff
-		ldir
-		ret
-
 ;; apply random rotation to all maze cells
 ;; modifies:
 ;;	A,B,DE,HL
-maze_shuffle	call rand16
+maze_shuffle
+		call rand16
 		ld hl,maze_data
 		ld d,rot_nibble_data / 256
 _ms_loop_1
@@ -149,7 +143,7 @@ _ms_loop_end
 ;; modifies:
 ;;	A,BC,HL
 maze_random_cell
-		ld b,a
+		ld b,a			; B = maze dimensions
 		call rand16		;; A is random number
 		ld c,a
 
@@ -267,14 +261,14 @@ _fun_ret	ret
 ;;	C: modified
 ;;	Z: modified
 choose_random_index
-		;; A = random number
+.seed		equ $+1
 		ld a,0			;; 0 is initial seed value, which will be overwritten each call
 		ld c,a
 		add a,a
 		add a,a
 		add a,c
 		inc a			;; another possibility is ADD A,7
-		ld (choose_random_index+1),a
+		ld (.seed),a
 		;; A = A mod (E + 1)
 		ld c,a			;; copy random number into C
 		ld a,e			;; copy max index to A

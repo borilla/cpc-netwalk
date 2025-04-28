@@ -27,6 +27,11 @@ game_state_paused
 		djnz .wait
 		ret
 .show_message
+		ld hl,hide_next_tile.tile_index	; start with a different tile next time we're hiding tiles
+		ld a,r
+		add (hl)
+		ld (hl),a
+
 		ld hl,.message			; show "paused" message
 		ld de,#C218
 		call render_string
@@ -42,29 +47,6 @@ game_state_paused
 		ld (main_loop),hl
 		ret
 .message	str 'PAUSED'
-
-; ----------------------------------------------------------
-
-pause_toggle
-		ld hl,hide_next_tile.tile_index	; randomise showing/hiding tiles
-		ld a,r
-		add (hl)
-		ld (hl),a
-.is_paused	equ $+1
-		ld a,0				; LD A,(.is_paused)
-		xor 1
-		ld (.is_paused),a
-		jr z,.unpause
-.pause
-		ld hl,PLY_AKG_Stop		; stop any playing music tones
-		call music_play.call_subroutine
-		ld hl,game_state_paused
-		call set_game_state
-		ret
-.unpause
-		ld hl,game_state_playing
-		call set_game_state
-		ret
 
 ; ----------------------------------------------------------
 
@@ -126,11 +108,11 @@ options_paused
 		defb 3
 		defw .continue,.restart,.quit
 .continue
-		defw pause_toggle		; subroutine
+		defw unpause_game		; subroutine
 		defw #C316			; screen position
 		str 'CONTINUE'			; option text
 .restart
-		defw noop			; subroutine
+		defw restart_game		; subroutine
 		defw #C396			; screen position
 		str 'RESTART'			; option text
 .quit

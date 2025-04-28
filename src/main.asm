@@ -11,6 +11,12 @@ main
 		call setup_screen
 		call music_toggle
 		call setup_interrupts
+
+		ld hl,rand16.seed		; update random seed
+		ld a,r
+		add (hl)
+		ld (hl),a
+
 		ld hl,game_state_new_game
 		call set_game_state
 .loop
@@ -65,10 +71,10 @@ game_state_new_game
 		call moves_init
 		call rotations_init
 
-		ld hl,rand16+2			;; update (high byte of) random number generator
-		ld a,r
-		add (hl)
-		ld (hl),a
+		ld hl,(rand16.seed)		; store pseudo-random seeds used to generate maze (so we can restart)
+		ld (maze_generate_seed),hl
+		ld a,(choose_random_index.seed)
+		ld (maze_index_seed),a
 
 		ld a,(grid_size)
 		call tile_calculate_origin
@@ -139,7 +145,7 @@ process_other_actions
 		bit action_m_bit,a		; is 'm' key pressed
 		jp nz,music_toggle
 		bit action_escape_bit,a		; is 'p' key pressed
-		jp nz,pause_toggle
+		jp nz,pause_game
 		bit action_q_bit,a		; is 'q' key pressed
 		jp nz,enlarge_grid
 		bit action_a_bit,a		; is 'a' key pressed
@@ -148,10 +154,22 @@ process_other_actions
 		jp nz,new_game
 		ret
 
-;; ----------------------------------------------------------------
+; ----------------------------------------------------------
 
 new_game
 		ld hl,game_state_new_game
+		jp set_game_state
+
+; ----------------------------------------------------------
+
+pause_game
+		ld hl,game_state_paused
+		jp set_game_state
+
+; ----------------------------------------------------------
+
+unpause_game
+		ld hl,game_state_playing
 		jp set_game_state
 
 ;; ----------------------------------------------------------------
@@ -173,6 +191,15 @@ shrink_grid
 		jp z,new_game
 		sub #11			;; subtract 16+1
 		ld (grid_size),a
+		jr new_game
+
+;; ----------------------------------------------------------------
+
+restart_game
+		ld hl,(maze_generate_seed)	; restore pseudo-random seeds used to generate maze
+		ld (rand16.seed),hl
+		ld a,(maze_index_seed)
+		ld (choose_random_index.seed),a
 		jr new_game
 
 ;; ----------------------------------------------------------------
@@ -198,3 +225,6 @@ include "music/music.asm"
 ;; ----------------------------------------------------------------
 
 grid_size		defb #aa	; initial size (10x10)
+
+maze_generate_seed	defw 0		; rand16 seed value used to generate maze
+maze_index_seed		defb 0		; seed value used when selecting random neighbours

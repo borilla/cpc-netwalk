@@ -4,7 +4,8 @@
 ;; modifies
 ;;	A,DE,HL
 rand16
-	ld	de,0		;; [3] ld de,seed
+.seed	equ $+1
+	ld	de,0		;; [3] ld de,(.seed)
 	ld	a,d		;; [1]
 	ld	h,e		;; [1]
 	ld	l,253		;; [2]
@@ -18,7 +19,7 @@ rand16
 	sbc	hl,de		;; [4]
 	jr	nc,$+3		;; [2/3]
 	inc	hl		;; [2]
-	ld	(rand16+1),hl	;; [5] update seed
+	ld	(.seed),hl	;; [5] update seed
 	ret			;; [3]
 
 				;; [37/38]
