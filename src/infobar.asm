@@ -2,6 +2,8 @@ connections_screen_addr	equ #c000
 moves_screen_addr	equ #c010
 rotations_screen_addr	equ #c020
 
+; ----------------------------------------------------------
+
 ;; initialise connected terminals info
 connections_init
 		xor a
@@ -9,61 +11,51 @@ connections_init
 		ld (terms_conn_rendered),a
 
 		ld de,connections_screen_addr
-		ld hl,char_data_0
-		call char_render
-		ld de,connections_screen_addr + 2
-		ld hl,char_data_0
-		call char_render
-		ld de,connections_screen_addr + 4
-		ld hl,char_data_slash
-		call char_render
-		ld de,connections_screen_addr + 6
-		ld hl,char_data_0
-		call char_render
-		ld de,connections_screen_addr + 8
-		ld hl,char_data_0
-		call char_render
-		ret
+		ld hl,.message
+		jp render_string
+.message	str '00/00'
 
-;; initialise moves count and render
+; ----------------------------------------------------------
+
+;; initialise moves count
 moves_init
-		ld de,moves_screen_addr
-		ld hl,char_data_M
-		call char_render
-		ld de,moves_screen_addr + 2
-		ld hl,char_data_colon
-		call char_render
-
 		ld hl,0
 		ld (moves_data_count),hl
-		ld hl,#ffff
 		ld (moves_data_rendered),hl
-		jp moves_render
 
-;; initialise rotations count and render
+		ld de,moves_screen_addr
+		ld hl,.message
+		jp render_string
+.message	str 'M:0000'
+
+; ----------------------------------------------------------
+
+;; initialise rotations count
 rotations_init
-		ld de,rotations_screen_addr
-		ld hl,char_data_R
-		call char_render
-		ld de,rotations_screen_addr + 2
-		ld hl,char_data_colon
-		call char_render
-
 		ld hl,0
 		ld (rotations_data_count),hl
-		ld hl,#ffff
 		ld (rotations_data_rendered),hl
-		jp rotations_render
+
+		ld de,rotations_screen_addr
+		ld hl,.message
+		jp render_string
+.message	str 'R:0000'
+
+; ----------------------------------------------------------
 
 ;; increment moves count
 moves_inc
 		ld hl,moves_data_count
 		jp inc_decimal_word
 
+; ----------------------------------------------------------
+
 ;; increment rotations count
 rotations_inc
 		ld hl,rotations_data_count
 		;; fall through...
+
+; ----------------------------------------------------------
 
 ;; increment binary-coded-decimal word in memory
 ;; note: will roll around from 9999 to 0000
@@ -89,6 +81,8 @@ inc_decimal_word
 
 		ret
 
+; ----------------------------------------------------------
+
 connections_render
 		ld a,(maze_terms_connected)
 		ld hl,terms_conn_rendered
@@ -98,6 +92,8 @@ connections_render
 		ld hl,terms_total_rendered
 		ld de,connections_screen_addr + 6
 		jp render_digit_pair
+
+; ----------------------------------------------------------
 
 moves_render
 		ld a,(moves_data_count+1)
@@ -109,6 +105,8 @@ moves_render
 		ld de,moves_screen_addr + 8
 		jp render_digit_pair
 
+; ----------------------------------------------------------
+
 rotations_render
 		ld a,(rotations_data_count+1)
 		ld hl,rotations_data_rendered+1
@@ -118,6 +116,8 @@ rotations_render
 		ld hl,rotations_data_rendered
 		ld de,rotations_screen_addr + 8
 		;; fall through...
+
+; ----------------------------------------------------------
 
 ;; render a (bcd or hex) byte value as two digits
 ;; compares each digit against rendered value to decide whether to render
@@ -129,7 +129,7 @@ rotations_render
 ;;		A,BC,DE,HL
 render_digit_pair
 		ld c,a			;; C = current value
-		xor (hl)		;; get difference between rendered and current
+		xor (hl)		;; A = xored difference between rendered and current
 		ret z			;; rendered = current, no need to render
 
 		ld (hl),c		;; update rendered value
@@ -160,22 +160,11 @@ render_digit_pair
 		inc de
 		jp char_render_digit
 
-;; convert hex number to bcd
-; TODO: Currently unused!
-hex_to_bcd
-		ld	c, a
-		ld	b, 8
-		xor	a
-.loop
-		sla	c
-		adc	a, a
-		daa
-		djnz	.loop
-		ret
+; ----------------------------------------------------------
 
 moves_data_count	defw 0
-rotations_data_count	defw 0
 moves_data_rendered	defw 0
+rotations_data_count	defw 0
 rotations_data_rendered	defw 0
 terms_total_rendered	defb 0
 terms_conn_rendered	defb 0
