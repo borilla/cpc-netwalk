@@ -9,7 +9,7 @@ include "lib/macros.asm"
 main
 		call clear_screen
 		call setup_screen
-		call music_toggle
+		; call music_toggle
 		call setup_interrupts
 
 		ld hl,rand16.seed		; update random seed
@@ -17,7 +17,7 @@ main
 		add (hl)
 		ld (hl),a
 
-		ld hl,game_state_new_game
+		ld hl,game_state_menu
 		call set_game_state
 .loop
 main_loop	equ $+1
@@ -41,7 +41,7 @@ set_game_state
 
 ;; ----------------------------------------------------------------
 
-game_state_new_game
+game_state_start_game
 		; movement_actions_mask
 		defb %11111111
 		; other_actions_mask
@@ -151,13 +151,13 @@ process_other_actions
 		bit action_a_bit,a		; is 'a' key pressed
 		jp nz,shrink_grid
 		bit action_r_bit,a		; is 'r' key pressed
-		jp nz,new_game
+		jp nz,start_game
 		ret
 
 ; ----------------------------------------------------------
 
-new_game
-		ld hl,game_state_new_game
+start_game
+		ld hl,game_state_start_game
 		jp set_game_state
 
 ; ----------------------------------------------------------
@@ -172,15 +172,21 @@ unpause_game
 		ld hl,game_state_playing
 		jp set_game_state
 
-;; ----------------------------------------------------------------
+; ----------------------------------------------------------
+
+quit_game
+		ld hl,game_state_menu
+		jp set_game_state
+
+; ----------------------------------------------------------------
 
 enlarge_grid
 		ld a,(grid_size)
 		cp #ff			;; check if already max size (15x15)
-		jr z,new_game
+		jr z,start_game
 		add #11			;; add 16+1
 		ld (grid_size),a
-		jr new_game
+		jr start_game
 
 ;; ----------------------------------------------------------------
 
@@ -188,10 +194,10 @@ shrink_grid
 		ld hl,grid_size
 		ld a,(hl)
 		cp #33			;; check if already min size (3x3)
-		jp z,new_game
+		jp z,start_game
 		sub #11			;; subtract 16+1
 		ld (grid_size),a
-		jr new_game
+		jr start_game
 
 ;; ----------------------------------------------------------------
 
@@ -200,7 +206,7 @@ restart_game
 		ld (rand16.seed),hl
 		ld a,(maze_index_seed)
 		ld (choose_random_index.seed),a
-		jr new_game
+		jr start_game
 
 ;; ----------------------------------------------------------------
 ;; includes
@@ -209,9 +215,10 @@ restart_game
 include "lib/interrupts.asm"
 include "lib/scan_keyboard.asm"
 include "lib/rand16.asm"
+include "char.asm"			; needs to be included before any 'str' definitions!
+include "menu.asm"
 include "actions.asm"
 include "tile.asm"
-include "char.asm"
 include "time.asm"
 include "infobar.asm"
 include "maze.asm"

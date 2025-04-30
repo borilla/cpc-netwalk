@@ -2,7 +2,7 @@ game_state_paused
 		; movement_actions_mask
 		defb %00000101			; up + down
 		; other_actions_mask
-		defb %00000001			; space
+		defb %00000001			; select
 		; interrupt_table 1
 		defw set_palette_paused		; 0
 		defw noop			; 1 (will be set to set_palette_text later)
@@ -43,7 +43,7 @@ game_state_paused
 		xor a
 		call options_show
 
-		ld hl,noop			; do nothing except wait for 'p' key
+		ld hl,noop
 		ld (main_loop),hl
 		ret
 .message	str 'PAUSED'
@@ -105,7 +105,7 @@ hide_next_tile
 ; ----------------------------------------------------------
 
 options_paused
-		defb 3
+		defb 3				; count of options
 		defw .continue,.restart,.quit
 .continue
 		defw unpause_game		; subroutine
@@ -116,6 +116,6 @@ options_paused
 		defw #C396			; screen position
 		str 'RESTART'			; option text
 .quit
-		defw noop			; subroutine
+		defw quit_game			; subroutine
 		defw #C416			; screen position
 		str 'QUIT'			; option text
