@@ -76,7 +76,12 @@ game_state_start_game
 		ld a,(choose_random_index.seed)
 		ld (maze_index_seed),a
 
-		ld a,(grid_size)
+		ld a,(game_level)		; set grid size according to current game level
+		ld hl,grid_sizes
+		add_hl_a
+		ld a,(hl)			; A = grid size
+		ld (grid_size),a
+
 		call tile_calculate_origin
 		call maze_generate
 		ld a,(grid_size)
@@ -146,12 +151,6 @@ process_other_actions
 		jp nz,music_toggle
 		bit action_escape_bit,a		; is 'p' key pressed
 		jp nz,pause_game
-		bit action_q_bit,a		; is 'q' key pressed
-		jp nz,enlarge_grid
-		bit action_a_bit,a		; is 'a' key pressed
-		jp nz,shrink_grid
-		bit action_r_bit,a		; is 'r' key pressed
-		jp nz,start_game
 		ret
 
 ; ----------------------------------------------------------
@@ -177,27 +176,6 @@ unpause_game
 quit_game
 		ld hl,game_state_menu
 		jp set_game_state
-
-; ----------------------------------------------------------------
-
-enlarge_grid
-		ld a,(grid_size)
-		cp #ff			;; check if already max size (15x15)
-		jr z,start_game
-		add #11			;; add 16+1
-		ld (grid_size),a
-		jr start_game
-
-;; ----------------------------------------------------------------
-
-shrink_grid
-		ld hl,grid_size
-		ld a,(hl)
-		cp #33			;; check if already min size (3x3)
-		jp z,start_game
-		sub #11			;; subtract 16+1
-		ld (grid_size),a
-		jr start_game
 
 ;; ----------------------------------------------------------------
 
@@ -225,13 +203,14 @@ include "maze.asm"
 include "pause.asm"
 include "play.asm"
 include "options.asm"
+include "level.asm"
 include "music/music.asm"
 
 ;; ----------------------------------------------------------------
 ;; data
 ;; ----------------------------------------------------------------
 
-grid_size		defb #aa	; initial size (10x10)
+grid_size		defb 0		; current grid size (set based on current level when starting game)
 
 maze_generate_seed	defw 0		; rand16 seed value used to generate maze
 maze_index_seed		defb 0		; seed value used when selecting random neighbours

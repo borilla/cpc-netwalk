@@ -1,5 +1,5 @@
 
-game_state_menu
+game_state_level
 		; movement_actions_mask
 		defb %00000101			; up + down
 		; other_actions_mask
@@ -25,8 +25,8 @@ game_state_menu
 		call clear_screen
 		call show_logo
 
-		ld hl,options_menu
-		xor a
+		ld hl,options_level
+		ld a,(game_level)
 		call options_show
 
 		assign_interrupt 0,set_palette_logo
@@ -40,62 +40,46 @@ game_state_menu
 
 ; ----------------------------------------------------------
 
-show_logo
-		ld de,logo_data
-		ld hl,#C000
-		ld ixh,64
-		jr .render_line
-.next_line
-		ex hl,de
-		ld bc,#0800 - #40
-		add hl,bc
-		jr nc,.render_line
-		ld bc,#c000 + #40
-		add hl,bc
-.render_line
-		ex hl,de
-		ld bc,#0040
-		ldir
-		dec ixh
-		jr nz,.next_line
-		ret
-
-; ----------------------------------------------------------
-
-select_level
-		ld hl,game_state_level
+set_game_level
+.easy
+		xor a
+		jr .set_level
+.medium
+		ld a,1
+		jr .set_level
+.hard
+		ld a,2
+		jr .set_level
+.expert
+		ld a,3
+.set_level
+		ld (game_level),a
+		ld hl,game_state_menu
 		jp set_game_state
 
 ; ----------------------------------------------------------
 
-set_palette_logo
-		ga_set_pen 1,ink_bright_white
-		ga_set_pen 2,ink_bright_magenta
-		ga_set_pen 3,ink_magenta
-		ret
-
-; ----------------------------------------------------------
-
-options_menu
+options_level
 		defb 4				; count of options
-		defw .intro,.level,.options,.play
-.intro
-		defw noop			; subroutine
-		centre_text,14,7		; screen position
-		str 'INTRO'			; option text
-.level
-		defw select_level		; subroutine
-		centre_text 16,7		; screen position
-		str 'LEVEL'			; option text
-.options
-		defw noop			; subroutine
-		centre_text 18,9		; screen position
-		str 'OPTIONS'			; option text
-.play
-		defw start_game			; subroutine
-		centre_text 20,6		; screen position
-		str 'PLAY'			; option text
+		defw .easy,.medium,.hard,.expert
+.easy
+		defw set_game_level.easy	; subroutine
+		centre_text,14,6		; screen position
+		str 'EASY'			; option text
+.medium
+		defw set_game_level.medium	; subroutine
+		centre_text 16,8		; screen position
+		str 'MEDIUM'			; option text
+.hard
+		defw set_game_level.hard	; subroutine
+		centre_text 18,6		; screen position
+		str 'HARD'			; option text
+.expert
+		defw set_game_level.expert	; subroutine
+		centre_text 20,8		; screen position
+		str 'EXPERT'			; option text
 
 ; ----------------------------------------------------------
 
-include "sprites/logo_data.asm"
+game_level	defb 1				; current game level
+grid_sizes	defb #66,#99,#cc,#ff		; grid sizes corresponding to game levels

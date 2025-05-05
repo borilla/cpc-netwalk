@@ -8,9 +8,6 @@ action_left_bit		equ 3
 action_select_bit	equ 0
 action_escape_bit	equ 1
 action_m_bit		equ 2
-action_q_bit		equ 3
-action_a_bit		equ 4
-action_r_bit		equ 5
 
 ; ----------------------------------------------------------------
 
@@ -49,35 +46,24 @@ read_actions
 		jr nz,$+4
 		set action_select_bit,d
 
-		ld a,(keyboard_lines + 6)	; keyboard line 6
-		bit 2,a				; r key
-		jr nz,$+4
-		set action_r_bit,d
-
 		ld a,(keyboard_lines + 8)	; keyboard line 8
 		bit 2,a				; esc key
 		jr nz,$+4
 		set action_escape_bit,d
-		bit 3,a				; q key
-		jr nz,$+4
-		set action_q_bit,d
-		bit 5,a				; a key
-		jr nz,$+4
-		set action_a_bit,d
 
 		ld a,(keyboard_lines + 9)	; keyboard line 9
 		bit 0,a				; joystick up
 		jr nz,$+4
-		set action_up_bit,d
+		set action_up_bit,e
 		bit 1,a				; joystick down
 		jr nz,$+4
-		set action_down_bit,d
+		set action_down_bit,e
 		bit 2,a				; joystick left
 		jr nz,$+4
-		set action_left_bit,d
+		set action_left_bit,e
 		bit 3,a				; joystick right
 		jr nz,$+4
-		set action_right_bit,d
+		set action_right_bit,e
 		bit 4,a				; joystick fire
 		jr nz,$+4
 		set action_select_bit,d
