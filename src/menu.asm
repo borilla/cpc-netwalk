@@ -26,7 +26,6 @@ game_state_menu
 		call show_logo
 
 		ld hl,options_menu
-		xor a
 		call options_show
 
 		assign_interrupt 0,set_palette_logo
@@ -77,6 +76,7 @@ set_palette_logo
 ; ----------------------------------------------------------
 
 options_menu
+		defb 0				; selected option
 		defb 4				; count of options
 		defw .intro,.level_medium,.options,.play
 .intro

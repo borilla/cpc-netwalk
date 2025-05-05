@@ -3,10 +3,9 @@
 ; show table of options
 ; entry:
 ;	HL: points to options table
-;	A: index of currently selected option
 options_show
 		ld (options_table),hl
-		ld (options_selected),a
+		inc hl
 		ld b,(hl)			; B = count of options
 		dec hl
 .show_next_option
@@ -15,7 +14,7 @@ options_show
 		push hl
 		push bc
 
-		ld e,(hl)			; HL = (HL), ie option definition
+		ld e,(hl)			; DE = (HL), ie option definition
 		inc hl
 		ld d,(hl)
 		ex de,hl
@@ -36,7 +35,8 @@ options_show
 		pop hl
 		djnz .show_next_option
 
-		ld a,(options_selected)		; add chevron to selected option
+		ld hl,(options_table)		; add chevron to selected option
+		ld a,(hl)
 		ld bc,char_data_gt
 		jp options_mark
 
@@ -44,48 +44,54 @@ options_show
 
 ; increment selected option
 options_inc_selected
-		ld de,options_selected
 		ld hl,(options_table)
-		ld a,(de)
+		ld a,(hl)			; A = selected option
+		inc hl				; HL = points at max value
 		inc a
 		cp (hl)
 		ret z				; already at max
 
-		ld (de),a			; update selected value
-		dec a
-
 		ld bc,char_data_space		; remove chevron from previously selected option
+		dec a
 		call options_mark
-		ld a,(options_selected)		; add chevron to newly selected option
-		ld bc,char_data_gt
+
+		ld hl,(options_table)		; update selected value
+		ld a,(hl)
+		inc a
+		ld (hl),a
+
+		ld bc,char_data_gt		; add chevron to newly selected option
 		jp options_mark
 
 ; ----------------------------------------------------------
 
 ; decrement selected option
 options_dec_selected
-		ld hl,options_selected
-		ld a,(hl)
+		ld hl,(options_table)
+		ld a,(hl)			; A = selected option
 		or a
 		ret z				; already at zero
 
-		dec (hl)			; update selected value
-
 		ld bc,char_data_space		; remove chevron from previously selected option
 		call options_mark
-		ld a,(options_selected)		; add chevron to newly selected option
-		ld bc,char_data_gt
+
+		ld hl,(options_table)		; update selected value
+		ld a,(hl)
+		dec a
+		ld (hl),a
+
+		ld bc,char_data_gt		; add chevron to newly selected option
 		jp options_mark
 
 ; ----------------------------------------------------------
 
 ; call subroutine for currently selected option
 options_select
-		ld a,(options_selected)
-
 		ld hl,(options_table)
-		add a				; A = 2 * selected + 1
-		inc a
+		ld a,(hl)			; A = selected option
+
+		inc a				; A = 2 * selected + 2
+		add a
 		add_hl_a			; HL = option address
 
 		ld a,(hl)			; HL = (HL), ie option definition
@@ -108,8 +114,8 @@ options_select
 ;	BC: character data to show ('char_data_space' or 'char_data_gt')
 options_mark
 		ld hl,(options_table)
-		add a				; A = 2 * selected + 1
-		inc a
+		inc a				; A = 2 * selected + 2
+		add a
 		add_hl_a			; HL = option address
 
 		ld a,(hl)			; HL = (HL), ie option definition
@@ -143,6 +149,5 @@ process_option_actions
 ; ----------------------------------------------------------
 
 options_table		defw 0
-options_selected	defb 0
 
 ; ----------------------------------------------------------

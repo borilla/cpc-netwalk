@@ -40,7 +40,8 @@ game_state_paused
 		ld (interrupt_7),hl
 
 		ld hl,options_paused
-		xor a
+		xor a				; reset selected option to 0: 'restart'
+		ld (hl),a
 		call options_show
 
 		ld hl,noop
@@ -105,6 +106,7 @@ hide_next_tile
 ; ----------------------------------------------------------
 
 options_paused
+		defb 0				; selected option
 		defb 3				; count of options
 		defw .continue,.restart,.quit
 .continue

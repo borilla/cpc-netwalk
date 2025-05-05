@@ -26,7 +26,8 @@ game_state_level
 		call show_logo
 
 		ld hl,options_level
-		ld a,(game_level)
+		ld a,(game_level)		; set selected option to current game level
+		ld (hl),a
 		call options_show
 
 		assign_interrupt 0,set_palette_logo
@@ -43,22 +44,22 @@ game_state_level
 set_game_level
 .easy
 		ld hl,options_menu.level_easy
-		ld (options_menu + 3),hl
+		ld (options_menu + 4),hl
 		xor a
 		jr .set_level
 .medium
 		ld hl,options_menu.level_medium
-		ld (options_menu + 3),hl
+		ld (options_menu + 4),hl
 		ld a,1
 		jr .set_level
 .hard
 		ld hl,options_menu.level_hard
-		ld (options_menu + 3),hl
+		ld (options_menu + 4),hl
 		ld a,2
 		jr .set_level
 .expert
 		ld hl,options_menu.level_expert
-		ld (options_menu + 3),hl
+		ld (options_menu + 4),hl
 		ld a,3
 .set_level
 		ld (game_level),a
@@ -68,6 +69,7 @@ set_game_level
 ; ----------------------------------------------------------
 
 options_level
+		defb 0				; selected option
 		defb 4				; count of options
 		defw .easy,.medium,.hard,.expert
 .easy
