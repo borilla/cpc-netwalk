@@ -7,9 +7,9 @@ game_state_paused
 		defw set_palette_paused		; 0
 		defw noop			; 1 (will be set to set_palette_text later)
 		defw read_actions		; 2
-		defw process_option_actions	; 3
+		defw noop			; 3
 		defw music_play			; 4
-		defw noop			; 5
+		defw process_option_actions	; 5
 		; interrupt_table 2
 		defw set_palette_paused		; 6
 		defw noop			; 7 (will be set to set_palette_text later)
@@ -33,7 +33,7 @@ game_state_paused
 		ld (hl),a
 
 		ld hl,.message			; show "paused" message
-		ld de,#C218
+		ld de,#c000 + 64 * 10 + 32 - 6	; #c000 + #40 * {row} + #20 - {strlen}
 		call render_string
 		ld hl,set_palette_text		; set palette for message
 		ld (interrupt_1),hl
@@ -109,13 +109,13 @@ options_paused
 		defw .continue,.restart,.quit
 .continue
 		defw unpause_game		; subroutine
-		defw #C316			; screen position
+		centre_text 15,10		; screen position
 		str 'CONTINUE'			; option text
 .restart
 		defw restart_game		; subroutine
-		defw #C396			; screen position
+		centre_text 17,9		; screen position
 		str 'RESTART'			; option text
 .quit
 		defw quit_game			; subroutine
-		defw #C416			; screen position
+		centre_text 19,6		; screen position
 		str 'QUIT'			; option text

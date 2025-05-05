@@ -1,6 +1,8 @@
 ; set indexes for our charset
 charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ :./<>',0
 
+; ----------------------------------------------------------
+
 ;; render a digit to screen
 ;; entry:
 ;;	A: digit to render (0-9)
@@ -22,6 +24,8 @@ char_render_digit
 		ld bc,char_data_0
 		add hl,bc
 		;; fall through to char_render...
+
+; ----------------------------------------------------------
 
 ;; render a character to screen (2x11 bytes)
 ;; entry:
@@ -52,6 +56,8 @@ rend
 
 		ret				;; [3]
 
+; ----------------------------------------------------------
+
 ; render a string of characters to screen
 ; entry:
 ;	DE: screen address (of top-left of first char)
@@ -74,4 +80,20 @@ render_string
 		res 7,a
 		jp char_render_digit
 
-include "sprites/char-data.asm"
+; ----------------------------------------------------------
+
+; calculate screen address from character row and (byte) column
+macro position_text row,column
+		defw #c000 + #40 * {row} + {column}
+mend
+
+; ----------------------------------------------------------
+
+; calculate screen address for text centred on character row
+macro centre_text row,strlen
+		position_text {row},32 - {strlen}
+mend
+
+; ----------------------------------------------------------
+
+include "sprites/char_data.asm"

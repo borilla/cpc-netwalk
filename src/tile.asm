@@ -211,31 +211,31 @@ tile_render_shaded
 		ld b,8				;; B = 8
 		ld a,h
 repeat 3
-		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and d:ld (hl),a	;; [6]
-		dec l:dec l:dec l		;; [2]
-		ld a,h:add b:ld h,a		;; [4]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and d:ld (hl),a	;; [5]
+		dec l:dec l:dec l		;; [3]
+		ld a,h:add b:ld h,a		;; [3]
 
-		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and e:ld (hl),a	;; [6]
-		dec l:dec l:dec l		;; [2]
-		ld a,h:add b:ld h,a		;; [4]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and e:ld (hl),a	;; [5]
+		dec l:dec l:dec l		;; [3]
+		ld a,h:add b:ld h,a		;; [3]
 rend
-		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and d:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and d:ld (hl),a	;; [6]
-		dec l:dec l:dec l		;; [2]
-		ld a,h:add b:ld h,a		;; [4]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and d:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and d:ld (hl),a	;; [5]
+		dec l:dec l:dec l		;; [3]
+		ld a,h:add b:ld h,a		;; [3]
 
-		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and e:ld (hl),a:inc l	;; [7]
-		ld a,(hl):and e:ld (hl),a	;; [6]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and e:ld (hl),a:inc l	;; [6]
+		ld a,(hl):and e:ld (hl),a	;; [5]
 
 		ret
 
@@ -345,4 +345,4 @@ tile_mask_lookup
 		defb #11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#11,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00,#00
 
 tile_data
-		include "sprites/tile-data.asm"
+		include "sprites/tile_data.asm"
