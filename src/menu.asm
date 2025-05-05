@@ -78,15 +78,27 @@ set_palette_logo
 
 options_menu
 		defb 4				; count of options
-		defw .intro,.level,.options,.play
+		defw .intro,.level_medium,.options,.play
 .intro
 		defw noop			; subroutine
 		centre_text,14,7		; screen position
 		str 'INTRO'			; option text
-.level
+.level_easy
 		defw select_level		; subroutine
-		centre_text 16,7		; screen position
-		str 'LEVEL'			; option text
+		centre_text 16,12		; screen position
+		str 'LEVEL:EASY'		; option text
+.level_medium
+		defw select_level		; subroutine
+		centre_text 16,13		; screen position
+		str 'LEVEL:MEDIUM'		; option text
+.level_hard
+		defw select_level		; subroutine
+		centre_text 16,12		; screen position
+		str 'LEVEL:HARD'		; option text
+.level_expert
+		defw select_level		; subroutine
+		centre_text 16,14		; screen position
+		str 'LEVEL:EXPERT'		; option text
 .options
 		defw noop			; subroutine
 		centre_text 18,9		; screen position

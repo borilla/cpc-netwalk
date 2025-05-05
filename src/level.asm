@@ -42,15 +42,23 @@ game_state_level
 
 set_game_level
 .easy
+		ld hl,options_menu.level_easy
+		ld (options_menu + 3),hl
 		xor a
 		jr .set_level
 .medium
+		ld hl,options_menu.level_medium
+		ld (options_menu + 3),hl
 		ld a,1
 		jr .set_level
 .hard
+		ld hl,options_menu.level_hard
+		ld (options_menu + 3),hl
 		ld a,2
 		jr .set_level
 .expert
+		ld hl,options_menu.level_expert
+		ld (options_menu + 3),hl
 		ld a,3
 .set_level
 		ld (game_level),a
