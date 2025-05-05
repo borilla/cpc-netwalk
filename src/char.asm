@@ -3,13 +3,13 @@ charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ :./<>',0
 
 ; ----------------------------------------------------------
 
-;; render a digit to screen
-;; entry:
-;;	A: digit to render (0-9)
-;;	DE: screen address (of top-left of char)
-;; modifies:
-;;	AF,BC,DE,HL
-char_render_digit
+; render a character to screen
+; entry:
+;	A: character to render (from above charset or a single hex digit value 0-F)
+;	DE: screen address (of top-left of char)
+; modifies:
+;	AF,BC,DE,HL
+render_char
 		ld h,0		; HL = 22 x A
 		ld l,a
 		ld b,h
@@ -23,17 +23,17 @@ char_render_digit
 		add hl,hl
 		ld bc,char_data_0
 		add hl,bc
-		;; fall through to char_render...
+		;; fall through to .render...
 
 ; ----------------------------------------------------------
 
-;; render a character to screen (2x11 bytes)
-;; entry:
-;;	DE: screen address (of top-left of char)
-;;	HL: character data
-;; modifies:
-;;	AF,BC,DE,HL
-char_render
+; render a character to screen (2x11 bytes)
+; entry:
+;	DE: screen address (of top-left of char)
+;	HL: points to character data
+; modifies:
+;	AF,BC,DE,HL
+.render
 		ld bc,#800 + #3e + 16		;; [3] we want C to equal #3e after 16 LDI instructions
 repeat 7
 		ldi:ldi				;; [10] copy two bytes
@@ -70,7 +70,7 @@ render_string
 		jp nz,.render_last_char
 
 		push de,hl
-		call char_render_digit
+		call render_char
 		pop hl,de
 		inc hl
 		inc e
@@ -78,7 +78,7 @@ render_string
 		jr render_string
 .render_last_char
 		res 7,a
-		jp char_render_digit
+		jp render_char
 
 ; ----------------------------------------------------------
 

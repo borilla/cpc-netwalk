@@ -30,7 +30,7 @@ time_inc_ms_lo
 		add a,2
 		ld (time_data_ms_lo),a
 		ld de,time_screen_addr + 14
-		call char_render_digit
+		call render_char
 		ret
 
 ;; --------
@@ -45,7 +45,7 @@ time_inc_ms_hi
 		inc a
 		ld (time_data_ms_hi),a
 		ld de,time_screen_addr + 12
-		call char_render_digit
+		call render_char
 		ret
 
 ;; --------
@@ -60,7 +60,7 @@ time_inc_sec_lo
 		inc a
 		ld (time_data_sec_lo),a
 		ld de,time_screen_addr + 8
-		call char_render_digit
+		call render_char
 		ret
 
 ;; --------
@@ -75,7 +75,7 @@ time_inc_sec_hi
 		inc a
 		ld (time_data_sec_hi),a
 		ld de,time_screen_addr + 6
-		call char_render_digit
+		call render_char
 		ret
 
 ;; --------
@@ -90,7 +90,7 @@ time_inc_min_lo
 		inc a
 		ld (time_data_min_lo),a
 		ld de,time_screen_addr + 2
-		call char_render_digit
+		call render_char
 		ret
 
 ;; --------
@@ -105,7 +105,7 @@ time_inc_min_hi
 		inc a
 		ld (time_data_min_hi),a
 		ld de,time_screen_addr
-		call char_render_digit
+		call render_char
 		ret
 
 ;; --------

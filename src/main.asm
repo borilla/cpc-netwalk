@@ -31,11 +31,11 @@ main_loop	equ $+1
 ;	HL: points to game-state
 set_game_state
 		ld de,movement_actions_mask
-		ldi
+		ldi				; copy actions mask
 		ldi
 		call assign_interrupts		; will advance hl by 24 bytes
 		ld de,main_loop
-		ldi
+		ldi				; copy main loop address
 		ldi
 		ret
 

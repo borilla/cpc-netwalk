@@ -146,7 +146,7 @@ render_digit_pair
 		rrca
 		push bc
 		push de
-		call char_render_digit
+		call render_char
 		pop de
 		pop bc
 .low_digit
@@ -158,7 +158,7 @@ render_digit_pair
 		and %00001111
 		inc de
 		inc de
-		jp char_render_digit
+		jp render_char
 
 ; ----------------------------------------------------------
 

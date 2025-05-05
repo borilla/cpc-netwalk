@@ -79,7 +79,7 @@ options_dec_selected
 
 ; ----------------------------------------------------------
 
-; jump to subroutine for currently selected option
+; call subroutine for currently selected option
 options_select
 		ld a,(options_selected)
 
@@ -125,7 +125,7 @@ options_mark
 
 		ld h,b				; HL = BC
 		ld l,c
-		jp char_render
+		jp render_char.render
 
 ; ----------------------------------------------------------
 
