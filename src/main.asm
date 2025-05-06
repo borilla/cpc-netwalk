@@ -30,6 +30,10 @@ main_loop	equ $+1
 ; entry:
 ;	HL: points to game-state
 set_game_state
+		xor a				; reset actions
+		ld (movement_actions_new),a
+		ld (other_actions_new),a
+
 		ld de,movement_actions_mask
 		ldi				; copy actions mask
 		ldi
