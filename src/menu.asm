@@ -81,7 +81,7 @@ options_menu
 		defw .intro,.level_medium,.options,.play
 .intro
 		defw noop			; subroutine
-		centre_text,14,7		; screen position
+		centre_text 14,7		; screen position
 		str 'INTRO'			; option text
 .level_easy
 		defw select_level		; subroutine
@@ -89,7 +89,7 @@ options_menu
 		str 'LEVEL:EASY'		; option text
 .level_medium
 		defw select_level		; subroutine
-		centre_text 16,13		; screen position
+		centre_text 16,14		; screen position
 		str 'LEVEL:MEDIUM'		; option text
 .level_hard
 		defw select_level		; subroutine
