@@ -116,14 +116,14 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Calculate which cells are connected to power supply
 - [x] Display connected tiles
 - [x] Shuffle rotations before game
-- [ ] Recognise when game is complete (ie all terminals connected)
+- [x] Recognise when game is complete (ie all terminals connected)
 - [x] Allow different grid-sizes
 - [x] Add timer/countdown
-- [ ] Game menus
-- [ ] Logo graphics
+- [x] Game menus
+- [x] Logo graphics
 - [x] Ability to pause game
 - [x] Add music player
 - [ ] Sound effects
 - [ ] Compose original music
 - [ ] Loading screen
-- [ ] Deploy playable version online
+- [x] Deploy [playable version online](https://borilla.github.io/cpc.html?file=netwalk.dsk&input=run%22netwalk%0A)
