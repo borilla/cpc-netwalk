@@ -123,7 +123,8 @@ going to change quite significantly as I gradually get stuff done...
 - [x] Logo graphics
 - [x] Ability to pause game
 - [x] Add music player
+- [ ] Loading screen
+- [ ] High scores table
 - [ ] Sound effects
 - [ ] Compose original music
-- [ ] Loading screen
 - [x] Deploy [playable version online](https://borilla.github.io/cpc.html?file=netwalk.dsk&input=run%22netwalk%0A)
