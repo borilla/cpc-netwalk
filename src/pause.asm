@@ -118,6 +118,6 @@ options_paused
 		centre_text 17,9		; screen position
 		str 'RESTART'			; option text
 .quit
-		defw quit_game			; subroutine
+		defw show_menu			; subroutine
 		centre_text 19,6		; screen position
 		str 'QUIT'			; option text

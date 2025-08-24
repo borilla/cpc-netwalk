@@ -159,6 +159,18 @@ process_other_actions
 
 ; ----------------------------------------------------------
 
+show_menu
+		ld hl,game_state_menu
+		jp set_game_state
+
+; ----------------------------------------------------------
+
+show_intro
+		ld hl,game_state_intro
+		jp set_game_state
+
+; ----------------------------------------------------------
+
 start_game
 		ld hl,game_state_start_game
 		jp set_game_state
@@ -173,12 +185,6 @@ pause_game
 
 unpause_game
 		ld hl,game_state_playing
-		jp set_game_state
-
-; ----------------------------------------------------------
-
-quit_game
-		ld hl,game_state_menu
 		jp set_game_state
 
 ;; ----------------------------------------------------------------
@@ -199,6 +205,7 @@ include "lib/scan_keyboard.asm"
 include "lib/rand16.asm"
 include "char.asm"			; needs to be included before any 'str' definitions!
 include "menu.asm"
+include "intro.asm"
 include "actions.asm"
 include "tile.asm"
 include "time.asm"

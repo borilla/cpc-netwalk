@@ -695,6 +695,70 @@
         "_name": "char_data_gt",
         "MaskDataInline": false,
         "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAACAwMAAAAAAgMDAgAAAAACAwIAAAAAAAMDAgAAAAAAAwMAAAAAAAADAwAAAAAAAAMDAAAAAAAAAwMCAAAAAAACAwIAAAAAAAIDAwIAAAAAAAIDAwAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_bro",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAADAwIAAAAAAAIDAwIAAAAAAAIDAgAAAAAAAgMDAAAAAAAAAwMAAAAAAAADAwAAAAAAAAMDAAAAAAACAwMAAAAAAAIDAgAAAAACAwMCAAAAAAMDAgAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_brc",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAACAwIAAAAAAAIDAgAAAAAAAgMDAAAAAAACAwMAAAAAAAIDAwAAAAAAAgMDAAAAAAACAwMAAAAAAAICAgAAAAAAAAAAAAAAAAACAwMAAAAAAAIDAwAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_excl",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
+      },
+      {
+        "$type": "RGAS.CPCSprite, RGAS",
+        "Align256": false,
+        "GenerateVerticalMirror": false,
+        "GenerateHorizontalMirror": false,
+        "pixels": {
+          "$type": "System.Byte[], mscorlib",
+          "$value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDAwMDAwAAAgMDAwMCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        },
+        "Width": 8,
+        "Height": 11,
+        "_guid": "fe2bc39e-faa0-4292-addf-204bdb2ca9f4",
+        "_name": "char_data_hyphen",
+        "MaskDataInline": false,
+        "UseInLevelDesigner": true
       }
     ]
   },

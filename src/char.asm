@@ -1,5 +1,5 @@
 ; set indexes for our charset
-charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ :./<>',0
+charset '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ :./<>()!-',0
 
 ; ----------------------------------------------------------
 

@@ -21,16 +21,17 @@ game_state_menu
 		; main loop
 		defw .main_loop
 .main_loop
-		call set_palette_black
-		call clear_screen
+		assign_interrupt 0,set_palette_black
+		assign_interrupt 2,set_palette_black
+		assign_interrupt 6,set_palette_black
+		assign_interrupt 8,set_palette_black
 		call show_logo
-
+		assign_interrupt 0,set_palette_logo
+		assign_interrupt 6,set_palette_logo
+		call clear_under_logo
 		ld hl,options_menu
 		call options_show
-
-		assign_interrupt 0,set_palette_logo
 		assign_interrupt 2,set_palette_text
-		assign_interrupt 6,set_palette_logo
 		assign_interrupt 8,set_palette_text
 
 		ld hl,noop
@@ -42,7 +43,7 @@ game_state_menu
 show_logo
 		ld de,logo_data
 		ld hl,#C000
-		ld ixh,64
+		ld ixh,64		; 64 lines
 		jr .render_line
 .next_line
 		ex hl,de
@@ -57,6 +58,34 @@ show_logo
 		ldir
 		dec ixh
 		jr nz,.next_line
+		ret
+
+; ----------------------------------------------------------
+
+clear_under_logo
+		ld hl,#c000 + #40 * 8	; start at 8th character row
+		call .render_line
+		ld hl,#c800 + #40 * 8
+		call .render_line
+		ld hl,#d000 + #40 * 8
+		call .render_line
+		ld hl,#d800 + #40 * 8
+		call .render_line
+		ld hl,#e000 + #40 * 8
+		call .render_line
+		ld hl,#e800 + #40 * 8
+		call .render_line
+		ld hl,#f000 + #40 * 8
+		call .render_line
+		ld hl,#f800 + #40 * 8
+		; fall through to render last line
+.render_line
+		ld bc,#0040 * 24 - 1	; 24 character rows
+		ld (hl),0
+		ld d,h
+		ld e,l
+		inc de
+		ldir
 		ret
 
 ; ----------------------------------------------------------
@@ -78,9 +107,9 @@ set_palette_logo
 options_menu
 		defb 0				; selected option
 		defb 4				; count of options
-		defw .intro,.level_medium,.options,.play
+		defw .intro,.level_medium,.hi_scores,.play
 .intro
-		defw noop			; subroutine
+		defw show_intro			; subroutine
 		centre_text 14,7		; screen position
 		str 'INTRO'			; option text
 .level_easy
@@ -99,10 +128,10 @@ options_menu
 		defw select_level		; subroutine
 		centre_text 16,14		; screen position
 		str 'LEVEL:EXPERT'		; option text
-.options
+.hi_scores
 		defw noop			; subroutine
-		centre_text 18,9		; screen position
-		str 'OPTIONS'			; option text
+		centre_text 18,8		; screen position
+		str 'SCORES'			; option text
 .play
 		defw start_game			; subroutine
 		centre_text 20,6		; screen position

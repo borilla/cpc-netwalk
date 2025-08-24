@@ -585,3 +585,59 @@ defb #37,#08; line 7
 defb #67,#00; line 8
 defb #06,#00; line 9
 defb #00,#00; line 10
+
+
+char_data_bro
+defb #13,#88; line 0
+defb #37,#08; line 1
+defb #27,#00; line 2
+defb #67,#00; line 3
+defb #66,#00; line 4
+defb #66,#00; line 5
+defb #66,#00; line 6
+defb #67,#00; line 7
+defb #27,#00; line 8
+defb #37,#08; line 9
+defb #13,#88; line 10
+
+
+char_data_brc
+defb #33,#08; line 0
+defb #13,#8C; line 1
+defb #01,#8C; line 2
+defb #01,#CC; line 3
+defb #00,#CC; line 4
+defb #00,#CC; line 5
+defb #00,#CC; line 6
+defb #01,#CC; line 7
+defb #01,#8C; line 8
+defb #13,#8C; line 9
+defb #33,#08; line 10
+
+
+char_data_excl
+defb #13,#08; line 0
+defb #13,#08; line 1
+defb #13,#88; line 2
+defb #13,#88; line 3
+defb #13,#88; line 4
+defb #13,#88; line 5
+defb #13,#88; line 6
+defb #03,#08; line 7
+defb #00,#00; line 8
+defb #13,#88; line 9
+defb #13,#88; line 10
+
+
+char_data_hyphen
+defb #00,#00; line 0
+defb #00,#00; line 1
+defb #00,#00; line 2
+defb #00,#00; line 3
+defb #00,#00; line 4
+defb #7F,#CC; line 5
+defb #7F,#8C; line 6
+defb #00,#00; line 7
+defb #00,#00; line 8
+defb #00,#00; line 9
+defb #00,#00; line 10
